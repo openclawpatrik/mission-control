@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "updated_at": "2026-02-21T21:03:21.714553+01:00",
+  "updated_at": "2026-02-21T21:10:36.479692+01:00",
   "wip_limit_doing": 2,
   "columns": {
     "backlog": [
@@ -149,6 +149,26 @@
           "Kanban uppdaterad"
         ],
         "blocked_reason": "Väntar på godkännande/test"
+      },
+      {
+        "id": "task-2026-02-21-020",
+        "title": "Nattresearch OpenClaw use-cases",
+        "status": "Backlog",
+        "priority": "M",
+        "owner": "Bob",
+        "deadline": null,
+        "tags": [
+          "ai"
+        ],
+        "next_action": "Validera top 3 use-cases i morgonbrief",
+        "created_at": "2026-02-21T21:10:36.479692+01:00",
+        "updated_at": "2026-02-21T21:10:36.479692+01:00",
+        "risk": "L",
+        "definition_of_done": [
+          "Top 3 listad",
+          "Varför noterat",
+          "Morgonbrief uppdaterad"
+        ]
       }
     ],
     "doing": [
