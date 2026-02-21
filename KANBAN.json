@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "updated_at": "2026-02-21T21:10:36.479692+01:00",
+  "updated_at": "2026-02-21T21:18:44.727890+01:00",
   "wip_limit_doing": 2,
   "columns": {
     "backlog": [
@@ -168,6 +168,27 @@
           "Top 3 listad",
           "Varför noterat",
           "Morgonbrief uppdaterad"
+        ]
+      },
+      {
+        "id": "task-2026-02-21-021",
+        "title": "Nattresearch virala app-idéer",
+        "status": "Backlog",
+        "priority": "H",
+        "owner": "Bob",
+        "deadline": null,
+        "tags": [
+          "ai",
+          "work"
+        ],
+        "next_action": "Presentera 1 validerad appidé i morgonbrief",
+        "created_at": "2026-02-21T21:18:44.727890+01:00",
+        "updated_at": "2026-02-21T21:18:44.727890+01:00",
+        "risk": "M",
+        "definition_of_done": [
+          "Top 3 trender hittade",
+          "Feasibility checkad",
+          "1 rekommendation given"
         ]
       }
     ],
