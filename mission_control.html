@@ -119,6 +119,7 @@ const MODEL_SHORT = {
 const STATE_META={Working:{icon:'🟢',cls:'state-working',text:'Working'},Active:{icon:'⚡',cls:'state-active',text:'Active'},Idle:{icon:'🌙',cls:'state-idle',text:'Idle'},Review:{icon:'🔎',cls:'state-review',text:'Review'}};
 const WIP={doing:2,review:2};
 const COLS=[['backlog','Backlog'],['doing','In Progress'],['review','Review'],['done','Done']];
+const DEVICE_PROFILE={name:'Mac mini M4 (16GB/256GB)',limits:{cpu:{warn:65,bad:85},ram:{warn:75,bad:90},disk:{warn:80,bad:92},temp:{warn:78,bad:90},net:{warn:2000,bad:8000}}};
 let FOCUS=false; let LAST_ARCHIVE={archived:[]}; let TOOL_STATUS={telegram:'OK',exec:'OK'};
 const byId=id=>document.getElementById(id); const el=(t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!==undefined)e.innerHTML=h;return e};
 
@@ -198,12 +199,13 @@ function levelBy(v, lim){
   v=Number(v); if(v < lim.warn) return 'stat-good'; if(v < lim.bad) return 'stat-warn'; return 'stat-bad';
 }
 function levelPercent(v, kind){
-  const lim = DEVICE_PROFILE.limits[kind] || {warn:70,bad:85};
+  const lim = (typeof DEVICE_PROFILE!=='undefined' && DEVICE_PROFILE.limits && DEVICE_PROFILE.limits[kind]) ? DEVICE_PROFILE.limits[kind] : {warn:70,bad:85};
   return levelBy(v, lim);
 }
 function levelTemp(temp, thermal){
   if(temp!==null && temp!==undefined && !Number.isNaN(Number(temp))){
-    return levelBy(Number(temp), DEVICE_PROFILE.limits.temp);
+    const lim = (typeof DEVICE_PROFILE!=='undefined' && DEVICE_PROFILE.limits && DEVICE_PROFILE.limits.temp) ? DEVICE_PROFILE.limits.temp : {warn:78,bad:90};
+    return levelBy(Number(temp), lim);
   }
   const t=(thermal||'').toLowerCase();
   if(t.includes('normal')) return 'stat-good';
@@ -212,7 +214,8 @@ function levelTemp(temp, thermal){
   return '';
 }
 function levelNet(kbps){
-  return levelBy(kbps, DEVICE_PROFILE.limits.net);
+  const lim = (typeof DEVICE_PROFILE!=='undefined' && DEVICE_PROFILE.limits && DEVICE_PROFILE.limits.net) ? DEVICE_PROFILE.limits.net : {warn:2000,bad:8000};
+  return levelBy(kbps, lim);
 }
 
 function renderStats(stats){
@@ -237,7 +240,7 @@ function renderStats(stats){
   wrap.appendChild(el('div',`stat ${levelNet(rx)}`,`<div class='k'>Net RX</div><div class='v'>${rx ?? '-'} KB/s</div>`));
   wrap.appendChild(el('div',`stat ${levelNet(tx)}`,`<div class='k'>Net TX</div><div class='v'>${tx ?? '-'} KB/s</div>`));
   byId('statsUpdated').textContent = stats.updated_at ? new Date(stats.updated_at).toLocaleTimeString('sv-SE') : '';
-  const pl = byId('profileLabel'); if(pl) pl.textContent = DEVICE_PROFILE.name;
+  const pl = byId('profileLabel'); if(pl && typeof DEVICE_PROFILE!=='undefined') pl.textContent = DEVICE_PROFILE.name;
 }
 function renderOps(){
   const ops=byId('ops');
