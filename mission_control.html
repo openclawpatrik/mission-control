@@ -34,8 +34,10 @@
     .brand{display:flex;align-items:center;gap:10px}
     .logo{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(145deg,#243f72,#132747);box-shadow:0 8px 24px rgba(0,0,0,.35)}
     .title{font-weight:800;letter-spacing:.08em}.subtitle{font-size:12px;color:var(--muted)}
-    .topstats{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+    .topstats{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;align-items:center}
     .pill{font-size:12px;padding:6px 10px;border-radius:999px;border:1px solid #345286;background:#0e1c35;color:#d6e5ff;box-shadow:inset 0 0 10px rgba(76,130,220,.12)}
+    .btn-archive{font-size:12px;padding:6px 11px;border-radius:999px;border:1px solid #4a5f8f;background:#17233f;color:#dce8ff;cursor:pointer}
+    .btn-archive:hover{background:#1d2d50}
 
     .app{max-width:1900px;margin:0 auto;padding:12px;display:grid;grid-template-columns:280px minmax(860px,1fr) 320px;gap:12px}
     .panel{border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);box-shadow:0 14px 30px rgba(0,0,0,.35),inset 0 0 60px rgba(64,108,184,.05)}
@@ -129,6 +131,16 @@
     </aside>
   </main>
 
+  <div id="archiveModal" style="display:none;position:fixed;inset:0;background:rgba(3,8,18,.75);z-index:80;align-items:center;justify-content:center;padding:18px;">
+    <div style="width:min(900px,95vw);max-height:85vh;overflow:auto;background:#0f1a31;border:1px solid #2f4d82;border-radius:14px;box-shadow:0 20px 50px rgba(0,0,0,.55);padding:12px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <b>Archived Tasks</b>
+        <button id="closeArchive" class="btn-archive">Stäng</button>
+      </div>
+      <div id="archiveList" class="empty">Inga arkiverade tasks.</div>
+    </div>
+  </div>
+
 <script>
 const AVATAR_VER = 'v5';
 const TEAM = [
@@ -155,6 +167,9 @@ function renderTopStats(data, archivedCount=0){
   const top=byId('topstats'); top.innerHTML='';
   [`Backlog ${b}`,`In Progress ${d}/${data.wip_limit_doing||3}`,`Review ${r}`,`Done ${dn}`,`Archived ${archivedCount}`,`Agents ${TEAM.length}`]
     .forEach(x=>top.appendChild(el('span','pill',x)));
+  const btn = el('button','btn-archive',`📦 Archive`);
+  btn.onclick = () => byId('archiveModal').style.display='flex';
+  top.appendChild(btn);
 }
 
 function renderAgents(data){
@@ -231,6 +246,17 @@ function renderStats(stats){
   byId('statsUpdated').textContent = stats.updated_at ? new Date(stats.updated_at).toLocaleTimeString('sv-SE') : '';
 }
 
+function renderArchive(archiveData){
+  const list = byId('archiveList');
+  const items = (archiveData && archiveData.archived) ? archiveData.archived : [];
+  if(!items.length){ list.innerHTML = '<div class="empty">Inga arkiverade tasks.</div>'; return; }
+  list.innerHTML='';
+  items.slice().reverse().forEach(t=>{
+    const row = el('div','feed-item',`<b>${t.title || 'Untitled'}</b><div class="muted">${t.next_action || ''}</div><div class="muted">${t.archived_at ? ('Arkiverad: '+new Date(t.archived_at).toLocaleString('sv-SE')) : ''}</div>`);
+    list.appendChild(row);
+  });
+}
+
 function renderFeed(data){
   const events=[];
   (data.columns.doing||[]).forEach(t=>events.push({s:'Working',t:t.title}));
@@ -253,14 +279,17 @@ async function load(){
     let stats=null;
     let archivedCount=0;
     if(statsRes && statsRes.ok){ stats = await statsRes.json(); }
+    let archiveData = { archived: [] };
     if(archiveRes && archiveRes.ok){
-      const archiveData = await archiveRes.json();
+      archiveData = await archiveRes.json();
       archivedCount = (archiveData.archived||[]).length;
     }
     byId('updated').textContent=`Senast uppdaterad: ${new Date().toLocaleString('sv-SE')}`;
-    renderTopStats(data, archivedCount); renderAgents(data); renderBoard(data); renderStats(stats); renderFeed(data);
+    renderTopStats(data, archivedCount); renderAgents(data); renderBoard(data); renderStats(stats); renderFeed(data); renderArchive(archiveData);
   }catch{ byId('updated').textContent='Kunde inte läsa KANBAN.json'; }
 }
+byId('closeArchive').onclick = ()=> byId('archiveModal').style.display='none';
+byId('archiveModal').addEventListener('click', (e)=>{ if(e.target.id==='archiveModal') byId('archiveModal').style.display='none'; });
 load(); setInterval(load,10000);
 </script>
 </body>
