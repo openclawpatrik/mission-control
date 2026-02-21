@@ -61,8 +61,20 @@
     .board-wrap{overflow:auto;padding:8px}
     .board{display:grid;grid-template-columns:repeat(4,minmax(250px,1fr));gap:10px;min-width:1040px}
     .col{background:linear-gradient(180deg,rgba(18,29,51,.9),rgba(13,22,40,.9));border:1px solid var(--line);border-radius:12px;padding:8px;min-height:520px}
-    .colhead{display:flex;justify-content:space-between;align-items:center;margin:2px 2px 8px}
-    .coltitle{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#b8c9ed}
+    .colhead{display:flex;justify-content:space-between;align-items:center;margin:2px 2px 8px;padding:6px 8px;border-radius:9px;border:1px solid #2a3e63;background:#111c32}
+    .coltitle{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#d5e2ff;font-weight:700}
+
+    .col-backlog .colhead{border-color:#5b2a35;background:linear-gradient(180deg,#2a161c,#231218)}
+    .col-backlog .count{background:#351720;border-color:#6f3042;color:#ffb9c8}
+
+    .col-doing .colhead{border-color:#6b5422;background:linear-gradient(180deg,#2b2414,#241d10)}
+    .col-doing .count{background:#352a13;border-color:#7a6124;color:#ffe3a0}
+
+    .col-review .colhead{border-color:#2a4774;background:linear-gradient(180deg,#15243a,#122032)}
+    .col-review .count{background:#132845;border-color:#2f5d95;color:#b9d5ff}
+
+    .col-done .colhead{border-color:#215a49;background:linear-gradient(180deg,#13271f,#10231c)}
+    .col-done .count{background:#122c22;border-color:#2a6e58;color:#aef1d0}
     .count{font-size:11px;color:#d6e4ff;background:#11203c;border:1px solid #27406a;padding:2px 8px;border-radius:999px}
 
     .card{background:linear-gradient(180deg,#121d33,#0f182b);border:1px solid #263a5d;border-radius:12px;padding:10px;margin-bottom:9px;transition:.18s transform,.18s border-color,.18s box-shadow}
@@ -181,7 +193,7 @@ function renderCard(task){
 function renderBoard(data){
   const board=byId('board'); board.innerHTML='';
   COLUMNS.forEach(([k,label])=>{
-    const col=el('section','col');
+    const col=el('section','col col-'+k);
     const items=data.columns[k]||[];
     col.innerHTML=`<div class="colhead"><div class="coltitle">${label}</div><div class="count">${items.length}</div></div>`;
     if(!items.length) col.appendChild(el('div','empty','Inga kort.'));
