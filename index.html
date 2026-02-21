@@ -29,6 +29,12 @@
     .stat{background:linear-gradient(180deg,#142646,#101d36);border:1px solid #35568d;border-radius:12px;padding:8px}
     .stat .k{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
     .stat .v{font-size:18px;font-weight:800;line-height:1.2;margin-top:2px}
+    .stat-good{border-color:#2e8d66;background:linear-gradient(180deg,#123324,#0f271d)}
+    .stat-good .v{color:#bff6dc}
+    .stat-warn{border-color:#9a7a2f;background:linear-gradient(180deg,#352a12,#2a200e)}
+    .stat-warn .v{color:#ffe4a1}
+    .stat-bad{border-color:#9b4159;background:linear-gradient(180deg,#361722,#2a1118)}
+    .stat-bad .v{color:#ffc2cf}
 
     .agent{display:flex;gap:10px;align-items:center;background:linear-gradient(180deg,#132543,#0f1d35);border:1px solid #2f4b78;border-radius:12px;padding:8px;margin-bottom:8px}
     .avatar{width:42px;height:42px;border-radius:8px;object-fit:cover;border:1px solid #4168a8;image-rendering:pixelated;background:#dfe4ee;padding:2px}
@@ -189,24 +195,43 @@ function openCard(t,colKey){
 
 function levelPercent(v){
   if(v===null||v===undefined||Number.isNaN(Number(v))) return '';
-  v=Number(v); if(v<60) return 'g'; if(v<80) return 'y'; return 'r';
+  v=Number(v); if(v<60) return 'stat-good'; if(v<80) return 'stat-warn'; return 'stat-bad';
+}
+function levelTemp(temp, thermal){
+  if(temp!==null && temp!==undefined && !Number.isNaN(Number(temp))){
+    temp=Number(temp); if(temp<70) return 'stat-good'; if(temp<85) return 'stat-warn'; return 'stat-bad';
+  }
+  const t=(thermal||'').toLowerCase();
+  if(t.includes('normal')) return 'stat-good';
+  if(t.includes('constrained')||t.includes('warning')) return 'stat-warn';
+  if(t.includes('critical')||t.includes('throttle')) return 'stat-bad';
+  return '';
+}
+function levelNet(v){
+  if(v===null||v===undefined||Number.isNaN(Number(v))) return '';
+  v=Number(v); if(v<100) return 'stat-good'; if(v<1000) return 'stat-warn'; return 'stat-bad';
 }
 function renderStats(stats){
   const wrap=byId('stats');
   if(!stats){ wrap.innerHTML='<div class="empty">Ingen systemdata ännu.</div>'; return; }
-  const cpu=stats.cpu?.used_percent ?? '-';
-  const ram=stats.ram?.used_percent ?? '-';
-  const disk=stats.disk?.used_percent ?? '-';
-  const temp=(stats.temperature?.cpu_c ?? 'N/A');
-  const rx=(stats.network?.rx_kbps ?? '-');
-  const tx=(stats.network?.tx_kbps ?? '-');
+  const cpu=stats.cpu?.used_percent ?? null;
+  const ram=stats.ram?.used_percent ?? null;
+  const disk=stats.disk?.used_percent ?? null;
+  const temp=stats.temperature?.cpu_c ?? null;
+  const thermal=stats.temperature?.thermal_status || 'Unknown';
+  const rx=stats.network?.rx_kbps ?? null;
+  const tx=stats.network?.tx_kbps ?? null;
+
+  const tempText=(temp===null||temp===undefined)?'N/A':`${temp}°C`;
+  const tempSub=(temp===null||temp===undefined)?`Thermal: ${thermal}`:'CPU temp';
+
   wrap.innerHTML='';
-  wrap.appendChild(el('div','stat',`<div class='k'>CPU</div><div class='v'>${cpu}%</div>`));
-  wrap.appendChild(el('div','stat',`<div class='k'>RAM</div><div class='v'>${ram}%</div>`));
-  wrap.appendChild(el('div','stat',`<div class='k'>Disk</div><div class='v'>${disk}%</div>`));
-  wrap.appendChild(el('div','stat',`<div class='k'>Temp</div><div class='v'>${temp}</div>`));
-  wrap.appendChild(el('div','stat',`<div class='k'>Net RX</div><div class='v'>${rx} KB/s</div>`));
-  wrap.appendChild(el('div','stat',`<div class='k'>Net TX</div><div class='v'>${tx} KB/s</div>`));
+  wrap.appendChild(el('div',`stat ${levelPercent(cpu)}`,`<div class='k'>CPU</div><div class='v'>${cpu ?? '-'}%</div>`));
+  wrap.appendChild(el('div',`stat ${levelPercent(ram)}`,`<div class='k'>RAM</div><div class='v'>${ram ?? '-'}%</div>`));
+  wrap.appendChild(el('div',`stat ${levelPercent(disk)}`,`<div class='k'>Disk</div><div class='v'>${disk ?? '-'}%</div>`));
+  wrap.appendChild(el('div',`stat ${levelTemp(temp, thermal)}`,`<div class='k'>Temp</div><div class='v'>${tempText}</div><div class='muted'>${tempSub}</div>`));
+  wrap.appendChild(el('div',`stat ${levelNet(rx)}`,`<div class='k'>Net RX</div><div class='v'>${rx ?? '-'} KB/s</div>`));
+  wrap.appendChild(el('div',`stat ${levelNet(tx)}`,`<div class='k'>Net TX</div><div class='v'>${tx ?? '-'} KB/s</div>`));
   byId('statsUpdated').textContent = stats.updated_at ? new Date(stats.updated_at).toLocaleTimeString('sv-SE') : '';
 }
 function renderOps(){
