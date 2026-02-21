@@ -91,6 +91,12 @@
     .stat{background:linear-gradient(180deg,#142646,#101d36);border:1px solid #35568d;border-radius:12px;padding:8px}
     .stat .k{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
     .stat .v{font-size:20px;font-weight:800;line-height:1.2;margin-top:2px}
+    .stat-good{border-color:#2e8d66;background:linear-gradient(180deg,#123324,#0f271d)}
+    .stat-good .v{color:#bff6dc}
+    .stat-warn{border-color:#9a7a2f;background:linear-gradient(180deg,#352a12,#2a200e)}
+    .stat-warn .v{color:#ffe4a1}
+    .stat-bad{border-color:#9b4159;background:linear-gradient(180deg,#361722,#2a1118)}
+    .stat-bad .v{color:#ffc2cf}
     .feed-item{background:linear-gradient(180deg,#142646,#101d36);border:1px solid #35568d;border-radius:12px;padding:8px;margin-bottom:8px}
     .feed-item b{font-size:12px}.feed-item .muted{font-size:12px;color:var(--muted);margin-top:2px}
     .empty{color:var(--muted);font-size:12px;opacity:.8}
@@ -178,12 +184,34 @@ function renderBoard(data){
     items.forEach(t=>col.appendChild(renderCard(t))); board.appendChild(col);
   });
 }
+function levelPercent(v){
+  if(v===null || v===undefined || Number.isNaN(Number(v))) return '';
+  v = Number(v);
+  if(v < 60) return 'stat-good';
+  if(v < 80) return 'stat-warn';
+  return 'stat-bad';
+}
+function levelTemp(t){
+  if(t===null || t===undefined || Number.isNaN(Number(t))) return '';
+  t = Number(t);
+  if(t < 70) return 'stat-good';
+  if(t < 85) return 'stat-warn';
+  return 'stat-bad';
+}
+function levelNet(kbps){
+  if(kbps===null || kbps===undefined || Number.isNaN(Number(kbps))) return '';
+  kbps = Number(kbps);
+  if(kbps < 100) return 'stat-good';
+  if(kbps < 1000) return 'stat-warn';
+  return 'stat-bad';
+}
+
 function renderStats(stats){
   const wrap=byId('stats');
   if(!stats){ wrap.innerHTML='<div class="empty">Ingen systemdata ännu.</div>'; return; }
-  const cpu = stats.cpu?.used_percent ?? '-';
-  const ram = stats.ram?.used_percent ?? '-';
-  const d = stats.disk?.used_percent ?? '-';
+  const cpu = stats.cpu?.used_percent ?? null;
+  const ram = stats.ram?.used_percent ?? null;
+  const d = stats.disk?.used_percent ?? null;
   const temp = stats.temperature?.cpu_c;
   const thermal = stats.temperature?.thermal_status || '-';
   const rx = stats.network?.rx_kbps;
@@ -191,12 +219,12 @@ function renderStats(stats){
   const iface = stats.network?.interface || '-';
 
   wrap.innerHTML='';
-  wrap.appendChild(el('div','stat',`<div class="k">CPU Usage</div><div class="v">${cpu}%</div>`));
-  wrap.appendChild(el('div','stat',`<div class="k">RAM Usage</div><div class="v">${ram}%</div>`));
-  wrap.appendChild(el('div','stat',`<div class="k">Disk Usage</div><div class="v">${d}%</div><div class="muted">${stats.disk?.used||'-'} / ${stats.disk?.size||'-'}</div>`));
-  wrap.appendChild(el('div','stat',`<div class="k">Temperature</div><div class="v">${temp ?? 'N/A'}</div><div class="muted">${temp==null?'Thermal: '+thermal:('CPU °C')}</div>`));
-  wrap.appendChild(el('div','stat',`<div class="k">Network Rx</div><div class="v">${rx ?? '-'} KB/s</div><div class="muted">${iface}</div>`));
-  wrap.appendChild(el('div','stat',`<div class="k">Network Tx</div><div class="v">${tx ?? '-'} KB/s</div><div class="muted">${iface}</div>`));
+  wrap.appendChild(el('div',`stat ${levelPercent(cpu)}`,`<div class="k">CPU Usage</div><div class="v">${cpu ?? '-'}%</div>`));
+  wrap.appendChild(el('div',`stat ${levelPercent(ram)}`,`<div class="k">RAM Usage</div><div class="v">${ram ?? '-'}%</div>`));
+  wrap.appendChild(el('div',`stat ${levelPercent(d)}`,`<div class="k">Disk Usage</div><div class="v">${d ?? '-'}%</div><div class="muted">${stats.disk?.used||'-'} / ${stats.disk?.size||'-'}</div>`));
+  wrap.appendChild(el('div',`stat ${levelTemp(temp)}`,`<div class="k">Temperature</div><div class="v">${temp ?? 'N/A'}</div><div class="muted">${temp==null?'Thermal: '+thermal:('CPU °C')}</div>`));
+  wrap.appendChild(el('div',`stat ${levelNet(rx)}`,`<div class="k">Network Rx</div><div class="v">${rx ?? '-'} KB/s</div><div class="muted">${iface}</div>`));
+  wrap.appendChild(el('div',`stat ${levelNet(tx)}`,`<div class="k">Network Tx</div><div class="v">${tx ?? '-'} KB/s</div><div class="muted">${iface}</div>`));
   byId('statsUpdated').textContent = stats.updated_at ? new Date(stats.updated_at).toLocaleTimeString('sv-SE') : '';
 }
 
