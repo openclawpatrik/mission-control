@@ -19,6 +19,7 @@
     .pill{font-size:12px;padding:6px 10px;border-radius:999px;border:1px solid #345286;background:#0e1c35;color:#d6e5ff}
     .btn{font-size:12px;padding:6px 11px;border-radius:999px;border:1px solid #4a5f8f;background:#17233f;color:#dce8ff;cursor:pointer}
     .btn:hover{background:#1d2d50}
+    .agent-filter{font-size:12px;padding:6px 10px;border-radius:999px;border:1px solid #4a5f8f;background:#17233f;color:#dce8ff}
 
     .app{max-width:2000px;margin:0 auto;padding:12px;display:grid;grid-template-columns:280px minmax(980px,1fr) 300px;gap:12px}
     .panel{border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);box-shadow:0 14px 30px rgba(0,0,0,.28)}
@@ -126,7 +127,7 @@ const STATE_META={Working:{icon:'🟢',cls:'state-working',text:'Working'},Activ
 const WIP={doing:2,review:2};
 const COLS=[['backlog','Backlog'],['doing','In Progress'],['review','Review'],['done','Done']];
 const DEVICE_PROFILE={name:'Mac mini M4 (16GB/256GB)',limits:{cpu:{warn:65,bad:85},ram:{warn:75,bad:90},disk:{warn:80,bad:92},temp:{warn:78,bad:90},net:{warn:2000,bad:8000}}};
-let FOCUS=false; let LAST_ARCHIVE={archived:[]}; let TOOL_STATUS={telegram:'OK',exec:'OK'};
+let FOCUS=false; let LAST_ARCHIVE={archived:[]}; let TOOL_STATUS={telegram:'OK',exec:'OK'}; let AGENT_FILTER='ALL';
 const byId=id=>document.getElementById(id); const el=(t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!==undefined)e.innerHTML=h;return e};
 
 function renderTopStats(data, archivedCount=0){
@@ -134,7 +135,13 @@ function renderTopStats(data, archivedCount=0){
   const vals={backlog:(data.columns.backlog||[]).length,doing:(data.columns.doing||[]).length,review:(data.columns.review||[]).length,done:(data.columns.done||[]).length};
   [`Backlog ${vals.backlog}`,`In Progress ${vals.doing}/${WIP.doing}`,`Review ${vals.review}/${WIP.review}`,`Done ${vals.done}`,`Archived ${archivedCount}`,`Agents ${TEAM.length}`]
   .forEach(x=>top.appendChild(el('span','pill',x)));
-  const focusBtn=el('button','btn',FOCUS?'Exit Focus':'Focus Mode'); focusBtn.onclick=()=>{FOCUS=!FOCUS;load();}; top.appendChild(focusBtn);
+  const filter = document.createElement('select');
+  filter.className='agent-filter';
+  const opts=['ALL', ...TEAM.map(a=>a.name)];
+  filter.innerHTML = opts.map(n=>`<option value="${n}" ${AGENT_FILTER===n?'selected':''}>${n==='ALL'?'All agents':n}</option>`).join('');
+  filter.onchange = (e)=>{ AGENT_FILTER=e.target.value; renderBoard(data); };
+  top.appendChild(filter);
+  const focusBtn=el('button','btn',FOCUS?'Exit Focus':'Focus Mode'); focusBtn.onclick=()=>{FOCUS=!FOCUS;renderBoard(data);}; top.appendChild(focusBtn);
   const archBtn=el('button','btn','📦 Archive'); archBtn.onclick=()=>byId('archiveModal').style.display='flex'; top.appendChild(archBtn);
 }
 
@@ -165,7 +172,8 @@ function renderBoard(data){
   const cols=FOCUS?COLS.filter(([k])=>['doing','review'].includes(k)):COLS;
   board.style.gridTemplateColumns = `repeat(${cols.length}, minmax(220px, 1fr))`;
   cols.forEach(([k,label])=>{
-    const items=data.columns[k]||[];
+    const baseItems=data.columns[k]||[];
+    const items=(AGENT_FILTER==='ALL') ? baseItems : baseItems.filter(t => (t.agent||'Max Mercer')===AGENT_FILTER);
     const col=el('section','col col-'+k);
     let countText=`${items.length}`;
     if(k==='doing') countText=`${items.length}/${WIP.doing}`;
