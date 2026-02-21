@@ -1,24 +1,9 @@
 {
   "version": "1.0",
-  "updated_at": "2026-02-21T18:18:15.006834+01:00",
-  "wip_limit_doing": 3,
+  "updated_at": "2026-02-21T18:26:48.162765+01:00",
+  "wip_limit_doing": 2,
   "columns": {
     "backlog": [
-      {
-        "id": "task-2026-02-20-010",
-        "title": "Städa Kanban och prioritera topp 3",
-        "status": "Backlog",
-        "priority": "H",
-        "owner": "Bob",
-        "deadline": null,
-        "tags": [
-          "ai",
-          "home"
-        ],
-        "next_action": "Prioritera backlog mot mål och minska brus",
-        "created_at": "2026-02-20T19:45:00+01:00",
-        "updated_at": "2026-02-20T21:12:00+01:00"
-      },
       {
         "id": "task-2026-02-21-013",
         "title": "Sätt subagent-flöde för jobbtyper",
@@ -31,7 +16,13 @@
         ],
         "next_action": "Definiera när subagents används och vilken modell som väljs",
         "created_at": "2026-02-21T12:40:00+01:00",
-        "updated_at": "2026-02-21T12:40:00+01:00"
+        "updated_at": "2026-02-21T12:40:00+01:00",
+        "risk": "M",
+        "definition_of_done": [
+          "Next action utförd",
+          "Resultat verifierat",
+          "Kort uppdaterat i Kanban"
+        ]
       },
       {
         "id": "task-2026-02-21-014",
@@ -45,7 +36,13 @@
         ],
         "next_action": "Implementera 5 fasta roller med dynamiska specialistlägen vid behov",
         "created_at": "2026-02-21T12:43:00+01:00",
-        "updated_at": "2026-02-21T12:43:00+01:00"
+        "updated_at": "2026-02-21T12:43:00+01:00",
+        "risk": "M",
+        "definition_of_done": [
+          "Next action utförd",
+          "Resultat verifierat",
+          "Kort uppdaterat i Kanban"
+        ]
       },
       {
         "id": "task-2026-02-20-006",
@@ -59,7 +56,13 @@
         ],
         "next_action": "Föreslå veckofrekvens och 3-punkters check",
         "created_at": "2026-02-20T19:10:00+01:00",
-        "updated_at": "2026-02-20T21:12:00+01:00"
+        "updated_at": "2026-02-20T21:12:00+01:00",
+        "risk": "M",
+        "definition_of_done": [
+          "Next action utförd",
+          "Resultat verifierat",
+          "Kort uppdaterat i Kanban"
+        ]
       }
     ],
     "doing": [
@@ -76,25 +79,16 @@
         ],
         "next_action": "Standardisera brief-format för 07:30 varje vardag",
         "created_at": "2026-02-20T19:10:00+01:00",
-        "updated_at": "2026-02-20T21:12:00+01:00"
+        "updated_at": "2026-02-20T21:12:00+01:00",
+        "risk": "M",
+        "definition_of_done": [
+          "Next action utförd",
+          "Resultat verifierat",
+          "Kort uppdaterat i Kanban"
+        ]
       }
     ],
     "review": [
-      {
-        "id": "task-2026-02-21-015",
-        "title": "Bygg Mission Control vy",
-        "status": "Review",
-        "priority": "H",
-        "owner": "Bob",
-        "deadline": null,
-        "tags": [
-          "ai",
-          "home"
-        ],
-        "next_action": "Öppna mission_control.html och be Patrik godkänna layouten",
-        "created_at": "2026-02-21T13:05:00+01:00",
-        "updated_at": "2026-02-21T13:05:00+01:00"
-      },
       {
         "id": "task-2026-02-20-011",
         "title": "Host access blocker för livebrief",
@@ -108,7 +102,13 @@
         "needs_user_input": true,
         "next_action": "Exponera openclaw-CLI i runtime eller kör cron-setup via Control UI och återkom med OK",
         "created_at": "2026-02-20T20:02:00+01:00",
-        "updated_at": "2026-02-20T21:12:00+01:00"
+        "updated_at": "2026-02-20T21:12:00+01:00",
+        "risk": "M",
+        "definition_of_done": [
+          "Next action utförd",
+          "Resultat verifierat",
+          "Kort uppdaterat i Kanban"
+        ]
       }
     ],
     "done": [
@@ -124,8 +124,62 @@
         ],
         "next_action": "Kör standardflöde på nästa meddelande",
         "created_at": "2026-02-20T19:38:00+01:00",
-        "updated_at": "2026-02-20T19:38:00+01:00"
+        "updated_at": "2026-02-20T19:38:00+01:00",
+        "risk": "M",
+        "definition_of_done": [
+          "Next action utförd",
+          "Resultat verifierat",
+          "Kort uppdaterat i Kanban"
+        ]
+      }
+    ],
+    "ready": [
+      {
+        "id": "task-2026-02-20-010",
+        "title": "Städa Kanban och prioritera topp 3",
+        "status": "Ready",
+        "priority": "H",
+        "owner": "Bob",
+        "deadline": null,
+        "tags": [
+          "ai",
+          "home"
+        ],
+        "next_action": "Prioritera backlog mot mål och minska brus",
+        "created_at": "2026-02-20T19:45:00+01:00",
+        "updated_at": "2026-02-20T21:12:00+01:00",
+        "risk": "M",
+        "definition_of_done": [
+          "Next action utförd",
+          "Resultat verifierat",
+          "Kort uppdaterat i Kanban"
+        ]
+      }
+    ],
+    "blocked": [
+      {
+        "id": "task-2026-02-21-015",
+        "title": "Bygg Mission Control vy",
+        "status": "Blocked",
+        "priority": "H",
+        "owner": "Bob",
+        "deadline": null,
+        "tags": [
+          "ai",
+          "home"
+        ],
+        "next_action": "Öppna mission_control.html och be Patrik godkänna layouten",
+        "created_at": "2026-02-21T13:05:00+01:00",
+        "updated_at": "2026-02-21T13:05:00+01:00",
+        "risk": "M",
+        "definition_of_done": [
+          "Next action utförd",
+          "Resultat verifierat",
+          "Kort uppdaterat i Kanban"
+        ],
+        "blocked_reason": "Väntar på godkännande/test"
       }
     ]
-  }
+  },
+  "wip_limit_review": 2
 }

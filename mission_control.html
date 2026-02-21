@@ -5,291 +5,214 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mission Control</title>
   <style>
-    :root{
-      --bg:#050912;
-      --bg2:#0a1222;
-      --panel:#0f1a31cc;
-      --line:#28406a;
-      --text:#eaf1ff;
-      --muted:#9ab0d9;
-      --red:#ff5c7a;
-      --yellow:#ffcd59;
-      --blue:#61b2ff;
-      --green:#44d695;
-      --radius:14px;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;color:var(--text);font:14px/1.45 Inter,system-ui,Segoe UI,Roboto,Arial;
-      background:
-        radial-gradient(1200px 500px at 10% 100%, rgba(255,90,120,.15), transparent 60%),
-        radial-gradient(900px 500px at 80% 20%, rgba(87,159,255,.16), transparent 60%),
-        radial-gradient(1100px 600px at 70% 120%, rgba(68,214,149,.12), transparent 60%),
-        linear-gradient(180deg,var(--bg),var(--bg2));
-      overflow-x:hidden;
-    }
+    :root{--bg:#050912;--bg2:#0a1222;--panel:#0f1a31cc;--line:#28406a;--text:#eaf1ff;--muted:#9ab0d9;--red:#ff5c7a;--yellow:#ffcd59;--blue:#61b2ff;--green:#44d695;--radius:14px}
+    *{box-sizing:border-box} html,body{height:100%}
+    body{margin:0;color:var(--text);font:14px/1.45 Inter,system-ui,Segoe UI,Roboto,Arial;background:
+      radial-gradient(1200px 500px at 10% 100%, rgba(255,90,120,.12), transparent 60%),
+      radial-gradient(900px 500px at 80% 20%, rgba(87,159,255,.14), transparent 60%),
+      linear-gradient(180deg,var(--bg),var(--bg2));overflow-x:hidden}
 
-    .topbar{position:sticky;top:0;z-index:40;display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:#070e1dcf;border-bottom:1px solid var(--line);backdrop-filter:blur(10px)}
-    .brand{display:flex;align-items:center;gap:10px}
-    .logo{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(145deg,#243f72,#132747);box-shadow:0 8px 24px rgba(0,0,0,.35)}
+    .topbar{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:#070e1dcf;border-bottom:1px solid var(--line);backdrop-filter:blur(10px)}
+    .brand{display:flex;align-items:center;gap:10px}.logo{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(145deg,#243f72,#132747)}
     .title{font-weight:800;letter-spacing:.08em}.subtitle{font-size:12px;color:var(--muted)}
-    .topstats{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;align-items:center}
-    .pill{font-size:12px;padding:6px 10px;border-radius:999px;border:1px solid #345286;background:#0e1c35;color:#d6e5ff;box-shadow:inset 0 0 10px rgba(76,130,220,.12)}
-    .btn-archive{font-size:12px;padding:6px 11px;border-radius:999px;border:1px solid #4a5f8f;background:#17233f;color:#dce8ff;cursor:pointer}
-    .btn-archive:hover{background:#1d2d50}
+    .topstats{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:flex-end}
+    .pill{font-size:12px;padding:6px 10px;border-radius:999px;border:1px solid #345286;background:#0e1c35;color:#d6e5ff}
+    .btn{font-size:12px;padding:6px 11px;border-radius:999px;border:1px solid #4a5f8f;background:#17233f;color:#dce8ff;cursor:pointer}
+    .btn:hover{background:#1d2d50}
 
-    .app{max-width:1900px;margin:0 auto;padding:12px;display:grid;grid-template-columns:280px minmax(860px,1fr) 320px;gap:12px}
-    .panel{border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);box-shadow:0 14px 30px rgba(0,0,0,.35),inset 0 0 60px rgba(64,108,184,.05)}
-
+    .app{max-width:2000px;margin:0 auto;padding:12px;display:grid;grid-template-columns:280px minmax(980px,1fr) 300px;gap:12px}
+    .panel{border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);box-shadow:0 14px 30px rgba(0,0,0,.28)}
     .section-h{display:flex;justify-content:space-between;align-items:center;padding:10px 10px 8px;color:#bdd0f3;font-size:12px;text-transform:uppercase;letter-spacing:.12em}
 
-    .side,.feed{padding:8px;min-height:calc(100vh - 90px)}
+    .side,.ops{padding:8px;min-height:calc(100vh - 90px)}
     .agent{display:flex;gap:10px;align-items:center;background:linear-gradient(180deg,#132543,#0f1d35);border:1px solid #2f4b78;border-radius:12px;padding:8px;margin-bottom:8px}
-    .avatar{width:42px;height:42px;border-radius:8px;object-fit:cover;display:block;border:1px solid #4168a8;box-shadow:0 4px 10px rgba(0,0,0,.35);image-rendering:pixelated;background:#dfe4ee;padding:2px}
-    .a-meta b{display:block;font-size:13px}
-    .a-role{font-size:12px;color:var(--muted)}
-    .badge{margin-left:auto;font-size:11px;padding:3px 8px;border-radius:999px;border:1px solid #315288;background:#11213d;color:#d2e2ff;display:flex;align-items:center;gap:5px;font-weight:600}
-    .state-working{border-color:#2a7e62;background:#103528;color:#bff5dd}
-    .state-active{border-color:#6d5a25;background:#34290f;color:#ffe5aa}
-    .state-idle{border-color:#3b5a8e;background:#132a4a;color:#c9dcff}
-    .state-review{border-color:#6a4a90;background:#2a1b45;color:#e5d2ff}
+    .avatar{width:42px;height:42px;border-radius:8px;object-fit:cover;border:1px solid #4168a8;image-rendering:pixelated;background:#dfe4ee;padding:2px}
+    .a-meta b{display:block;font-size:13px}.a-role{font-size:12px;color:var(--muted)}
+    .badge{margin-left:auto;font-size:11px;padding:3px 8px;border-radius:999px;border:1px solid #315288;background:#11213d;color:#d2e2ff;display:flex;gap:5px;align-items:center}
 
     .board-wrap{padding:8px;overflow:auto}
-    .board{display:grid;grid-template-columns:repeat(4,minmax(250px,1fr));gap:10px;min-width:1060px}
-    .col{border:1px solid #2b4068;border-radius:12px;padding:8px;min-height:550px;background:linear-gradient(180deg,rgba(12,21,38,.88),rgba(10,18,34,.88));position:relative;overflow:hidden}
+    .board{display:grid;grid-template-columns:repeat(6,minmax(210px,1fr));gap:10px;min-width:1320px}
+    .col{border:1px solid #2b4068;border-radius:12px;padding:8px;min-height:530px;background:linear-gradient(180deg,rgba(12,21,38,.88),rgba(10,18,34,.88));position:relative;overflow:hidden}
     .col::after{content:'';position:absolute;inset:auto -40% -45% -40%;height:120px;filter:blur(30px);opacity:.35;pointer-events:none}
     .colhead{display:flex;justify-content:space-between;align-items:center;padding:7px 9px;border-radius:10px;border:1px solid #355489;background:#132748;margin-bottom:8px}
     .coltitle{font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:700}
     .count{font-size:11px;padding:2px 8px;border-radius:999px;border:1px solid #45689d;background:#18325a;color:#ddecff}
+    .soft-limit{box-shadow:0 0 0 1px rgba(255,205,89,.5) inset}
 
-    .col-backlog .colhead{border-color:#7b3a4b;background:linear-gradient(180deg,#331821,#261118)}
-    .col-backlog .count{border-color:#8f4358;background:#3a1721;color:#ffc0cc}
-    .col-backlog::after{background:radial-gradient(circle,var(--red),transparent 60%)}
+    .col-backlog .colhead{border-color:#7b3a4b;background:linear-gradient(180deg,#331821,#261118)} .col-backlog::after{background:radial-gradient(circle,var(--red),transparent 60%)}
+    .col-ready .colhead{border-color:#2d6f86;background:linear-gradient(180deg,#132f3a,#112731)} .col-ready::after{background:radial-gradient(circle,#59d4ff,transparent 60%)}
+    .col-doing .colhead{border-color:#816529;background:linear-gradient(180deg,#342a14,#261d0e)} .col-doing::after{background:radial-gradient(circle,var(--yellow),transparent 60%)}
+    .col-blocked .colhead{border-color:#7f3f97;background:linear-gradient(180deg,#2d1837,#25132d)} .col-blocked::after{background:radial-gradient(circle,#d47bff,transparent 60%)}
+    .col-review .colhead{border-color:#3f6ba7;background:linear-gradient(180deg,#142943,#11243a)} .col-review::after{background:radial-gradient(circle,var(--blue),transparent 60%)}
+    .col-done .colhead{border-color:#2c7a60;background:linear-gradient(180deg,#132b22,#10231c)} .col-done::after{background:radial-gradient(circle,var(--green),transparent 60%)}
 
-    .col-doing .colhead{border-color:#816529;background:linear-gradient(180deg,#342a14,#261d0e)}
-    .col-doing .count{border-color:#8b6f2f;background:#3b2d12;color:#ffe3a1}
-    .col-doing::after{background:radial-gradient(circle,var(--yellow),transparent 60%)}
-
-    .col-review .colhead{border-color:#3f6ba7;background:linear-gradient(180deg,#142943,#11243a)}
-    .col-review .count{border-color:#4477bd;background:#15325a;color:#bfdbff}
-    .col-review::after{background:radial-gradient(circle,var(--blue),transparent 60%)}
-
-    .col-done .colhead{border-color:#2c7a60;background:linear-gradient(180deg,#132b22,#10231c)}
-    .col-done .count{border-color:#329073;background:#133226;color:#b4f6d8}
-    .col-done::after{background:radial-gradient(circle,var(--green),transparent 60%)}
-
-    .card{position:relative;z-index:1;background:linear-gradient(180deg,#142646,#101d36);border:1px solid #35568d;border-radius:12px;padding:10px;margin-bottom:9px;box-shadow:0 6px 14px rgba(0,0,0,.28);transition:.15s}
-    .card:hover{transform:translateY(-2px);border-color:#5589d8;box-shadow:0 10px 20px rgba(0,0,0,.35)}
-    .card h4{margin:0 0 7px;font-size:13px;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+    .card{position:relative;z-index:1;background:linear-gradient(180deg,#142646,#101d36);border:1px solid #35568d;border-radius:12px;padding:10px;margin-bottom:9px;cursor:pointer}
     .meta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}
     .tag{font-size:11px;padding:2px 7px;border-radius:999px;border:1px solid #43689f;background:#17305a;color:#d7e6ff}
     .prio-H{border-color:#8e4359;background:#3a1721;color:#ffc3cf}
     .prio-M{border-color:#8d6f2e;background:#3a2d12;color:#ffe2a0}
     .prio-L{border-color:#2f8a6d;background:#143426;color:#b8f5da}
-    .next{font-size:12px;color:#c5d6f5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+    .next{font-size:12px;color:#c5d6f5;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
 
-    .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
-    .stat{background:linear-gradient(180deg,#142646,#101d36);border:1px solid #35568d;border-radius:12px;padding:8px}
-    .stat .k{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
-    .stat .v{font-size:20px;font-weight:800;line-height:1.2;margin-top:2px}
-    .stat-good{border-color:#2e8d66;background:linear-gradient(180deg,#123324,#0f271d)}
-    .stat-good .v{color:#bff6dc}
-    .stat-warn{border-color:#9a7a2f;background:linear-gradient(180deg,#352a12,#2a200e)}
-    .stat-warn .v{color:#ffe4a1}
-    .stat-bad{border-color:#9b4159;background:linear-gradient(180deg,#361722,#2a1118)}
-    .stat-bad .v{color:#ffc2cf}
-    .feed-item{background:linear-gradient(180deg,#142646,#101d36);border:1px solid #35568d;border-radius:12px;padding:8px;margin-bottom:8px}
-    .feed-item b{font-size:12px}.feed-item .muted{font-size:12px;color:var(--muted);margin-top:2px}
+    .ops-box{background:linear-gradient(180deg,#132543,#0f1d35);border:1px solid #2f4b78;border-radius:12px;padding:8px;margin-bottom:8px}
+    .ops-row{display:flex;justify-content:space-between;align-items:center;font-size:12px;margin:6px 0}
+    .dot{width:8px;height:8px;border-radius:999px;display:inline-block;margin-right:6px}
+    .g{background:#33d08f}.y{background:#f0c24e}.r{background:#ff637f}
+
     .empty{color:var(--muted);font-size:12px;opacity:.8}
 
-    @media (max-width:1280px){.app{grid-template-columns:1fr}.side,.feed{min-height:auto}}
+    .modal{display:none;position:fixed;inset:0;background:rgba(3,8,18,.75);z-index:80;align-items:center;justify-content:center;padding:18px}
+    .modal-card{width:min(900px,95vw);max-height:85vh;overflow:auto;background:#0f1a31;border:1px solid #2f4d82;border-radius:14px;box-shadow:0 20px 50px rgba(0,0,0,.55);padding:12px}
+
+    @media (max-width:1280px){.app{grid-template-columns:1fr}.side,.ops{min-height:auto}}
   </style>
 </head>
 <body>
   <header class="topbar">
-    <div class="brand">
-      <div class="logo">🛰️</div>
-      <div><div class="title">MISSION CONTROL</div><div class="subtitle" id="updated">Laddar data…</div></div>
-    </div>
+    <div class="brand"><div class="logo">🛰️</div><div><div class="title">MISSION CONTROL</div><div class="subtitle" id="updated">Laddar data…</div></div></div>
     <div class="topstats" id="topstats"></div>
   </header>
 
   <main class="app">
-    <aside class="panel side">
-      <div class="section-h"><span>Agents</span><span id="agentCount"></span></div>
-      <div id="agents"></div>
-    </aside>
-
+    <aside class="panel side"><div class="section-h"><span>Agents</span><span id="agentCount"></span></div><div id="agents"></div></aside>
     <section class="panel board-wrap"><div class="board" id="board"></div></section>
-
-    <aside class="panel feed">
-      <div class="section-h"><span>System Stats</span><span id="statsUpdated"></span></div>
-      <div class="stats-grid" id="stats"></div>
-      <div class="section-h" style="padding-top:2px"><span>Live Feed</span><span id="feedCount"></span></div>
-      <div id="feed"></div>
+    <aside class="panel ops">
+      <div class="section-h"><span>OPS</span><span>compact</span></div>
+      <div class="ops-box" id="ops"></div>
     </aside>
   </main>
 
-  <div id="archiveModal" style="display:none;position:fixed;inset:0;background:rgba(3,8,18,.75);z-index:80;align-items:center;justify-content:center;padding:18px;">
-    <div style="width:min(900px,95vw);max-height:85vh;overflow:auto;background:#0f1a31;border:1px solid #2f4d82;border-radius:14px;box-shadow:0 20px 50px rgba(0,0,0,.55);padding:12px;">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-        <b>Archived Tasks</b>
-        <button id="closeArchive" class="btn-archive">Stäng</button>
-      </div>
-      <div id="archiveList" class="empty">Inga arkiverade tasks.</div>
-    </div>
-  </div>
+  <div id="archiveModal" class="modal"><div class="modal-card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;"><b>Archived Tasks</b><button id="closeArchive" class="btn">Stäng</button></div><div id="archiveList" class="empty">Inga arkiverade tasks.</div></div></div>
+  <div id="cardModal" class="modal"><div class="modal-card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;"><b>Task details</b><button id="closeCard" class="btn">Stäng</button></div><div id="cardDetail"></div></div></div>
 
 <script>
-const AVATAR_VER = 'v5';
-const TEAM = [
-  { name:'Max Mercer', role:'Orchestrator & priorities', state:'Active', avatar:`./avatars/max-mercer.png?${AVATAR_VER}` },
-  { name:'Nina Sparks', role:'Research & trend radar', state:'Active', avatar:`./avatars/nina-sparks.png?${AVATAR_VER}` },
-  { name:'Leo Byte', role:'Builder & app maker', state:'Idle', avatar:`./avatars/leo-byte.png?${AVATAR_VER}` },
-  { name:'Ivy Shield', role:'QA & risk guardian', state:'Idle', avatar:`./avatars/ivy-shield.png?${AVATAR_VER}` },
-  { name:'Owen Flux', role:'Ops & automation', state:'Active', avatar:`./avatars/owen-flux.png?${AVATAR_VER}` }
+const AVATAR_VER='v5';
+const TEAM=[
+  {name:'Max Mercer',role:'Orchestrator & priorities',state:'Active',avatar:`./avatars/max-mercer.png?${AVATAR_VER}`},
+  {name:'Nina Sparks',role:'Research & trend radar',state:'Active',avatar:`./avatars/nina-sparks.png?${AVATAR_VER}`},
+  {name:'Leo Byte',role:'Builder & app maker',state:'Idle',avatar:`./avatars/leo-byte.png?${AVATAR_VER}`},
+  {name:'Ivy Shield',role:'QA & risk guardian',state:'Idle',avatar:`./avatars/ivy-shield.png?${AVATAR_VER}`},
+  {name:'Owen Flux',role:'Ops & automation',state:'Active',avatar:`./avatars/owen-flux.png?${AVATAR_VER}`}
 ];
-const STATE_META = {
-  Working: { icon:'🟢', cls:'state-working', text:'Working' },
-  Active: { icon:'⚡', cls:'state-active', text:'Active' },
-  Idle: { icon:'🌙', cls:'state-idle', text:'Idle' },
-  Review: { icon:'🔎', cls:'state-review', text:'Review' }
-};
-const COLUMNS=[['backlog','Backlog'],['doing','In Progress'],['review','Review'],['done','Done']];
-const byId=id=>document.getElementById(id);
-const el=(t,c,h)=>{const e=document.createElement(t); if(c)e.className=c; if(h!==undefined)e.innerHTML=h; return e};
-
-// avatars are static SVGs in ./avatars
+const STATE_META={Working:{icon:'🟢',cls:'state-working',text:'Working'},Active:{icon:'⚡',cls:'state-active',text:'Active'},Idle:{icon:'🌙',cls:'state-idle',text:'Idle'},Review:{icon:'🔎',cls:'state-review',text:'Review'}};
+const WIP={doing:2,review:2};
+const COLS=[['backlog','Backlog'],['ready','Ready'],['doing','In Progress'],['blocked','Blocked'],['review','Review'],['done','Done']];
+let FOCUS=false; let LAST_ARCHIVE={archived:[]}; let TOOL_STATUS={telegram:'OK',exec:'OK'};
+const byId=id=>document.getElementById(id); const el=(t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!==undefined)e.innerHTML=h;return e};
 
 function renderTopStats(data, archivedCount=0){
-  const b=(data.columns.backlog||[]).length,d=(data.columns.doing||[]).length,r=(data.columns.review||[]).length,dn=(data.columns.done||[]).length;
   const top=byId('topstats'); top.innerHTML='';
-  [`Backlog ${b}`,`In Progress ${d}/${data.wip_limit_doing||3}`,`Review ${r}`,`Done ${dn}`,`Archived ${archivedCount}`,`Agents ${TEAM.length}`]
-    .forEach(x=>top.appendChild(el('span','pill',x)));
-  const btn = el('button','btn-archive',`📦 Archive`);
-  btn.onclick = () => byId('archiveModal').style.display='flex';
-  top.appendChild(btn);
+  const vals={backlog:(data.columns.backlog||[]).length,ready:(data.columns.ready||[]).length,doing:(data.columns.doing||[]).length,blocked:(data.columns.blocked||[]).length,review:(data.columns.review||[]).length,done:(data.columns.done||[]).length};
+  [`Backlog ${vals.backlog}`,`Ready ${vals.ready}`,`In Progress ${vals.doing}/${WIP.doing}`,`Blocked ${vals.blocked}`,`Review ${vals.review}/${WIP.review}`,`Done ${vals.done}`,`Archived ${archivedCount}`,`Agents ${TEAM.length}`]
+  .forEach(x=>top.appendChild(el('span','pill',x)));
+  const focusBtn=el('button','btn',FOCUS?'Exit Focus':'Focus Mode'); focusBtn.onclick=()=>{FOCUS=!FOCUS;load();}; top.appendChild(focusBtn);
+  const archBtn=el('button','btn','📦 Archive'); archBtn.onclick=()=>byId('archiveModal').style.display='flex'; top.appendChild(archBtn);
 }
 
 function renderAgents(data){
   const wrap=byId('agents'); wrap.innerHTML='';
   const doing=(data.columns.doing||[]).length;
   TEAM.forEach((a,i)=>{
-    const state=(i===0&&doing>0)?'Working':a.state;
-    const meta = STATE_META[state] || STATE_META.Active;
-    const card=el('div','agent');
-    card.innerHTML=`<img class="avatar" src="${a.avatar}" alt="${a.name}" /><div class="a-meta"><b>${a.name}</b><div class="a-role">${a.role}</div></div><span class="badge ${meta.cls}"><span>${meta.icon}</span><span>${meta.text}</span></span>`;
+    const state=(i===0&&doing>0)?'Working':a.state; const meta=STATE_META[state]||STATE_META.Active;
+    const card=el('div','agent',`<img class="avatar" src="${a.avatar}" alt="${a.name}"/><div class="a-meta"><b>${a.name}</b><div class="a-role">${a.role}</div></div><span class="badge ${meta.cls}"><span>${meta.icon}</span><span>${meta.text}</span></span>`);
     wrap.appendChild(card);
   });
   byId('agentCount').textContent=TEAM.length;
 }
-function prioClass(p){return p==='H'?'prio-H':p==='L'?'prio-L':'prio-M'}
-function renderCard(t){
+
+function renderCard(t,colKey){
   const card=el('article','card');
-  const tags=(t.tags||[]).map(x=>`<span class="tag">${x}</span>`).join('');
-  const title=t.title||'Untitled';
-  const next=t.next_action||'';
-  card.innerHTML=`<h4 title="${title}">${title}</h4><div class="meta"><span class="tag ${prioClass(t.priority)}">Prio ${t.priority||'M'}</span><span class="tag">${t.owner||'Bob'}</span>${tags}</div><div class="next" title="${next}">${next}</div>`;
+  const p=(t.priority||'M');
+  // compact view: only Owner + Next action + Prio
+  card.innerHTML=`<div class="meta"><span class="tag prio-${p}">Prio ${p}</span><span class="tag">${t.owner||'Bob'}</span></div><div class="next" title="${t.next_action||''}">${t.next_action||'(saknar next action)'}</div>`;
+  card.onclick=()=>openCard(t,colKey);
   return card;
 }
+
 function renderBoard(data){
   const board=byId('board'); board.innerHTML='';
-  COLUMNS.forEach(([k,label])=>{
-    const col=el('section','col col-'+k),items=data.columns[k]||[];
-    col.innerHTML=`<div class="colhead"><div class="coltitle">${label}</div><div class="count">${items.length}</div></div>`;
+  const cols=FOCUS?COLS.filter(([k])=>!['backlog','done'].includes(k)):COLS;
+  cols.forEach(([k,label])=>{
+    const items=data.columns[k]||[];
+    const col=el('section','col col-'+k);
+    let countText=`${items.length}`;
+    if(k==='doing') countText=`${items.length}/${WIP.doing}`;
+    if(k==='review') countText=`${items.length}/${WIP.review}`;
+    col.innerHTML=`<div class="colhead ${((k==='doing'&&items.length>=WIP.doing)||(k==='review'&&items.length>=WIP.review))?'soft-limit':''}"><div class="coltitle">${label}</div><div class="count">${countText}</div></div>`;
     if(!items.length) col.appendChild(el('div','empty','Inga kort.'));
-    items.forEach(t=>col.appendChild(renderCard(t))); board.appendChild(col);
+    items.forEach(t=>col.appendChild(renderCard(t,k)));
+    board.appendChild(col);
   });
-}
-function levelPercent(v){
-  if(v===null || v===undefined || Number.isNaN(Number(v))) return '';
-  v = Number(v);
-  if(v < 60) return 'stat-good';
-  if(v < 80) return 'stat-warn';
-  return 'stat-bad';
-}
-function levelTemp(t){
-  if(t===null || t===undefined || Number.isNaN(Number(t))) return '';
-  t = Number(t);
-  if(t < 70) return 'stat-good';
-  if(t < 85) return 'stat-warn';
-  return 'stat-bad';
-}
-function levelNet(kbps){
-  if(kbps===null || kbps===undefined || Number.isNaN(Number(kbps))) return '';
-  kbps = Number(kbps);
-  if(kbps < 100) return 'stat-good';
-  if(kbps < 1000) return 'stat-warn';
-  return 'stat-bad';
-}
-
-function renderStats(stats){
-  const wrap=byId('stats');
-  if(!stats){ wrap.innerHTML='<div class="empty">Ingen systemdata ännu.</div>'; return; }
-  const cpu = stats.cpu?.used_percent ?? null;
-  const ram = stats.ram?.used_percent ?? null;
-  const d = stats.disk?.used_percent ?? null;
-  const temp = stats.temperature?.cpu_c;
-  const thermal = stats.temperature?.thermal_status || '-';
-  const rx = stats.network?.rx_kbps;
-  const tx = stats.network?.tx_kbps;
-  const iface = stats.network?.interface || '-';
-
-  wrap.innerHTML='';
-  wrap.appendChild(el('div',`stat ${levelPercent(cpu)}`,`<div class="k">CPU Usage</div><div class="v">${cpu ?? '-'}%</div>`));
-  wrap.appendChild(el('div',`stat ${levelPercent(ram)}`,`<div class="k">RAM Usage</div><div class="v">${ram ?? '-'}%</div>`));
-  wrap.appendChild(el('div',`stat ${levelPercent(d)}`,`<div class="k">Disk Usage</div><div class="v">${d ?? '-'}%</div><div class="muted">${stats.disk?.used||'-'} / ${stats.disk?.size||'-'}</div>`));
-  wrap.appendChild(el('div',`stat ${levelTemp(temp)}`,`<div class="k">Temperature</div><div class="v">${temp ?? 'N/A'}</div><div class="muted">${temp==null?'Thermal: '+thermal:('CPU °C')}</div>`));
-  wrap.appendChild(el('div',`stat ${levelNet(rx)}`,`<div class="k">Network Rx</div><div class="v">${rx ?? '-'} KB/s</div><div class="muted">${iface}</div>`));
-  wrap.appendChild(el('div',`stat ${levelNet(tx)}`,`<div class="k">Network Tx</div><div class="v">${tx ?? '-'} KB/s</div><div class="muted">${iface}</div>`));
-  byId('statsUpdated').textContent = stats.updated_at ? new Date(stats.updated_at).toLocaleTimeString('sv-SE') : '';
 }
 
 function renderArchive(archiveData){
-  const list = byId('archiveList');
-  const items = (archiveData && archiveData.archived) ? archiveData.archived : [];
-  if(!items.length){ list.innerHTML = '<div class="empty">Inga arkiverade tasks.</div>'; return; }
+  const list=byId('archiveList'); const items=(archiveData&&archiveData.archived)?archiveData.archived:[];
+  if(!items.length){list.innerHTML='<div class="empty">Inga arkiverade tasks.</div>';return;}
   list.innerHTML='';
-  items.slice().reverse().forEach(t=>{
-    const row = el('div','feed-item',`<b>${t.title || 'Untitled'}</b><div class="muted">${t.next_action || ''}</div><div class="muted">${t.archived_at ? ('Arkiverad: '+new Date(t.archived_at).toLocaleString('sv-SE')) : ''}</div>`);
-    list.appendChild(row);
+  items.slice().reverse().forEach(t=>list.appendChild(el('div','agent',`<div class="a-meta"><b>${t.title||'Untitled'}</b><div class="a-role">${t.next_action||''}</div><div class="a-role">Arkiverad: ${t.archived_at?new Date(t.archived_at).toLocaleString('sv-SE'):''}</div></div>`)));
+}
+
+function openCard(t,colKey){
+  const dod=(t.definition_of_done && t.definition_of_done.length)?t.definition_of_done:['(saknas)'];
+  const risk=t.risk||'M';
+  const approval=t.approval_required?'<span class="tag" style="border-color:#8e4359;background:#3a1721;color:#ffc3cf">Approval required</span>':'';
+  const blocked=(colKey==='blocked' && t.blocked_reason)?`<p><b>Blocked reason:</b> ${t.blocked_reason}</p>`:'';
+  byId('cardDetail').innerHTML=`
+    <h3 style="margin:0 0 8px">${t.title||'Untitled'}</h3>
+    <p><b>Owner:</b> ${t.owner||'Bob'}</p>
+    <p><b>Next action:</b> ${t.next_action||'(saknas)'}</p>
+    <p><b>Risk:</b> <span class="tag">${risk}</span> ${approval}</p>
+    <p><b>Definition of Done:</b></p>
+    <ul>${dod.map(x=>`<li>${x}</li>`).join('')}</ul>
+    ${blocked}
+  `;
+  byId('cardModal').style.display='flex';
+}
+
+function heartbeatColor(state){if(state==='Working')return 'g'; if(state==='Active')return 'y'; return 'r';}
+function renderOps(data){
+  const ops=byId('ops');
+  const queueDepth=(data.columns.ready||[]).length + (data.columns.doing||[]).length + (data.columns.review||[]).length + (data.columns.blocked||[]).length;
+  const rows=TEAM.map((a,i)=>{const st=(i===0&&(data.columns.doing||[]).length>0)?'Working':a.state; const c=heartbeatColor(st); return `<div class='ops-row'><span><span class='dot ${c}'></span>${a.name}</span><span>${st}</span></div>`;}).join('');
+  const tool = (TOOL_STATUS.telegram==='OK' && TOOL_STATUS.exec==='OK') ? 'OK' : ((TOOL_STATUS.telegram==='DOWN'||TOOL_STATUS.exec==='DOWN')?'DOWN':'DEGRADED');
+  ops.innerHTML=`<div class='ops-row'><b>Heartbeat</b><span>per agent</span></div>${rows}<hr style='border-color:#2a426d;opacity:.5'><div class='ops-row'><b>Queue depth</b><span>${queueDepth}</span></div><div class='ops-row'><b>Tool status</b><span>${tool}</span></div><div class='ops-row'><span class='muted'>Telegram</span><span>${TOOL_STATUS.telegram}</span></div><div class='ops-row'><span class='muted'>exec</span><span>${TOOL_STATUS.exec}</span></div>`;
+}
+
+function validateRules(data){
+  // Rule: cannot be in Ready without next_action + DoD (we mark discreetly by pushing missing items back to backlog in view only)
+  const ready=(data.columns.ready||[]);
+  ready.forEach(t=>{
+    const hasNext=!!(t.next_action&&t.next_action.trim());
+    const hasDoD=Array.isArray(t.definition_of_done)&&t.definition_of_done.length>0;
+    if(!hasNext || !hasDoD){ t.next_action = (t.next_action||'') + ' [⚠ behöver Next action + DoD]'; }
   });
 }
 
-function renderFeed(data){
-  const events=[];
-  (data.columns.doing||[]).forEach(t=>events.push({s:'Working',t:t.title}));
-  (data.columns.review||[]).forEach(t=>events.push({s:'Review',t:t.title}));
-  (data.columns.done||[]).forEach(t=>events.push({s:'Done',t:t.title}));
-  const feed=byId('feed'); feed.innerHTML='';
-  if(!events.length) feed.appendChild(el('div','empty','Inga events ännu.'));
-  events.slice(0,12).forEach(x=>feed.appendChild(el('div','feed-item',`<b>${x.s}</b><div class="muted">${x.t}</div>`)));
-  byId('feedCount').textContent=events.length;
-}
 async function load(){
   try{
-    const ts = Date.now();
-    const [boardRes, statsRes, archiveRes] = await Promise.all([
+    const ts=Date.now();
+    const [boardRes, archiveRes]=await Promise.all([
       fetch('./KANBAN.json?ts='+ts),
-      fetch('./system_stats.json?ts='+ts).catch(()=>null),
       fetch('./KANBAN_ARCHIVE.json?ts='+ts).catch(()=>null)
     ]);
     const data=await boardRes.json();
-    let stats=null;
-    let archivedCount=0;
-    if(statsRes && statsRes.ok){ stats = await statsRes.json(); }
-    let archiveData = { archived: [] };
-    if(archiveRes && archiveRes.ok){
-      archiveData = await archiveRes.json();
-      archivedCount = (archiveData.archived||[]).length;
-    }
+    data.columns.ready = data.columns.ready || [];
+    data.columns.blocked = data.columns.blocked || [];
+    validateRules(data);
+
+    let archivedCount=0; LAST_ARCHIVE={archived:[]};
+    if(archiveRes&&archiveRes.ok){ LAST_ARCHIVE=await archiveRes.json(); archivedCount=(LAST_ARCHIVE.archived||[]).length; }
+
     byId('updated').textContent=`Senast uppdaterad: ${new Date().toLocaleString('sv-SE')}`;
-    renderTopStats(data, archivedCount); renderAgents(data); renderBoard(data); renderStats(stats); renderFeed(data); renderArchive(archiveData);
-  }catch{ byId('updated').textContent='Kunde inte läsa KANBAN.json'; }
+    renderTopStats(data, archivedCount); renderAgents(data); renderBoard(data); renderArchive(LAST_ARCHIVE); renderOps(data);
+  }catch{ byId('updated').textContent='Kunde inte läsa KANBAN.json'; TOOL_STATUS.exec='DEGRADED'; }
 }
-byId('closeArchive').onclick = ()=> byId('archiveModal').style.display='none';
-byId('archiveModal').addEventListener('click', (e)=>{ if(e.target.id==='archiveModal') byId('archiveModal').style.display='none'; });
+
+byId('closeArchive').onclick=()=>byId('archiveModal').style.display='none';
+byId('archiveModal').addEventListener('click',e=>{if(e.target.id==='archiveModal')byId('archiveModal').style.display='none';});
+byId('closeCard').onclick=()=>byId('cardModal').style.display='none';
+byId('cardModal').addEventListener('click',e=>{if(e.target.id==='cardModal')byId('cardModal').style.display='none';});
+
 load(); setInterval(load,10000);
 </script>
 </body>
