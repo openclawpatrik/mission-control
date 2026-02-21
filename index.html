@@ -87,7 +87,7 @@
     .prio-L{border-color:#2f8a6d;background:#143426;color:#b8f5da}
     .next{font-size:12px;color:#c5d6f5}
 
-    .stats-grid{display:grid;grid-template-columns:1fr;gap:8px;margin-bottom:10px}
+    .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
     .stat{background:linear-gradient(180deg,#142646,#101d36);border:1px solid #35568d;border-radius:12px;padding:8px}
     .stat .k{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
     .stat .v{font-size:20px;font-weight:800;line-height:1.2;margin-top:2px}
@@ -184,10 +184,19 @@ function renderStats(stats){
   const cpu = stats.cpu?.used_percent ?? '-';
   const ram = stats.ram?.used_percent ?? '-';
   const d = stats.disk?.used_percent ?? '-';
+  const temp = stats.temperature?.cpu_c;
+  const thermal = stats.temperature?.thermal_status || '-';
+  const rx = stats.network?.rx_kbps;
+  const tx = stats.network?.tx_kbps;
+  const iface = stats.network?.interface || '-';
+
   wrap.innerHTML='';
   wrap.appendChild(el('div','stat',`<div class="k">CPU Usage</div><div class="v">${cpu}%</div>`));
   wrap.appendChild(el('div','stat',`<div class="k">RAM Usage</div><div class="v">${ram}%</div>`));
   wrap.appendChild(el('div','stat',`<div class="k">Disk Usage</div><div class="v">${d}%</div><div class="muted">${stats.disk?.used||'-'} / ${stats.disk?.size||'-'}</div>`));
+  wrap.appendChild(el('div','stat',`<div class="k">Temperature</div><div class="v">${temp ?? 'N/A'}</div><div class="muted">${temp==null?'Thermal: '+thermal:('CPU °C')}</div>`));
+  wrap.appendChild(el('div','stat',`<div class="k">Network Rx</div><div class="v">${rx ?? '-'} KB/s</div><div class="muted">${iface}</div>`));
+  wrap.appendChild(el('div','stat',`<div class="k">Network Tx</div><div class="v">${tx ?? '-'} KB/s</div><div class="muted">${iface}</div>`));
   byId('statsUpdated').textContent = stats.updated_at ? new Date(stats.updated_at).toLocaleTimeString('sv-SE') : '';
 }
 
