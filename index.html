@@ -38,7 +38,7 @@
     .a-model{font-size:10px;color:#9fb4dc;background:#0e1930;border:1px solid #2d456f;border-radius:999px;padding:2px 7px;max-width:190px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
     .board-wrap{padding:8px;overflow:auto}
-    .board{display:grid;grid-template-columns:repeat(6,minmax(210px,1fr));gap:10px;min-width:1320px}
+    .board{display:grid;gap:10px;width:100%;min-width:0}
     .col{border:1px solid #2b4068;border-radius:12px;padding:8px;min-height:530px;background:linear-gradient(180deg,rgba(12,21,38,.88),rgba(10,18,34,.88));position:relative;overflow:hidden}
     .col::after{content:'';position:absolute;inset:auto -40% -45% -40%;height:120px;filter:blur(30px);opacity:.35;pointer-events:none}
     .colhead{display:flex;justify-content:space-between;align-items:center;padding:7px 9px;border-radius:10px;border:1px solid #355489;background:#132748;margin-bottom:8px}
@@ -141,6 +141,7 @@ function renderCard(t,colKey){
 function renderBoard(data){
   const board=byId('board'); board.innerHTML='';
   const cols=FOCUS?COLS.filter(([k])=>['doing','review'].includes(k)):COLS;
+  board.style.gridTemplateColumns = `repeat(${cols.length}, minmax(220px, 1fr))`;
   cols.forEach(([k,label])=>{
     const items=data.columns[k]||[];
     const col=el('section','col col-'+k);
