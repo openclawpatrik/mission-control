@@ -44,7 +44,7 @@
 
     .side,.feed{padding:8px;min-height:calc(100vh - 90px)}
     .agent{display:flex;gap:10px;align-items:center;background:linear-gradient(180deg,#132543,#0f1d35);border:1px solid #2f4b78;border-radius:12px;padding:8px;margin-bottom:8px}
-    .avatar{width:36px;height:36px;border-radius:999px;display:grid;place-items:center;font-size:12px;font-weight:700;background:linear-gradient(145deg,#2b4e8f,#17315a);border:1px solid #4168a8}
+    .avatar{width:36px;height:36px;border-radius:999px;object-fit:cover;display:block;border:1px solid #4168a8;box-shadow:0 4px 10px rgba(0,0,0,.35)}
     .a-meta b{display:block;font-size:13px}
     .a-role{font-size:12px;color:var(--muted)}
     .badge{margin-left:auto;font-size:11px;padding:3px 8px;border-radius:999px;border:1px solid #315288;background:#11213d;color:#d2e2ff}
@@ -115,17 +115,17 @@
 
 <script>
 const TEAM = [
-  { name:'Max Mercer', role:'Orchestrator & priorities', state:'Active' },
-  { name:'Nina Sparks', role:'Research & trend radar', state:'Active' },
-  { name:'Leo Byte', role:'Builder & app maker', state:'Idle' },
-  { name:'Ivy Shield', role:'QA & risk guardian', state:'Idle' },
-  { name:'Owen Flux', role:'Ops & automation', state:'Active' }
+  { name:'Max Mercer', role:'Orchestrator & priorities', state:'Active', avatar:'./avatars/max-mercer.svg' },
+  { name:'Nina Sparks', role:'Research & trend radar', state:'Active', avatar:'./avatars/nina-sparks.svg' },
+  { name:'Leo Byte', role:'Builder & app maker', state:'Idle', avatar:'./avatars/leo-byte.svg' },
+  { name:'Ivy Shield', role:'QA & risk guardian', state:'Idle', avatar:'./avatars/ivy-shield.svg' },
+  { name:'Owen Flux', role:'Ops & automation', state:'Active', avatar:'./avatars/owen-flux.svg' }
 ];
 const COLUMNS=[['backlog','Backlog'],['doing','In Progress'],['review','Review'],['done','Done']];
 const byId=id=>document.getElementById(id);
 const el=(t,c,h)=>{const e=document.createElement(t); if(c)e.className=c; if(h!==undefined)e.innerHTML=h; return e};
 
-function initials(name){return name.split(' ').map(x=>x[0]).join('').slice(0,2).toUpperCase()}
+// avatars are static SVGs in ./avatars
 
 function renderTopStats(data){
   const b=(data.columns.backlog||[]).length,d=(data.columns.doing||[]).length,r=(data.columns.review||[]).length,dn=(data.columns.done||[]).length;
@@ -140,7 +140,7 @@ function renderAgents(data){
   TEAM.forEach((a,i)=>{
     const state=(i===0&&doing>0)?'Working':a.state;
     const card=el('div','agent');
-    card.innerHTML=`<div class="avatar">${initials(a.name)}</div><div class="a-meta"><b>${a.name}</b><div class="a-role">${a.role}</div></div><span class="badge">${state}</span>`;
+    card.innerHTML=`<img class="avatar" src="${a.avatar}" alt="${a.name}" /><div class="a-meta"><b>${a.name}</b><div class="a-role">${a.role}</div></div><span class="badge">${state}</span>`;
     wrap.appendChild(card);
   });
   byId('agentCount').textContent=TEAM.length;
