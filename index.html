@@ -87,6 +87,10 @@
     .prio-L{border-color:#2f8a6d;background:#143426;color:#b8f5da}
     .next{font-size:12px;color:#c5d6f5}
 
+    .stats-grid{display:grid;grid-template-columns:1fr;gap:8px;margin-bottom:10px}
+    .stat{background:linear-gradient(180deg,#142646,#101d36);border:1px solid #35568d;border-radius:12px;padding:8px}
+    .stat .k{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+    .stat .v{font-size:20px;font-weight:800;line-height:1.2;margin-top:2px}
     .feed-item{background:linear-gradient(180deg,#142646,#101d36);border:1px solid #35568d;border-radius:12px;padding:8px;margin-bottom:8px}
     .feed-item b{font-size:12px}.feed-item .muted{font-size:12px;color:var(--muted);margin-top:2px}
     .empty{color:var(--muted);font-size:12px;opacity:.8}
@@ -112,7 +116,9 @@
     <section class="panel board-wrap"><div class="board" id="board"></div></section>
 
     <aside class="panel feed">
-      <div class="section-h"><span>Live Feed</span><span id="feedCount"></span></div>
+      <div class="section-h"><span>System Stats</span><span id="statsUpdated"></span></div>
+      <div class="stats-grid" id="stats"></div>
+      <div class="section-h" style="padding-top:2px"><span>Live Feed</span><span id="feedCount"></span></div>
       <div id="feed"></div>
     </aside>
   </main>
@@ -172,6 +178,19 @@ function renderBoard(data){
     items.forEach(t=>col.appendChild(renderCard(t))); board.appendChild(col);
   });
 }
+function renderStats(stats){
+  const wrap=byId('stats');
+  if(!stats){ wrap.innerHTML='<div class="empty">Ingen systemdata ännu.</div>'; return; }
+  const cpu = stats.cpu?.used_percent ?? '-';
+  const ram = stats.ram?.used_percent ?? '-';
+  const d = stats.disk?.used_percent ?? '-';
+  wrap.innerHTML='';
+  wrap.appendChild(el('div','stat',`<div class="k">CPU Usage</div><div class="v">${cpu}%</div>`));
+  wrap.appendChild(el('div','stat',`<div class="k">RAM Usage</div><div class="v">${ram}%</div>`));
+  wrap.appendChild(el('div','stat',`<div class="k">Disk Usage</div><div class="v">${d}%</div><div class="muted">${stats.disk?.used||'-'} / ${stats.disk?.size||'-'}</div>`));
+  byId('statsUpdated').textContent = stats.updated_at ? new Date(stats.updated_at).toLocaleTimeString('sv-SE') : '';
+}
+
 function renderFeed(data){
   const events=[];
   (data.columns.doing||[]).forEach(t=>events.push({s:'Working',t:t.title}));
@@ -184,9 +203,16 @@ function renderFeed(data){
 }
 async function load(){
   try{
-    const res=await fetch('./KANBAN.json?ts='+Date.now()); const data=await res.json();
+    const ts = Date.now();
+    const [boardRes, statsRes] = await Promise.all([
+      fetch('./KANBAN.json?ts='+ts),
+      fetch('./system_stats.json?ts='+ts).catch(()=>null)
+    ]);
+    const data=await boardRes.json();
+    let stats=null;
+    if(statsRes && statsRes.ok){ stats = await statsRes.json(); }
     byId('updated').textContent=`Senast uppdaterad: ${new Date().toLocaleString('sv-SE')}`;
-    renderTopStats(data); renderAgents(data); renderBoard(data); renderFeed(data);
+    renderTopStats(data); renderAgents(data); renderBoard(data); renderStats(stats); renderFeed(data);
   }catch{ byId('updated').textContent='Kunde inte läsa KANBAN.json'; }
 }
 load(); setInterval(load,30000);

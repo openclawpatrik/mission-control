@@ -1,0 +1,15 @@
+{
+  "updated_at": "2026-02-21T16:15:06.110104+01:00",
+  "cpu": {
+    "used_percent": 11.6
+  },
+  "ram": {
+    "used_percent": 48.8
+  },
+  "disk": {
+    "size": "245G",
+    "used": "12G",
+    "avail": "138G",
+    "used_percent": 9.0
+  }
+}
