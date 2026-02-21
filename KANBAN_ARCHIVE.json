@@ -1,4 +1,20 @@
 {
   "version": "1.0",
-  "archived": []
+  "archived": [
+    {
+      "id": "task-2026-02-20-012",
+      "title": "Arkivera AI Skill Quest",
+      "status": "Done",
+      "priority": "M",
+      "owner": "Bob",
+      "deadline": null,
+      "tags": [
+        "work"
+      ],
+      "next_action": "Håll projektet inaktivt tills vidare",
+      "created_at": "2026-02-20T21:20:00+01:00",
+      "updated_at": "2026-02-20T21:20:00+01:00",
+      "archived_at": "2026-02-21T18:18:15.006817+01:00"
+    }
+  ]
 }

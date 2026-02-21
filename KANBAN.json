@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "updated_at": "2026-02-21T17:27:36.362171+01:00",
+  "updated_at": "2026-02-21T18:18:15.006834+01:00",
   "wip_limit_doing": 3,
   "columns": {
     "backlog": [
@@ -125,20 +125,6 @@
         "next_action": "Kör standardflöde på nästa meddelande",
         "created_at": "2026-02-20T19:38:00+01:00",
         "updated_at": "2026-02-20T19:38:00+01:00"
-      },
-      {
-        "id": "task-2026-02-20-012",
-        "title": "Arkivera AI Skill Quest",
-        "status": "Done",
-        "priority": "M",
-        "owner": "Bob",
-        "deadline": null,
-        "tags": [
-          "work"
-        ],
-        "next_action": "Håll projektet inaktivt tills vidare",
-        "created_at": "2026-02-20T21:20:00+01:00",
-        "updated_at": "2026-02-20T21:20:00+01:00"
       }
     ]
   }
