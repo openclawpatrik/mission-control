@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "updated_at": "2026-02-21T20:45:09.395018+01:00",
+  "updated_at": "2026-02-21T20:56:57.620393+01:00",
   "wip_limit_doing": 2,
   "columns": {
     "backlog": [
@@ -84,6 +84,48 @@
           "Leverans framtagen",
           "Verifiering körd",
           "Kanban uppdaterad"
+        ]
+      },
+      {
+        "id": "task-2026-02-21-017",
+        "title": "Starta Passive Income agent",
+        "status": "Backlog",
+        "priority": "H",
+        "owner": "Bob",
+        "deadline": null,
+        "tags": [
+          "ai",
+          "home"
+        ],
+        "next_action": "Skapa nattcykel och morgonbrief för passiv inkomst",
+        "created_at": "2026-02-21T20:56:57.620393+01:00",
+        "updated_at": "2026-02-21T20:56:57.620393+01:00",
+        "risk": "M",
+        "definition_of_done": [
+          "Cykel aktiv",
+          "Brief aktiv",
+          "Första förslag levererat"
+        ]
+      },
+      {
+        "id": "task-2026-02-21-018",
+        "title": "Starta Android App Venture agent",
+        "status": "Backlog",
+        "priority": "H",
+        "owner": "Bob",
+        "deadline": null,
+        "tags": [
+          "ai",
+          "work"
+        ],
+        "next_action": "Definiera app-pipeline från idé till Play Store",
+        "created_at": "2026-02-21T20:56:57.620393+01:00",
+        "updated_at": "2026-02-21T20:56:57.620393+01:00",
+        "risk": "M",
+        "definition_of_done": [
+          "Pipeline definierad",
+          "Roadmap skapad",
+          "Första appkoncept valt"
         ]
       }
     ],
