@@ -66,6 +66,7 @@
     .prio-M{border-color:#8d6f2e;background:#3a2d12;color:#ffe2a0}
     .prio-L{border-color:#2f8a6d;background:#143426;color:#b8f5da}
     .next{font-size:12px;color:#c5d6f5;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+    .task-agent{border-color:#2f5f9a;background:#11294b;color:#cde2ff}
 
     .ops-box{background:linear-gradient(180deg,#132543,#0f1d35);border:1px solid #2f4b78;border-radius:12px;padding:8px;margin-bottom:8px}
     .ops-row{display:flex;justify-content:space-between;align-items:center;font-size:12px;margin:6px 0}
@@ -109,7 +110,10 @@ const TEAM=[
   {name:'Nina Sparks',role:'Research & trend radar',state:'Active',model:'ollama/qwen3:8b-16k',avatar:`./avatars/nina-sparks.png?${AVATAR_VER}`},
   {name:'Leo Byte',role:'Builder & app maker',state:'Idle',model:'ollama/qwen2.5-coder:7b-instruct-16k',avatar:`./avatars/leo-byte.png?${AVATAR_VER}`},
   {name:'Ivy Shield',role:'QA & risk guardian',state:'Idle',model:'ollama/MFDoom/deepseek-r1-tool-calling:8b-16k',avatar:`./avatars/ivy-shield.png?${AVATAR_VER}`},
-  {name:'Owen Flux',role:'Ops & automation',state:'Active',model:'ollama/qwen3:4b-16k',avatar:`./avatars/owen-flux.png?${AVATAR_VER}`}
+  {name:'Owen Flux',role:'Ops & automation',state:'Active',model:'ollama/qwen3:4b-16k',avatar:`./avatars/owen-flux.png?${AVATAR_VER}`},
+  {name:'Maya Yield',role:'Passive Income Agent',state:'Active',model:'ollama/MFDoom/deepseek-r1-tool-calling:8b-16k',avatar:`./avatars/nina-sparks.png?${AVATAR_VER}`},
+  {name:'Rex Droid',role:'Android Venture Agent',state:'Active',model:'ollama/qwen2.5-coder:7b-instruct-16k',avatar:`./avatars/leo-byte.png?${AVATAR_VER}`},
+  {name:'Zoe Pulse',role:'Use-case Research Agent',state:'Active',model:'ollama/qwen3:8b-16k',avatar:`./avatars/ivy-shield.png?${AVATAR_VER}`}
 ];
 const MODEL_SHORT = {
   'gpt-5.3-codex':'gpt-5.3-codex',
@@ -150,7 +154,8 @@ function renderCard(t,colKey){
   const card=el('article','card');
   const p=(t.priority||'M');
   // compact view: only Owner + Next action + Prio
-  card.innerHTML=`<div class="meta"><span class="tag prio-${p}">Prio ${p}</span><span class="tag">${t.owner||'Bob'}</span></div><div class="next" title="${t.next_action||''}">${t.next_action||'(saknar next action)'}</div>`;
+  const agent = t.agent || 'Max Mercer';
+  card.innerHTML=`<div class="meta"><span class="tag prio-${p}">Prio ${p}</span><span class="tag">${t.owner||'Bob'}</span><span class="tag task-agent" title="Agent">${agent}</span></div><div class="next" title="${t.next_action||''}">${t.next_action||'(saknar next action)'}</div>`;
   card.onclick=()=>openCard(t,colKey);
   return card;
 }
@@ -187,6 +192,7 @@ function openCard(t,colKey){
   byId('cardDetail').innerHTML=`
     <h3 style="margin:0 0 8px">${t.title||'Untitled'}</h3>
     <p><b>Owner:</b> ${t.owner||'Bob'}</p>
+    <p><b>Agent:</b> ${t.agent||'Max Mercer'}</p>
     <p><b>Next action:</b> ${t.next_action||'(saknas)'}</p>
     <p><b>Risk:</b> <span class="tag">${risk}</span> ${approval}</p>
     <p><b>Definition of Done:</b></p>

@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "updated_at": "2026-02-21T21:35:08.423716+01:00",
+  "updated_at": "2026-02-21T22:26:28.227533+01:00",
   "wip_limit_doing": 2,
   "columns": {
     "backlog": [
@@ -22,7 +22,8 @@
           "Leverans framtagen",
           "Verifiering körd",
           "Kanban uppdaterad"
-        ]
+        ],
+        "agent": "Owen Flux"
       },
       {
         "id": "task-2026-02-20-011",
@@ -43,7 +44,8 @@
           "Leverans framtagen",
           "Verifiering körd",
           "Kanban uppdaterad"
-        ]
+        ],
+        "agent": "Owen Flux"
       },
       {
         "id": "task-2026-02-20-004",
@@ -64,7 +66,8 @@
           "Leverans framtagen",
           "Verifiering körd",
           "Kanban uppdaterad"
-        ]
+        ],
+        "agent": "Max Mercer"
       },
       {
         "id": "task-2026-02-21-013",
@@ -84,7 +87,8 @@
           "Leverans framtagen",
           "Verifiering körd",
           "Kanban uppdaterad"
-        ]
+        ],
+        "agent": "Max Mercer"
       },
       {
         "id": "task-2026-02-21-017",
@@ -105,7 +109,8 @@
           "Cykel aktiv",
           "Brief aktiv",
           "Första förslag levererat"
-        ]
+        ],
+        "agent": "Maya Yield"
       },
       {
         "id": "task-2026-02-21-018",
@@ -126,7 +131,8 @@
           "Pipeline definierad",
           "Roadmap skapad",
           "Första appkoncept valt"
-        ]
+        ],
+        "agent": "Rex Droid"
       },
       {
         "id": "task-2026-02-21-015",
@@ -148,7 +154,8 @@
           "Verifiering körd",
           "Kanban uppdaterad"
         ],
-        "blocked_reason": "Väntar på godkännande/test"
+        "blocked_reason": "Väntar på godkännande/test",
+        "agent": "Max Mercer"
       },
       {
         "id": "task-2026-02-21-020",
@@ -168,7 +175,8 @@
           "Top 3 listad",
           "Varför noterat",
           "Morgonbrief uppdaterad"
-        ]
+        ],
+        "agent": "Zoe Pulse"
       },
       {
         "id": "task-2026-02-21-021",
@@ -189,7 +197,8 @@
           "Top 3 trender hittade",
           "Feasibility checkad",
           "1 rekommendation given"
-        ]
+        ],
+        "agent": "Rex Droid"
       },
       {
         "id": "task-2026-02-21-014",
@@ -209,7 +218,8 @@
           "Leverans framtagen",
           "Verifiering körd",
           "Kanban uppdaterad"
-        ]
+        ],
+        "agent": "Max Mercer"
       }
     ],
     "doing": [
@@ -232,7 +242,8 @@
           "Leverans framtagen",
           "Verifiering körd",
           "Kanban uppdaterad"
-        ]
+        ],
+        "agent": "Max Mercer"
       },
       {
         "id": "task-2026-02-21-016",
@@ -252,7 +263,8 @@
           "Cycle körd",
           "Output sparad",
           "Kanban syncad"
-        ]
+        ],
+        "agent": "Max Mercer"
       }
     ],
     "review": [
@@ -275,7 +287,8 @@
           "Cron aktiv",
           "Backup-script sparat",
           "Första körning verifierad"
-        ]
+        ],
+        "agent": "Owen Flux"
       },
       {
         "id": "task-2026-02-21-022",
@@ -296,7 +309,8 @@
           "Voice transkriberas automatiskt",
           "Sparas i VOICE_INBOX",
           "Veckotriage aktiv"
-        ]
+        ],
+        "agent": "Owen Flux"
       }
     ],
     "done": [
@@ -318,7 +332,8 @@
           "Next action utförd",
           "Resultat verifierat",
           "Kort uppdaterat i Kanban"
-        ]
+        ],
+        "agent": "Max Mercer"
       }
     ]
   },
