@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "updated_at": "2026-02-21T22:28:18.653887+01:00",
+  "updated_at": "2026-02-21T22:51:36.614998+01:00",
   "wip_limit_doing": 2,
   "columns": {
     "backlog": [
@@ -23,7 +23,10 @@
           "Verifiering körd",
           "Kanban uppdaterad"
         ],
-        "agent": "Owen Flux"
+        "agent": "Owen Flux",
+        "category": "ops",
+        "progress_pct": 10,
+        "eta": "2-5 dagar"
       },
       {
         "id": "task-2026-02-20-011",
@@ -45,7 +48,10 @@
           "Verifiering körd",
           "Kanban uppdaterad"
         ],
-        "agent": "Owen Flux"
+        "agent": "Owen Flux",
+        "category": "general",
+        "progress_pct": 10,
+        "eta": "2-5 dagar"
       },
       {
         "id": "task-2026-02-20-004",
@@ -67,7 +73,10 @@
           "Verifiering körd",
           "Kanban uppdaterad"
         ],
-        "agent": "Max Mercer"
+        "agent": "Max Mercer",
+        "category": "ops",
+        "progress_pct": 10,
+        "eta": "2-5 dagar"
       },
       {
         "id": "task-2026-02-21-013",
@@ -88,7 +97,10 @@
           "Verifiering körd",
           "Kanban uppdaterad"
         ],
-        "agent": "Max Mercer"
+        "agent": "Max Mercer",
+        "category": "strategy",
+        "progress_pct": 10,
+        "eta": "2-5 dagar"
       },
       {
         "id": "task-2026-02-21-017",
@@ -110,7 +122,10 @@
           "Brief aktiv",
           "Första förslag levererat"
         ],
-        "agent": "Maya Yield"
+        "agent": "Maya Yield",
+        "category": "ops",
+        "progress_pct": 10,
+        "eta": "2-5 dagar"
       },
       {
         "id": "task-2026-02-21-018",
@@ -132,7 +147,10 @@
           "Roadmap skapad",
           "Första appkoncept valt"
         ],
-        "agent": "Rex Droid"
+        "agent": "Rex Droid",
+        "category": "build",
+        "progress_pct": 10,
+        "eta": "2-5 dagar"
       },
       {
         "id": "task-2026-02-21-015",
@@ -155,7 +173,10 @@
           "Kanban uppdaterad"
         ],
         "blocked_reason": "Väntar på godkännande/test",
-        "agent": "Max Mercer"
+        "agent": "Max Mercer",
+        "category": "ops",
+        "progress_pct": 10,
+        "eta": "2-5 dagar"
       },
       {
         "id": "task-2026-02-21-020",
@@ -176,7 +197,10 @@
           "Varför noterat",
           "Morgonbrief uppdaterad"
         ],
-        "agent": "Zoe Pulse"
+        "agent": "Zoe Pulse",
+        "category": "research",
+        "progress_pct": 10,
+        "eta": "2-5 dagar"
       },
       {
         "id": "task-2026-02-21-021",
@@ -198,7 +222,10 @@
           "Feasibility checkad",
           "1 rekommendation given"
         ],
-        "agent": "Rex Droid"
+        "agent": "Rex Droid",
+        "category": "build",
+        "progress_pct": 10,
+        "eta": "2-5 dagar"
       },
       {
         "id": "task-2026-02-21-014",
@@ -219,7 +246,10 @@
           "Verifiering körd",
           "Kanban uppdaterad"
         ],
-        "agent": "Max Mercer"
+        "agent": "Max Mercer",
+        "category": "strategy",
+        "progress_pct": 10,
+        "eta": "2-5 dagar"
       },
       {
         "id": "task-2026-02-21-023",
@@ -241,7 +271,10 @@
           "Pipeline dokumenterad",
           "3 kandidater listade",
           "1 MVP startad"
-        ]
+        ],
+        "category": "general",
+        "progress_pct": 10,
+        "eta": "2-5 dagar"
       }
     ],
     "doing": [
@@ -265,7 +298,10 @@
           "Verifiering körd",
           "Kanban uppdaterad"
         ],
-        "agent": "Max Mercer"
+        "agent": "Max Mercer",
+        "category": "ops",
+        "progress_pct": 50,
+        "eta": "1-2 dagar"
       },
       {
         "id": "task-2026-02-21-016",
@@ -286,7 +322,10 @@
           "Output sparad",
           "Kanban syncad"
         ],
-        "agent": "Max Mercer"
+        "agent": "Max Mercer",
+        "category": "general",
+        "progress_pct": 50,
+        "eta": "1-2 dagar"
       }
     ],
     "review": [
@@ -310,7 +349,10 @@
           "Backup-script sparat",
           "Första körning verifierad"
         ],
-        "agent": "Owen Flux"
+        "agent": "Owen Flux",
+        "category": "ops",
+        "progress_pct": 85,
+        "eta": "<1 dag"
       },
       {
         "id": "task-2026-02-21-022",
@@ -332,7 +374,10 @@
           "Sparas i VOICE_INBOX",
           "Veckotriage aktiv"
         ],
-        "agent": "Owen Flux"
+        "agent": "Owen Flux",
+        "category": "ops",
+        "progress_pct": 85,
+        "eta": "<1 dag"
       }
     ],
     "done": [
@@ -355,7 +400,10 @@
           "Resultat verifierat",
           "Kort uppdaterat i Kanban"
         ],
-        "agent": "Max Mercer"
+        "agent": "Max Mercer",
+        "category": "general",
+        "progress_pct": 100,
+        "eta": "klar"
       }
     ]
   },

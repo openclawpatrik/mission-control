@@ -44,6 +44,11 @@
     .tag{font-size:11px;padding:2px 7px;border-radius:999px;border:1px solid #43689f;background:#17305a;color:#d7e6ff}
     .prio-H{border-color:#8e4359;background:#3a1721;color:#ffc3cf}.prio-M{border-color:#8d6f2e;background:#3a2d12;color:#ffe2a0}.prio-L{border-color:#2f8a6d;background:#143426;color:#b8f5da}
     .next{font-size:12px;color:#c5d6f5;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+    .cat-chip{border-color:#5b4aa0;background:#1d1a3a;color:#d9d0ff}
+    .progress{margin-top:8px}
+    .progress-row{display:flex;justify-content:space-between;align-items:center;font-size:10px;color:var(--muted);margin-bottom:4px}
+    .bar{height:6px;border-radius:999px;background:#10203a;border:1px solid #2b4774;overflow:hidden}
+    .bar > span{display:block;height:100%;background:linear-gradient(90deg,#4fc3ff,#33d08f)}
 
     .btn{font-size:11px;padding:5px 9px;border-radius:999px;border:1px solid #4a5f8f;background:#17233f;color:#dce8ff;cursor:pointer;flex:0 0 auto}
     .agent-filter{font-size:11px;padding:5px 8px;border-radius:999px;border:1px solid #4a5f8f;background:#17233f;color:#dce8ff;max-width:120px}
@@ -218,14 +223,21 @@ function renderBoard(data){
 }
 
 function renderCard(t,colKey){
-  const p=t.priority||'M'; const agentName=t.agent||'Max Mercer'; const a=findAgent(agentName);
-  const card=el('article','card',`<div class="agent-chip"><img src="${a.avatar}" alt="${a.name}"/><span class="tag">${a.name.split(' ')[0]}</span><span class="tag prio-${p}">Prio ${p}</span></div><div class="next" title="${t.next_action||''}">${t.next_action||'(saknar next action)'}</div>`);
-  card.onclick=()=>openCard(t,colKey); return card;
+  const p=t.priority||'M';
+  const agentName=t.agent||'Max Mercer';
+  const a=findAgent(agentName);
+  const cat=t.category || (t.tags&&t.tags[0]) || 'general';
+  const progress = Number.isFinite(Number(t.progress_pct)) ? Math.max(0, Math.min(100, Number(t.progress_pct))) : (colKey==='done'?100:(colKey==='review'?85:(colKey==='doing'?55:15)));
+  const eta = t.eta || (colKey==='doing'?'~1-2 dagar':'-');
+  const deadline = t.deadline || '-';
+  const card=el('article','card',`<div class="agent-chip"><img src="${a.avatar}" alt="${a.name}"/><span class="tag">${a.name.split(' ')[0]}</span><span class="tag prio-${p}">Prio ${p}</span><span class="tag cat-chip">${cat}</span></div><div class="next" title="${t.next_action||''}">${t.next_action||'(saknar next action)'}</div><div class="progress"><div class="progress-row"><span>${progress}%</span><span>ETA ${eta}</span><span>Due ${deadline}</span></div><div class="bar"><span style="width:${progress}%"></span></div></div>`);
+  card.onclick=()=>openCard(t,colKey);
+  return card;
 }
 
 function openCard(t,colKey){
   const dod=(t.definition_of_done&&t.definition_of_done.length)?t.definition_of_done:['(saknas)']; const blocked=(colKey==='blocked'&&t.blocked_reason)?`<p><b>Blocked reason:</b> ${t.blocked_reason}</p>`:'';
-  byId('cardDetail').innerHTML=`<h3 style="margin:0 0 8px">${t.title||'Untitled'}</h3><p><b>Owner:</b> ${t.owner||'Bob'}</p><p><b>Agent:</b> ${t.agent||'Max Mercer'}</p><p><b>Next action:</b> ${t.next_action||'(saknas)'}</p><p><b>Risk:</b> ${t.risk||'M'} ${t.approval_required?'<span class="tag" style="border-color:#8e4359;background:#3a1721;color:#ffc3cf">Approval required</span>':''}</p><p><b>Definition of Done:</b></p><ul>${dod.map(x=>`<li>${x}</li>`).join('')}</ul>${blocked}`;
+  byId('cardDetail').innerHTML=`<h3 style="margin:0 0 8px">${t.title||'Untitled'}</h3><p><b>Owner:</b> ${t.owner||'Bob'}</p><p><b>Agent:</b> ${t.agent||'Max Mercer'}</p><p><b>Next action:</b> ${t.next_action||'(saknas)'}</p><p><b>Kategori:</b> ${t.category||'general'}</p><p><b>Progress:</b> ${t.progress_pct ?? "-"}%</p><p><b>ETA:</b> ${t.eta||'-'}</p><p><b>Deadline:</b> ${t.deadline||'-'}</p><p><b>Risk:</b> ${t.risk||'M'} ${t.approval_required?'<span class="tag" style="border-color:#8e4359;background:#3a1721;color:#ffc3cf">Approval required</span>':''}</p><p><b>Definition of Done:</b></p><ul>${dod.map(x=>`<li>${x}</li>`).join('')}</ul>${blocked}`;
   byId('cardModal').style.display='flex';
 }
 
