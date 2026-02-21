@@ -32,10 +32,10 @@
 
     .agent{display:flex;gap:10px;align-items:center;background:linear-gradient(180deg,#132543,#0f1d35);border:1px solid #2f4b78;border-radius:12px;padding:8px;margin-bottom:8px}
     .avatar{width:42px;height:42px;border-radius:8px;object-fit:cover;border:1px solid #4168a8;image-rendering:pixelated;background:#dfe4ee;padding:2px}
-    .a-meta b{display:block;font-size:13px}.a-role{font-size:12px;color:var(--muted)}
+    .a-meta{min-width:0;flex:1}.a-meta b{display:block;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.a-role{font-size:12px;color:var(--muted);line-height:1.25}
     .badge{margin-left:auto;font-size:11px;padding:3px 8px;border-radius:999px;border:1px solid #315288;background:#11213d;color:#d2e2ff;display:flex;gap:5px;align-items:center}
-    .a-status{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
-    .a-model{font-size:10px;color:#9fb4dc;background:#0e1930;border:1px solid #2d456f;border-radius:999px;padding:2px 7px;max-width:190px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .a-status{display:flex;flex-direction:column;align-items:flex-end;gap:4px;min-width:126px}
+    .a-model{font-size:10px;color:#9fb4dc;background:#0e1930;border:1px solid #2d456f;border-radius:999px;padding:2px 7px;max-width:126px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
     .board-wrap{padding:8px;overflow:auto}
     .board{display:grid;gap:10px;width:100%;min-width:0}
@@ -103,6 +103,13 @@ const TEAM=[
   {name:'Ivy Shield',role:'QA & risk guardian',state:'Idle',model:'ollama/MFDoom/deepseek-r1-tool-calling:8b-16k',avatar:`./avatars/ivy-shield.png?${AVATAR_VER}`},
   {name:'Owen Flux',role:'Ops & automation',state:'Active',model:'ollama/qwen3:4b-16k',avatar:`./avatars/owen-flux.png?${AVATAR_VER}`}
 ];
+const MODEL_SHORT = {
+  'gpt-5.3-codex':'gpt-5.3-codex',
+  'ollama/qwen3:8b-16k':'qwen3 8b',
+  'ollama/qwen2.5-coder:7b-instruct-16k':'qwen2.5-coder 7b',
+  'ollama/MFDoom/deepseek-r1-tool-calling:8b-16k':'deepseek-r1 8b',
+  'ollama/qwen3:4b-16k':'qwen3 4b'
+};
 const STATE_META={Working:{icon:'🟢',cls:'state-working',text:'Working'},Active:{icon:'⚡',cls:'state-active',text:'Active'},Idle:{icon:'🌙',cls:'state-idle',text:'Idle'},Review:{icon:'🔎',cls:'state-review',text:'Review'}};
 const WIP={doing:2,review:2};
 const COLS=[['backlog','Backlog'],['doing','In Progress'],['review','Review'],['done','Done']];
@@ -123,7 +130,8 @@ function renderAgents(data){
   const doing=(data.columns.doing||[]).length;
   TEAM.forEach((a,i)=>{
     const state=(i===0&&doing>0)?'Working':a.state; const meta=STATE_META[state]||STATE_META.Active;
-    const card=el('div','agent',`<img class="avatar" src="${a.avatar}" alt="${a.name}"/><div class="a-meta"><b>${a.name}</b><div class="a-role">${a.role}</div></div><div class="a-status"><span class="badge ${meta.cls}"><span>${meta.icon}</span><span>${meta.text}</span></span><span class="a-model" title="${a.model||''}">${a.model||''}</span></div>`);
+    const mLabel = MODEL_SHORT[a.model] || a.model || '';
+    const card=el('div','agent',`<img class=\"avatar\" src=\"${a.avatar}\" alt=\"${a.name}\"/><div class=\"a-meta\"><b title=\"${a.name}\">${a.name}</b><div class=\"a-role\">${a.role}</div></div><div class=\"a-status\"><span class=\"badge ${meta.cls}\"><span>${meta.icon}</span><span>${meta.text}</span></span><span class=\"a-model\" title=\"${a.model||''}\">${mLabel}</span></div>`);
     wrap.appendChild(card);
   });
   byId('agentCount').textContent=TEAM.length;
