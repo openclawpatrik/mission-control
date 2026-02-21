@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "updated_at": "2026-02-21T20:56:57.620393+01:00",
+  "updated_at": "2026-02-21T21:03:21.714553+01:00",
   "wip_limit_doing": 2,
   "columns": {
     "backlog": [
@@ -127,6 +127,28 @@
           "Roadmap skapad",
           "Första appkoncept valt"
         ]
+      },
+      {
+        "id": "task-2026-02-21-015",
+        "title": "Bygg Mission Control vy",
+        "status": "Backlog",
+        "priority": "H",
+        "owner": "Bob",
+        "deadline": null,
+        "tags": [
+          "ai",
+          "home"
+        ],
+        "next_action": "Öppna mission_control.html och be Patrik godkänna layouten",
+        "created_at": "2026-02-21T13:05:00+01:00",
+        "updated_at": "2026-02-21T21:03:21.714553+01:00",
+        "risk": "M",
+        "definition_of_done": [
+          "Leverans framtagen",
+          "Verifiering körd",
+          "Kanban uppdaterad"
+        ],
+        "blocked_reason": "Väntar på godkännande/test"
       }
     ],
     "doing": [
@@ -174,28 +196,6 @@
     ],
     "review": [
       {
-        "id": "task-2026-02-21-015",
-        "title": "Bygg Mission Control vy",
-        "status": "Review",
-        "priority": "H",
-        "owner": "Bob",
-        "deadline": null,
-        "tags": [
-          "ai",
-          "home"
-        ],
-        "next_action": "Öppna mission_control.html och be Patrik godkänna layouten",
-        "created_at": "2026-02-21T13:05:00+01:00",
-        "updated_at": "2026-02-21T13:05:00+01:00",
-        "risk": "M",
-        "definition_of_done": [
-          "Leverans framtagen",
-          "Verifiering körd",
-          "Kanban uppdaterad"
-        ],
-        "blocked_reason": "Väntar på godkännande/test"
-      },
-      {
         "id": "task-2026-02-21-014",
         "title": "Designa dream team av agenter",
         "status": "Review",
@@ -213,6 +213,27 @@
           "Leverans framtagen",
           "Verifiering körd",
           "Kanban uppdaterad"
+        ]
+      },
+      {
+        "id": "task-2026-02-21-019",
+        "title": "Aktivera self-maintenance 04:00",
+        "status": "Review",
+        "priority": "H",
+        "owner": "Bob",
+        "deadline": null,
+        "tags": [
+          "ai",
+          "home"
+        ],
+        "next_action": "Verifiera första körning och backup-output",
+        "created_at": "2026-02-21T21:03:21.714553+01:00",
+        "updated_at": "2026-02-21T21:03:21.714553+01:00",
+        "risk": "M",
+        "definition_of_done": [
+          "Cron aktiv",
+          "Backup-script sparat",
+          "Första körning verifierad"
         ]
       }
     ],
