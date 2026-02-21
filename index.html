@@ -3,42 +3,44 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mission Control</title>
+  <title>FitzWorks Mission Control</title>
   <style>
     :root{--bg:#050912;--bg2:#0a1222;--panel:#0f1a31cc;--line:#28406a;--text:#eaf1ff;--muted:#9ab0d9;--radius:14px;--red:#ff5c7a;--yellow:#ffcd59;--blue:#61b2ff;--green:#44d695}
     *{box-sizing:border-box} html,body{height:100%}
     body{margin:0;color:var(--text);font:14px/1.45 Inter,system-ui,Segoe UI,Roboto,Arial;background:radial-gradient(1200px 500px at 10% 100%, rgba(255,90,120,.12), transparent 60%),radial-gradient(900px 500px at 80% 20%, rgba(87,159,255,.14), transparent 60%),linear-gradient(180deg,var(--bg),var(--bg2));overflow:hidden}
 
-    .topbar{height:56px;display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--line);background:#070e1dcc}
+    .topbar{height:58px;display:grid;grid-template-columns:1fr 1fr 1fr;align-items:center;padding:10px 14px;border-bottom:1px solid var(--line);background:#070e1dcc}
     .brand{display:flex;gap:10px;align-items:center}.logo{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(145deg,#243f72,#132747)}
     .subtitle{font-size:12px;color:var(--muted)}
+    .fitz{justify-self:center;font-weight:900;letter-spacing:.12em;font-size:18px;text-transform:uppercase}
+    .fitz span{color:#7ad0ff}
+    .topstats{justify-self:end;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
     .pill{font-size:12px;padding:5px 10px;border-radius:999px;border:1px solid #345286;background:#0e1c35;color:#d6e5ff}
 
-    .shell{display:grid;grid-template-columns:200px 1fr;height:calc(100vh - 56px)}
+    .shell{display:grid;grid-template-columns:220px 1fr;height:calc(100vh - 58px)}
     .sidebar{border-right:1px solid var(--line);padding:10px;background:#081226}
-    .tab{display:block;width:100%;text-align:left;margin:4px 0;padding:8px 10px;border-radius:10px;border:1px solid transparent;background:transparent;color:#d7e7ff;cursor:pointer}
+    .tab{display:block;width:100%;text-align:left;margin:4px 0;padding:9px 10px;border-radius:10px;border:1px solid transparent;background:transparent;color:#d7e7ff;cursor:pointer}
     .tab:hover{background:#12213c}.tab.active{background:#162949;border-color:#345286}
 
     .main{padding:10px;overflow:auto}
     .panel{border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);box-shadow:0 8px 24px rgba(0,0,0,.25)}
     .section-h{display:flex;justify-content:space-between;align-items:center;padding:10px;color:#bdd0f3;font-size:12px;text-transform:uppercase;letter-spacing:.12em}
 
-    .tasks-layout{display:grid;grid-template-columns:1fr 300px;gap:10px}
+    .tasks-layout{display:grid;grid-template-columns:1fr 320px;gap:10px}
     .board-wrap{padding:8px;overflow:auto}
     .board{display:grid;gap:10px;width:100%}
     .col{border:1px solid #2b4068;border-radius:12px;padding:8px;min-height:460px;background:linear-gradient(180deg,rgba(12,21,38,.88),rgba(10,18,34,.88))}
     .colhead{display:flex;justify-content:space-between;align-items:center;padding:7px 9px;border-radius:10px;border:1px solid #355489;background:#132748;margin-bottom:8px}
-    .coltitle{font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:700}
-    .count{font-size:11px;padding:2px 8px;border-radius:999px;border:1px solid #45689d;background:#18325a;color:#ddecff}
+    .coltitle{font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:700}.count{font-size:11px;padding:2px 8px;border-radius:999px;border:1px solid #45689d;background:#18325a;color:#ddecff}
     .soft-limit{box-shadow:0 0 0 1px rgba(255,205,89,.5) inset}
-
     .col-backlog .colhead{border-color:#7b3a4b;background:linear-gradient(180deg,#331821,#261118)}
     .col-doing .colhead{border-color:#816529;background:linear-gradient(180deg,#342a14,#261d0e)}
     .col-review .colhead{border-color:#3f6ba7;background:linear-gradient(180deg,#142943,#11243a)}
     .col-done .colhead{border-color:#2c7a60;background:linear-gradient(180deg,#132b22,#10231c)}
 
     .card{background:linear-gradient(180deg,#142646,#101d36);border:1px solid #35568d;border-radius:12px;padding:10px;margin-bottom:8px;cursor:pointer}
-    .meta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}
+    .agent-chip{display:flex;align-items:center;gap:6px;margin-bottom:6px}
+    .agent-chip img{width:22px;height:22px;border-radius:6px;image-rendering:pixelated;border:1px solid #3b5e96;background:#dfe4ee;padding:1px}
     .tag{font-size:11px;padding:2px 7px;border-radius:999px;border:1px solid #43689f;background:#17305a;color:#d7e6ff}
     .prio-H{border-color:#8e4359;background:#3a1721;color:#ffc3cf}.prio-M{border-color:#8d6f2e;background:#3a2d12;color:#ffe2a0}.prio-L{border-color:#2f8a6d;background:#143426;color:#b8f5da}
     .next{font-size:12px;color:#c5d6f5;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
@@ -52,16 +54,25 @@
     .stat-good{border-color:#2e8d66;background:linear-gradient(180deg,#123324,#0f271d)} .stat-good .v{color:#bff6dc}
     .stat-warn{border-color:#9a7a2f;background:linear-gradient(180deg,#352a12,#2a200e)} .stat-warn .v{color:#ffe4a1}
     .stat-bad{border-color:#9b4159;background:linear-gradient(180deg,#361722,#2a1118)} .stat-bad .v{color:#ffc2cf}
-
     .ops-box{background:linear-gradient(180deg,#132543,#0f1d35);border:1px solid #2f4b78;border-radius:12px;padding:8px;margin-bottom:8px}
     .ops-row{display:flex;justify-content:space-between;align-items:center;font-size:12px;margin:6px 0}
     .dot{width:8px;height:8px;border-radius:999px;display:inline-block;margin-right:6px}.g{background:#33d08f}.y{background:#f0c24e}.r{background:#ff637f}
 
-    .team-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px}
+    .team-layout{padding:10px;display:grid;gap:10px}
+    .mission-box{padding:10px;border:1px solid #35568d;border-radius:12px;background:linear-gradient(180deg,#142646,#101d36)}
+    .tree{padding:10px;border:1px solid #35568d;border-radius:12px;background:linear-gradient(180deg,#142646,#101d36)}
+    .tree ul{list-style:none;margin:0;padding-left:18px}.tree li{margin:6px 0;position:relative}.tree li:before{content:'';position:absolute;left:-10px;top:10px;width:8px;height:1px;background:#3e5f96}
+    .team-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
     .team-card{background:linear-gradient(180deg,#142646,#101d36);border:1px solid #35568d;border-radius:12px;padding:10px}
-    .avatar{width:42px;height:42px;border-radius:8px;object-fit:cover;border:1px solid #4168a8;image-rendering:pixelated;background:#dfe4ee;padding:2px}
     .row{display:flex;gap:10px;align-items:center}
+    .avatar{width:42px;height:42px;border-radius:8px;object-fit:cover;border:1px solid #4168a8;image-rendering:pixelated;background:#dfe4ee;padding:2px}
     .muted{color:var(--muted)}
+
+    .docs-layout,.memory-layout{padding:10px;display:grid;grid-template-columns:260px 1fr;gap:10px}
+    .list{border:1px solid #35568d;border-radius:12px;background:linear-gradient(180deg,#142646,#101d36);padding:8px;max-height:70vh;overflow:auto}
+    .list button{width:100%;text-align:left;background:#12213c;border:1px solid #2e4b79;color:#d8e7ff;border-radius:8px;padding:7px 8px;margin:4px 0;cursor:pointer}
+    .viewer{border:1px solid #35568d;border-radius:12px;background:linear-gradient(180deg,#142646,#101d36);padding:10px;max-height:70vh;overflow:auto;white-space:pre-wrap;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px}
+    .search{width:100%;padding:8px;border-radius:8px;border:1px solid #345286;background:#0f1f3b;color:#dce8ff;margin-bottom:8px}
 
     .hidden{display:none !important}
     .modal{display:none;position:fixed;inset:0;background:rgba(3,8,18,.75);z-index:80;align-items:center;justify-content:center;padding:18px}
@@ -71,7 +82,8 @@
 <body>
   <header class="topbar">
     <div class="brand"><div class="logo">🛰️</div><div><div style="font-weight:800;letter-spacing:.08em">MISSION CONTROL</div><div class="subtitle" id="updated">Laddar...</div></div></div>
-    <div style="display:flex;gap:8px;align-items:center" id="topstats"></div>
+    <div class="fitz"><span>FITZ</span>WORKS</div>
+    <div class="topstats" id="topstats"></div>
   </header>
 
   <div class="shell">
@@ -98,25 +110,52 @@
         </div>
       </section>
 
-      <section id="view-team" class="hidden panel">
-        <div class="section-h"><span>Team</span><span>AI Workforce</span></div>
-        <div style="padding:0 10px 10px" class="muted">Vi bygger en local-first AI workforce som omvandlar idéer till resultat, skapar långsiktig passiv inkomst och minskar mental belastning.</div>
+      <section id="view-team" class="hidden panel team-layout">
+        <div class="mission-box"><b>Mission Statement</b><div class="muted" style="margin-top:6px">Vi bygger en local-first AI workforce som omvandlar idéer till konkreta resultat, skapar långsiktig passiv inkomst och minskar Patriks mentala belastning genom struktur, automation och daglig progression.</div></div>
+        <div class="tree"><b>FitzWorks Workforce Tree</b>
+          <ul>
+            <li><b>Bob</b> (Chief Orchestrator)
+              <ul>
+                <li>Core Team
+                  <ul>
+                    <li>Max Mercer — operations lead</li>
+                    <li>Nina Sparks — research lead</li>
+                    <li>Leo Byte — build lead</li>
+                    <li>Ivy Shield — QA/risk lead</li>
+                    <li>Owen Flux — ops automation lead</li>
+                  </ul>
+                </li>
+                <li>Specialist Units
+                  <ul>
+                    <li>Maya Yield — passive income unit</li>
+                    <li>Rex Droid — Android venture unit</li>
+                    <li>Zoe Pulse — use-case discovery unit</li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
         <div class="team-grid" id="teamGrid"></div>
       </section>
 
       <section id="view-ops" class="hidden panel" style="padding:10px">
-        <h3 style="margin:0 0 8px">Ops Overview</h3>
-        <div class="muted">Driftstatus, cron-rutiner och maintenance-flöde syns i Tasks-vyn till höger.</div>
+        <div class="section-h"><span>Ops Overview</span><span>FitzWorks</span></div>
+        <div class="stats-grid" id="opsStats"></div>
+        <div class="ops-box" id="opsDetails"></div>
       </section>
 
-      <section id="view-memory" class="hidden panel" style="padding:10px">
-        <h3 style="margin:0 0 8px">Memory</h3>
-        <div class="muted">HOT/WARM/COLD semantic memory-policy aktiv. Weekly summaries och decisions loggas i filer.</div>
+      <section id="view-memory" class="hidden panel memory-layout">
+        <div class="list">
+          <input class="search" id="memorySearch" placeholder="Sök i minnesbanken..." />
+          <div id="memoryList"></div>
+        </div>
+        <div class="viewer" id="memoryViewer">Välj en post i vänsterlistan.</div>
       </section>
 
-      <section id="view-docs" class="hidden panel" style="padding:10px">
-        <h3 style="margin:0 0 8px">Docs</h3>
-        <div class="muted">Policyer: MISSION.md, SOUL.md, CUSTOM_TOOLS.md, SEMANTIC_MEMORY.md.</div>
+      <section id="view-docs" class="hidden panel docs-layout">
+        <div class="list" id="docsList"></div>
+        <div class="viewer" id="docsViewer">Välj ett dokument.</div>
       </section>
     </main>
   </div>
@@ -127,132 +166,96 @@
 <script>
 const AVATAR_VER='v5';
 const TEAM=[
-  {name:'Max Mercer',role:'Orchestrator & priorities',state:'Active',model:'gpt-5.3-codex',avatar:`./avatars/max-mercer.png?${AVATAR_VER}`},
-  {name:'Nina Sparks',role:'Research & trend radar',state:'Active',model:'ollama/qwen3:8b-16k',avatar:`./avatars/nina-sparks.png?${AVATAR_VER}`},
-  {name:'Leo Byte',role:'Builder & app maker',state:'Idle',model:'ollama/qwen2.5-coder:7b-instruct-16k',avatar:`./avatars/leo-byte.png?${AVATAR_VER}`},
-  {name:'Ivy Shield',role:'QA & risk guardian',state:'Idle',model:'ollama/MFDoom/deepseek-r1-tool-calling:8b-16k',avatar:`./avatars/ivy-shield.png?${AVATAR_VER}`},
-  {name:'Owen Flux',role:'Ops & automation',state:'Active',model:'ollama/qwen3:4b-16k',avatar:`./avatars/owen-flux.png?${AVATAR_VER}`},
-  {name:'Maya Yield',role:'Passive Income Agent',state:'Active',model:'ollama/MFDoom/deepseek-r1-tool-calling:8b-16k',avatar:`./avatars/nina-sparks.png?${AVATAR_VER}`},
-  {name:'Rex Droid',role:'Android Venture Agent',state:'Active',model:'ollama/qwen2.5-coder:7b-instruct-16k',avatar:`./avatars/leo-byte.png?${AVATAR_VER}`},
-  {name:'Zoe Pulse',role:'Use-case Research Agent',state:'Active',model:'ollama/qwen3:8b-16k',avatar:`./avatars/ivy-shield.png?${AVATAR_VER}`}
+  {name:'Max Mercer',role:'Orchestrator & priorities',personality:'Lugn, strukturerad, beslutsam',focus:'WIP, prioritering, taskflow',state:'Active',model:'gpt-5.3-codex',avatar:`./avatars/max-mercer.png?${AVATAR_VER}`},
+  {name:'Nina Sparks',role:'Research & trend radar',personality:'Nyfiken, snabb, selektiv',focus:'signalsökning, trendtolkning',state:'Active',model:'ollama/qwen3:8b-16k',avatar:`./avatars/nina-sparks.png?${AVATAR_VER}`},
+  {name:'Leo Byte',role:'Builder & app maker',personality:'Pragmatisk, leveransfokuserad',focus:'prototyper, implementation',state:'Idle',model:'ollama/qwen2.5-coder:7b-instruct-16k',avatar:`./avatars/leo-byte.png?${AVATAR_VER}`},
+  {name:'Ivy Shield',role:'QA & risk guardian',personality:'Noggrann, skeptisk, trygg',focus:'risk, verifiering, kvalitet',state:'Idle',model:'ollama/MFDoom/deepseek-r1-tool-calling:8b-16k',avatar:`./avatars/ivy-shield.png?${AVATAR_VER}`},
+  {name:'Owen Flux',role:'Ops & automation',personality:'Systematisk, stabil',focus:'cron, drift, underhåll',state:'Active',model:'ollama/qwen3:4b-16k',avatar:`./avatars/owen-flux.png?${AVATAR_VER}`},
+  {name:'Maya Yield',role:'Passive Income Agent',personality:'Affärsskarp, tålmodig',focus:'fiat/krypto opportunities',state:'Active',model:'ollama/MFDoom/deepseek-r1-tool-calling:8b-16k',avatar:`./avatars/nina-sparks.png?${AVATAR_VER}`},
+  {name:'Rex Droid',role:'Android Venture Agent',personality:'Byggare, experimentell',focus:'idé→MVP→Play Store',state:'Active',model:'ollama/qwen2.5-coder:7b-instruct-16k',avatar:`./avatars/leo-byte.png?${AVATAR_VER}`},
+  {name:'Zoe Pulse',role:'Use-case Research Agent',personality:'Signaljägare, snabbsynt',focus:'OpenClaw use-cases',state:'Active',model:'ollama/qwen3:8b-16k',avatar:`./avatars/ivy-shield.png?${AVATAR_VER}`}
 ];
-const MODEL_SHORT={
-  'gpt-5.3-codex':'gpt-5.3-codex','ollama/qwen3:8b-16k':'qwen3 8b','ollama/qwen2.5-coder:7b-instruct-16k':'qwen2.5-coder 7b','ollama/MFDoom/deepseek-r1-tool-calling:8b-16k':'deepseek-r1 8b','ollama/qwen3:4b-16k':'qwen3 4b'
-};
+const MODEL_SHORT={'gpt-5.3-codex':'gpt-5.3-codex','ollama/qwen3:8b-16k':'qwen3 8b','ollama/qwen2.5-coder:7b-instruct-16k':'qwen2.5-coder 7b','ollama/MFDoom/deepseek-r1-tool-calling:8b-16k':'deepseek-r1 8b','ollama/qwen3:4b-16k':'qwen3 4b'};
 const WIP={doing:2,review:2};
 const COLS=[['backlog','Backlog'],['doing','In Progress'],['review','Review'],['done','Done']];
 const DEVICE_PROFILE={name:'Mac mini M4 (16GB/256GB)',limits:{cpu:{warn:65,bad:85},ram:{warn:75,bad:90},disk:{warn:80,bad:92},temp:{warn:78,bad:90},net:{warn:2000,bad:8000}}};
-let FOCUS=false,AGENT_FILTER='ALL',TOOL_STATUS={telegram:'OK',exec:'OK'},LAST_ARCHIVE={archived:[]};
+const DOC_FILES=['MISSION.md','SOUL.md','CUSTOM_TOOLS.md','SEMANTIC_MEMORY.md','NOTES.md','DECISIONS.md','USER_PROFILE.md'];
+const MEMORY_FILES=['MEMORY.md','VOICE_INBOX.md','VOICE_TRIAGE.md','KANBAN_ARCHIVE.json','memory/2026-02-20.md'];
+let FOCUS=false,AGENT_FILTER='ALL',TOOL_STATUS={telegram:'OK',exec:'OK'},LAST_ARCHIVE={archived:[]},LAST_BOARD=null,LAST_STATS=null;
 const byId=id=>document.getElementById(id); const el=(t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!==undefined)e.innerHTML=h;return e};
 
-function switchTab(name){
-  ['tasks','team','ops','memory','docs'].forEach(x=>byId('view-'+x).classList.toggle('hidden',x!==name));
-  document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active', b.dataset.tab===name));
-}
+function switchTab(name){['tasks','team','ops','memory','docs'].forEach(x=>byId('view-'+x).classList.toggle('hidden',x!==name));document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===name));}
 
 function renderTopStats(data, archivedCount=0){
   const vals={backlog:(data.columns.backlog||[]).length,doing:(data.columns.doing||[]).length,review:(data.columns.review||[]).length,done:(data.columns.done||[]).length};
   const top=byId('topstats'); top.innerHTML='';
   [`Backlog ${vals.backlog}`,`In Progress ${vals.doing}/${WIP.doing}`,`Review ${vals.review}/${WIP.review}`,`Done ${vals.done}`,`Archived ${archivedCount}`,`Agents ${TEAM.length}`].forEach(x=>top.appendChild(el('span','pill',x)));
-  const filter=document.createElement('select'); filter.className='agent-filter';
-  const opts=['ALL',...TEAM.map(a=>a.name)]; filter.innerHTML=opts.map(n=>`<option value="${n}" ${AGENT_FILTER===n?'selected':''}>${n==='ALL'?'All agents':n}</option>`).join('');
-  filter.onchange=e=>{AGENT_FILTER=e.target.value; renderBoard(data);}; top.appendChild(filter);
-  const focus=el('button','btn',FOCUS?'Exit Focus':'Focus Mode'); focus.onclick=()=>{FOCUS=!FOCUS; renderBoard(data); renderTopStats(data,archivedCount);}; top.appendChild(focus);
+  const filter=document.createElement('select'); filter.className='agent-filter'; const opts=['ALL',...TEAM.map(a=>a.name)];
+  filter.innerHTML=opts.map(n=>`<option value="${n}" ${AGENT_FILTER===n?'selected':''}>${n==='ALL'?'All agents':n}</option>`).join('');
+  filter.onchange=e=>{AGENT_FILTER=e.target.value; if(LAST_BOARD) renderBoard(LAST_BOARD);}; top.appendChild(filter);
+  const focus=el('button','btn',FOCUS?'Exit Focus':'Focus Mode'); focus.onclick=()=>{FOCUS=!FOCUS; if(LAST_BOARD){renderBoard(LAST_BOARD); renderTopStats(LAST_BOARD,(LAST_ARCHIVE.archived||[]).length);} }; top.appendChild(focus);
   const arch=el('button','btn','📦 Archive'); arch.onclick=()=>byId('archiveModal').style.display='flex'; top.appendChild(arch);
 }
 
+function findAgent(name){return TEAM.find(a=>a.name===name)||TEAM[0];}
 function renderBoard(data){
-  const board=byId('board'); board.innerHTML='';
-  const cols=FOCUS?COLS.filter(([k])=>['doing','review'].includes(k)):COLS;
+  const board=byId('board'); board.innerHTML=''; const cols=FOCUS?COLS.filter(([k])=>['doing','review'].includes(k)):COLS;
   board.style.gridTemplateColumns=`repeat(${cols.length}, minmax(220px, 1fr))`;
   cols.forEach(([k,label])=>{
-    const base=data.columns[k]||[];
-    const items=AGENT_FILTER==='ALL'?base:base.filter(t=>(t.agent||'Max Mercer')===AGENT_FILTER);
-    const col=el('section','col col-'+k);
-    let count=String(items.length); if(k==='doing')count=`${items.length}/${WIP.doing}`; if(k==='review')count=`${items.length}/${WIP.review}`;
+    const base=data.columns[k]||[]; const items=AGENT_FILTER==='ALL'?base:base.filter(t=>(t.agent||'Max Mercer')===AGENT_FILTER);
+    const col=el('section','col col-'+k); let count=String(items.length); if(k==='doing')count=`${items.length}/${WIP.doing}`; if(k==='review')count=`${items.length}/${WIP.review}`;
     col.innerHTML=`<div class="colhead ${((k==='doing'&&items.length>=WIP.doing)||(k==='review'&&items.length>=WIP.review))?'soft-limit':''}"><div class="coltitle">${label}</div><div class="count">${count}</div></div>`;
-    if(!items.length) col.appendChild(el('div','muted','Inga kort.'));
-    items.forEach(t=>col.appendChild(renderCard(t,k)));
-    board.appendChild(col);
+    if(!items.length) col.appendChild(el('div','muted','Inga kort.')); items.forEach(t=>col.appendChild(renderCard(t,k))); board.appendChild(col);
   });
 }
 
 function renderCard(t,colKey){
-  const p=t.priority||'M'; const agent=t.agent||'Max Mercer';
-  const card=el('article','card',`<div class="meta"><span class="tag prio-${p}">Prio ${p}</span><span class="tag">${t.owner||'Bob'}</span><span class="tag" style="border-color:#2f5f9a;background:#11294b;color:#cde2ff">${agent}</span></div><div class="next" title="${t.next_action||''}">${t.next_action||'(saknar next action)'}</div>`);
+  const p=t.priority||'M'; const agentName=t.agent||'Max Mercer'; const a=findAgent(agentName);
+  const card=el('article','card',`<div class="agent-chip"><img src="${a.avatar}" alt="${a.name}"/><span class="tag">${a.name.split(' ')[0]}</span><span class="tag prio-${p}">Prio ${p}</span></div><div class="next" title="${t.next_action||''}">${t.next_action||'(saknar next action)'}</div>`);
   card.onclick=()=>openCard(t,colKey); return card;
 }
 
 function openCard(t,colKey){
-  const dod=(t.definition_of_done&&t.definition_of_done.length)?t.definition_of_done:['(saknas)'];
-  const blocked=(colKey==='blocked'&&t.blocked_reason)?`<p><b>Blocked reason:</b> ${t.blocked_reason}</p>`:'';
+  const dod=(t.definition_of_done&&t.definition_of_done.length)?t.definition_of_done:['(saknas)']; const blocked=(colKey==='blocked'&&t.blocked_reason)?`<p><b>Blocked reason:</b> ${t.blocked_reason}</p>`:'';
   byId('cardDetail').innerHTML=`<h3 style="margin:0 0 8px">${t.title||'Untitled'}</h3><p><b>Owner:</b> ${t.owner||'Bob'}</p><p><b>Agent:</b> ${t.agent||'Max Mercer'}</p><p><b>Next action:</b> ${t.next_action||'(saknas)'}</p><p><b>Risk:</b> ${t.risk||'M'} ${t.approval_required?'<span class="tag" style="border-color:#8e4359;background:#3a1721;color:#ffc3cf">Approval required</span>':''}</p><p><b>Definition of Done:</b></p><ul>${dod.map(x=>`<li>${x}</li>`).join('')}</ul>${blocked}`;
   byId('cardModal').style.display='flex';
 }
 
 function levelBy(v,lim){if(v===null||v===undefined||Number.isNaN(Number(v))) return ''; v=Number(v); if(v<lim.warn) return 'stat-good'; if(v<lim.bad) return 'stat-warn'; return 'stat-bad';}
-function levelPercent(v,kind){const lim=(DEVICE_PROFILE.limits&&DEVICE_PROFILE.limits[kind])?DEVICE_PROFILE.limits[kind]:{warn:70,bad:85}; return levelBy(v,lim);}
-function levelTemp(t,thermal){if(t!==null&&!Number.isNaN(Number(t))) return levelBy(Number(t),DEVICE_PROFILE.limits.temp); const x=(thermal||'').toLowerCase(); if(x.includes('normal')) return 'stat-good'; if(x.includes('constrained')||x.includes('warning')) return 'stat-warn'; if(x.includes('critical')||x.includes('throttle')) return 'stat-bad'; return '';}
-function levelNet(v){return levelBy(v,DEVICE_PROFILE.limits.net);}
+function levelPercent(v,kind){const lim=(DEVICE_PROFILE.limits&&DEVICE_PROFILE.limits[kind])?DEVICE_PROFILE.limits[kind]:{warn:70,bad:85}; return levelBy(v,lim);} function levelTemp(t,thermal){if(t!==null&&!Number.isNaN(Number(t))) return levelBy(Number(t),DEVICE_PROFILE.limits.temp); const x=(thermal||'').toLowerCase(); if(x.includes('normal')) return 'stat-good'; if(x.includes('constrained')||x.includes('warning')) return 'stat-warn'; if(x.includes('critical')||x.includes('throttle')) return 'stat-bad'; return '';} function levelNet(v){return levelBy(v,DEVICE_PROFILE.limits.net);}
 
 function renderStats(stats){
   const wrap=byId('stats'); if(!stats){wrap.innerHTML='<div class="muted">Ingen systemdata ännu.</div>'; return;}
   const cpu=stats.cpu?.used_percent??null, ram=stats.ram?.used_percent??null, disk=stats.disk?.used_percent??null, temp=stats.temperature?.cpu_c??null, thermal=stats.temperature?.thermal_status||'Unknown', rx=stats.network?.rx_kbps??null, tx=stats.network?.tx_kbps??null;
   const tempText=(temp===null)?'N/A':`${temp}°C`; const tempSub=(temp===null)?`Thermal: ${thermal}`:'CPU temp';
-  wrap.innerHTML='';
-  wrap.appendChild(el('div',`stat ${levelPercent(cpu,'cpu')}`,`<div class='k'>CPU</div><div class='v'>${cpu??'-'}%</div>`));
-  wrap.appendChild(el('div',`stat ${levelPercent(ram,'ram')}`,`<div class='k'>RAM</div><div class='v'>${ram??'-'}%</div>`));
-  wrap.appendChild(el('div',`stat ${levelPercent(disk,'disk')}`,`<div class='k'>Disk</div><div class='v'>${disk??'-'}%</div>`));
-  wrap.appendChild(el('div',`stat ${levelTemp(temp,thermal)}`,`<div class='k'>Temp</div><div class='v'>${tempText}</div><div class='muted'>${tempSub}</div>`));
-  wrap.appendChild(el('div',`stat ${levelNet(rx)}`,`<div class='k'>Net RX</div><div class='v'>${rx??'-'} KB/s</div>`));
-  wrap.appendChild(el('div',`stat ${levelNet(tx)}`,`<div class='k'>Net TX</div><div class='v'>${tx??'-'} KB/s</div>`));
-  byId('statsUpdated').textContent=stats.updated_at?new Date(stats.updated_at).toLocaleTimeString('sv-SE'):'';
+  wrap.innerHTML=''; wrap.appendChild(el('div',`stat ${levelPercent(cpu,'cpu')}`,`<div class='k'>CPU</div><div class='v'>${cpu??'-'}%</div>`)); wrap.appendChild(el('div',`stat ${levelPercent(ram,'ram')}`,`<div class='k'>RAM</div><div class='v'>${ram??'-'}%</div>`)); wrap.appendChild(el('div',`stat ${levelPercent(disk,'disk')}`,`<div class='k'>Disk</div><div class='v'>${disk??'-'}%</div>`)); wrap.appendChild(el('div',`stat ${levelTemp(temp,thermal)}`,`<div class='k'>Temp</div><div class='v'>${tempText}</div><div class='muted'>${tempSub}</div>`)); wrap.appendChild(el('div',`stat ${levelNet(rx)}`,`<div class='k'>Net RX</div><div class='v'>${rx??'-'} KB/s</div>`)); wrap.appendChild(el('div',`stat ${levelNet(tx)}`,`<div class='k'>Net TX</div><div class='v'>${tx??'-'} KB/s</div>`)); byId('statsUpdated').textContent=stats.updated_at?new Date(stats.updated_at).toLocaleTimeString('sv-SE'):'';
 }
+function renderOps(){const ops=byId('ops'); const tool=(TOOL_STATUS.telegram==='OK'&&TOOL_STATUS.exec==='OK')?'OK':((TOOL_STATUS.telegram==='DOWN'||TOOL_STATUS.exec==='DOWN')?'DOWN':'DEGRADED'); const dot=tool==='OK'?'g':(tool==='DEGRADED'?'y':'r'); ops.innerHTML=`<div class='ops-row'><span><span class='dot ${dot}'></span><b>Tool status</b></span><span>${tool}</span></div><div class='ops-row'><span class='muted'>Telegram</span><span>${TOOL_STATUS.telegram}</span></div><div class='ops-row'><span class='muted'>exec</span><span>${TOOL_STATUS.exec}</span></div><div class='ops-row'><span class='muted'>Profile</span><span>${DEVICE_PROFILE.name}</span></div>`;}
+function renderWorkforceActivity(data){const box=byId('workforceActivity'); const tasks=[]; ['doing','review','backlog'].forEach(c=>(data.columns[c]||[]).forEach(t=>tasks.push({...t,_col:c}))); tasks.sort((a,b)=>String(b.updated_at||'').localeCompare(String(a.updated_at||''))); const top=tasks.slice(0,6); if(!top.length){box.innerHTML='<div class="muted">Ingen aktivitet ännu.</div>'; return;} box.innerHTML=top.map(t=>`<div class='ops-row'><span class='muted'>${(t.agent||'').split(' ')[0]}</span><span title='${t.title||''}'>${(t.title||'').slice(0,24)}</span></div>`).join('');}
 
-function renderOps(){
-  const ops=byId('ops'); const tool=(TOOL_STATUS.telegram==='OK'&&TOOL_STATUS.exec==='OK')?'OK':((TOOL_STATUS.telegram==='DOWN'||TOOL_STATUS.exec==='DOWN')?'DOWN':'DEGRADED'); const dot=tool==='OK'?'g':(tool==='DEGRADED'?'y':'r');
-  ops.innerHTML=`<div class='ops-row'><span><span class='dot ${dot}'></span><b>Tool status</b></span><span>${tool}</span></div><div class='ops-row'><span class='muted'>Telegram</span><span>${TOOL_STATUS.telegram}</span></div><div class='ops-row'><span class='muted'>exec</span><span>${TOOL_STATUS.exec}</span></div><div class='ops-row'><span class='muted'>Profile</span><span>${DEVICE_PROFILE.name}</span></div>`;
-}
+function renderArchive(archive){const list=byId('archiveList'); const items=(archive&&archive.archived)?archive.archived:[]; if(!items.length){list.innerHTML='<div class="muted">Inga arkiverade tasks.</div>'; return;} list.innerHTML=items.slice().reverse().map(t=>`<div class='card'><div class='next'><b>${t.title||'Untitled'}</b></div><div class='next'>${t.next_action||''}</div></div>`).join('');}
+function renderTeam(){const g=byId('teamGrid'); g.innerHTML=''; TEAM.forEach(a=>g.appendChild(el('div','team-card',`<div class='row'><img class='avatar' src='${a.avatar}' alt='${a.name}'/><div><b>${a.name}</b><div class='muted'>${a.role}</div><div class='muted'>Model: ${MODEL_SHORT[a.model]||a.model}</div></div></div><div class='muted' style='margin-top:8px'>Personlighet: ${a.personality}</div><div class='muted'>Huvudområde: ${a.focus}</div>`)));}
 
-function renderWorkforceActivity(data){
-  const box=byId('workforceActivity'); const tasks=[]; ['doing','review','backlog'].forEach(c=>(data.columns[c]||[]).forEach(t=>tasks.push({...t,_col:c})));
-  tasks.sort((a,b)=>String(b.updated_at||'').localeCompare(String(a.updated_at||''))); const top=tasks.slice(0,4);
-  if(!top.length){box.innerHTML='<div class="muted">Ingen aktivitet ännu.</div>'; return;}
-  box.innerHTML=top.map(t=>`<div class='ops-row'><span class='muted'>${(t.agent||'').split(' ')[0]}</span><span title='${t.title||''}'>${(t.title||'').slice(0,24)}</span></div>`).join('');
-}
-
-function renderArchive(archive){
-  const list=byId('archiveList'); const items=(archive&&archive.archived)?archive.archived:[];
-  if(!items.length){list.innerHTML='<div class="muted">Inga arkiverade tasks.</div>'; return;}
-  list.innerHTML=items.slice().reverse().map(t=>`<div class='card'><div class='meta'><span class='tag'>${t.title||'Untitled'}</span></div><div class='next'>${t.next_action||''}</div></div>`).join('');
-}
-
-function renderTeam(){
-  const g=byId('teamGrid'); g.innerHTML='';
-  TEAM.forEach(a=>g.appendChild(el('div','team-card',`<div class='row'><img class='avatar' src='${a.avatar}' alt='${a.name}'/><div><b>${a.name}</b><div class='muted'>${a.role}</div><div class='muted'>${MODEL_SHORT[a.model]||a.model}</div></div></div>`)));
-}
+async function renderDocs(){const list=byId('docsList'); const viewer=byId('docsViewer'); list.innerHTML=''; DOC_FILES.forEach(f=>{const b=document.createElement('button'); b.textContent=f; b.onclick=async()=>{try{const r=await fetch('./'+f+'?ts='+Date.now()); viewer.textContent=await r.text();}catch{viewer.textContent='Kunde inte läsa fil.';}}; list.appendChild(b);});}
+async function renderMemory(){const list=byId('memoryList'); const viewer=byId('memoryViewer'); const search=byId('memorySearch'); const entries=[]; for(const f of MEMORY_FILES){try{const r=await fetch('./'+f+'?ts='+Date.now()); const txt=await r.text(); entries.push({file:f,text:txt});}catch{}}
+  function draw(filter=''){list.innerHTML=''; entries.filter(e=>!filter||e.text.toLowerCase().includes(filter.toLowerCase())||e.file.toLowerCase().includes(filter.toLowerCase())).forEach(e=>{const b=document.createElement('button'); b.textContent=e.file; b.onclick=()=>{viewer.textContent=e.text;}; list.appendChild(b);}); if(!list.children.length) list.innerHTML='<div class="muted">Inga träffar.</div>';}
+  search.oninput=()=>draw(search.value); draw('');}
+function renderOpsTab(){const s=byId('opsStats'); const d=LAST_STATS; if(!d){s.innerHTML='<div class="muted">Ingen statsdata.</div>'; return;} s.innerHTML=byId('stats').innerHTML; byId('opsDetails').innerHTML=byId('ops').innerHTML + `<div class='ops-row'><span class='muted'>Refresh</span><span>10s</span></div>`;}
 
 async function load(){
   try{
-    const ts=Date.now();
-    const [boardRes,archiveRes,statsRes]=await Promise.all([fetch('./KANBAN.json?ts='+ts),fetch('./KANBAN_ARCHIVE.json?ts='+ts).catch(()=>null),fetch('./system_stats.json?ts='+ts).catch(()=>null)]);
-    const data=await boardRes.json();
-    let stats=null, archive={archived:[]}, archivedCount=0;
-    if(statsRes&&statsRes.ok) stats=await statsRes.json();
-    if(archiveRes&&archiveRes.ok){archive=await archiveRes.json(); archivedCount=(archive.archived||[]).length;}
+    const ts=Date.now(); const [boardRes,archiveRes,statsRes]=await Promise.all([fetch('./KANBAN.json?ts='+ts),fetch('./KANBAN_ARCHIVE.json?ts='+ts).catch(()=>null),fetch('./system_stats.json?ts='+ts).catch(()=>null)]);
+    const data=await boardRes.json(); let stats=null, archive={archived:[]}, archivedCount=0; if(statsRes&&statsRes.ok) stats=await statsRes.json(); if(archiveRes&&archiveRes.ok){archive=await archiveRes.json(); archivedCount=(archive.archived||[]).length;}
+    LAST_BOARD=data; LAST_ARCHIVE=archive; LAST_STATS=stats;
     byId('updated').textContent=`Senast uppdaterad: ${new Date().toLocaleString('sv-SE')}`;
-    LAST_ARCHIVE=archive;
-    renderTopStats(data,archivedCount); renderBoard(data); renderStats(stats); renderOps(); renderWorkforceActivity(data); renderArchive(archive); renderTeam();
+    renderTopStats(data,archivedCount); renderBoard(data); renderStats(stats); renderOps(); renderWorkforceActivity(data); renderArchive(archive); renderTeam(); renderOpsTab();
   }catch{byId('updated').textContent='Kunde inte läsa data'; TOOL_STATUS.exec='DEGRADED'; renderOps();}
 }
 
 document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>switchTab(b.dataset.tab));
-byId('closeArchive').onclick=()=>byId('archiveModal').style.display='none';
-byId('archiveModal').addEventListener('click',e=>{if(e.target.id==='archiveModal')byId('archiveModal').style.display='none';});
-byId('closeCard').onclick=()=>byId('cardModal').style.display='none';
-byId('cardModal').addEventListener('click',e=>{if(e.target.id==='cardModal')byId('cardModal').style.display='none';});
+byId('closeArchive').onclick=()=>byId('archiveModal').style.display='none'; byId('archiveModal').addEventListener('click',e=>{if(e.target.id==='archiveModal')byId('archiveModal').style.display='none';}); byId('closeCard').onclick=()=>byId('cardModal').style.display='none'; byId('cardModal').addEventListener('click',e=>{if(e.target.id==='cardModal')byId('cardModal').style.display='none';});
 
-switchTab('tasks'); load(); setInterval(load,10000);
+switchTab('tasks'); renderDocs(); renderMemory(); load(); setInterval(load,10000);
 </script>
 </body>
 </html>
