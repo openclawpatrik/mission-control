@@ -79,13 +79,13 @@
 
     .card{position:relative;z-index:1;background:linear-gradient(180deg,#142646,#101d36);border:1px solid #35568d;border-radius:12px;padding:10px;margin-bottom:9px;box-shadow:0 6px 14px rgba(0,0,0,.28);transition:.15s}
     .card:hover{transform:translateY(-2px);border-color:#5589d8;box-shadow:0 10px 20px rgba(0,0,0,.35)}
-    .card h4{margin:0 0 7px;font-size:13px;line-height:1.35}
+    .card h4{margin:0 0 7px;font-size:13px;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
     .meta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}
     .tag{font-size:11px;padding:2px 7px;border-radius:999px;border:1px solid #43689f;background:#17305a;color:#d7e6ff}
     .prio-H{border-color:#8e4359;background:#3a1721;color:#ffc3cf}
     .prio-M{border-color:#8d6f2e;background:#3a2d12;color:#ffe2a0}
     .prio-L{border-color:#2f8a6d;background:#143426;color:#b8f5da}
-    .next{font-size:12px;color:#c5d6f5}
+    .next{font-size:12px;color:#c5d6f5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 
     .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
     .stat{background:linear-gradient(180deg,#142646,#101d36);border:1px solid #35568d;border-radius:12px;padding:8px}
@@ -150,10 +150,10 @@ const el=(t,c,h)=>{const e=document.createElement(t); if(c)e.className=c; if(h!=
 
 // avatars are static SVGs in ./avatars
 
-function renderTopStats(data){
+function renderTopStats(data, archivedCount=0){
   const b=(data.columns.backlog||[]).length,d=(data.columns.doing||[]).length,r=(data.columns.review||[]).length,dn=(data.columns.done||[]).length;
   const top=byId('topstats'); top.innerHTML='';
-  [`Backlog ${b}`,`In Progress ${d}/${data.wip_limit_doing||3}`,`Review ${r}`,`Done ${dn}`,`Agents ${TEAM.length}`]
+  [`Backlog ${b}`,`In Progress ${d}/${data.wip_limit_doing||3}`,`Review ${r}`,`Done ${dn}`,`Archived ${archivedCount}`,`Agents ${TEAM.length}`]
     .forEach(x=>top.appendChild(el('span','pill',x)));
 }
 
@@ -173,7 +173,9 @@ function prioClass(p){return p==='H'?'prio-H':p==='L'?'prio-L':'prio-M'}
 function renderCard(t){
   const card=el('article','card');
   const tags=(t.tags||[]).map(x=>`<span class="tag">${x}</span>`).join('');
-  card.innerHTML=`<h4>${t.title||'Untitled'}</h4><div class="meta"><span class="tag ${prioClass(t.priority)}">Prio ${t.priority||'M'}</span><span class="tag">${t.owner||'Bob'}</span>${tags}</div><div class="next">${t.next_action||''}</div>`;
+  const title=t.title||'Untitled';
+  const next=t.next_action||'';
+  card.innerHTML=`<h4 title="${title}">${title}</h4><div class="meta"><span class="tag ${prioClass(t.priority)}">Prio ${t.priority||'M'}</span><span class="tag">${t.owner||'Bob'}</span>${tags}</div><div class="next" title="${next}">${next}</div>`;
   return card;
 }
 function renderBoard(data){
@@ -242,15 +244,21 @@ function renderFeed(data){
 async function load(){
   try{
     const ts = Date.now();
-    const [boardRes, statsRes] = await Promise.all([
+    const [boardRes, statsRes, archiveRes] = await Promise.all([
       fetch('./KANBAN.json?ts='+ts),
-      fetch('./system_stats.json?ts='+ts).catch(()=>null)
+      fetch('./system_stats.json?ts='+ts).catch(()=>null),
+      fetch('./KANBAN_ARCHIVE.json?ts='+ts).catch(()=>null)
     ]);
     const data=await boardRes.json();
     let stats=null;
+    let archivedCount=0;
     if(statsRes && statsRes.ok){ stats = await statsRes.json(); }
+    if(archiveRes && archiveRes.ok){
+      const archiveData = await archiveRes.json();
+      archivedCount = (archiveData.archived||[]).length;
+    }
     byId('updated').textContent=`Senast uppdaterad: ${new Date().toLocaleString('sv-SE')}`;
-    renderTopStats(data); renderAgents(data); renderBoard(data); renderStats(stats); renderFeed(data);
+    renderTopStats(data, archivedCount); renderAgents(data); renderBoard(data); renderStats(stats); renderFeed(data);
   }catch{ byId('updated').textContent='Kunde inte läsa KANBAN.json'; }
 }
 load(); setInterval(load,10000);
