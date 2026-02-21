@@ -103,14 +103,14 @@ const TEAM=[
 ];
 const STATE_META={Working:{icon:'🟢',cls:'state-working',text:'Working'},Active:{icon:'⚡',cls:'state-active',text:'Active'},Idle:{icon:'🌙',cls:'state-idle',text:'Idle'},Review:{icon:'🔎',cls:'state-review',text:'Review'}};
 const WIP={doing:2,review:2};
-const COLS=[['backlog','Backlog'],['ready','Ready'],['doing','In Progress'],['blocked','Blocked'],['review','Review'],['done','Done']];
+const COLS=[['backlog','Backlog'],['doing','In Progress'],['review','Review'],['done','Done']];
 let FOCUS=false; let LAST_ARCHIVE={archived:[]}; let TOOL_STATUS={telegram:'OK',exec:'OK'};
 const byId=id=>document.getElementById(id); const el=(t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!==undefined)e.innerHTML=h;return e};
 
 function renderTopStats(data, archivedCount=0){
   const top=byId('topstats'); top.innerHTML='';
-  const vals={backlog:(data.columns.backlog||[]).length,ready:(data.columns.ready||[]).length,doing:(data.columns.doing||[]).length,blocked:(data.columns.blocked||[]).length,review:(data.columns.review||[]).length,done:(data.columns.done||[]).length};
-  [`Backlog ${vals.backlog}`,`Ready ${vals.ready}`,`In Progress ${vals.doing}/${WIP.doing}`,`Blocked ${vals.blocked}`,`Review ${vals.review}/${WIP.review}`,`Done ${vals.done}`,`Archived ${archivedCount}`,`Agents ${TEAM.length}`]
+  const vals={backlog:(data.columns.backlog||[]).length,doing:(data.columns.doing||[]).length,review:(data.columns.review||[]).length,done:(data.columns.done||[]).length};
+  [`Backlog ${vals.backlog}`,`In Progress ${vals.doing}/${WIP.doing}`,`Review ${vals.review}/${WIP.review}`,`Done ${vals.done}`,`Archived ${archivedCount}`,`Agents ${TEAM.length}`]
   .forEach(x=>top.appendChild(el('span','pill',x)));
   const focusBtn=el('button','btn',FOCUS?'Exit Focus':'Focus Mode'); focusBtn.onclick=()=>{FOCUS=!FOCUS;load();}; top.appendChild(focusBtn);
   const archBtn=el('button','btn','📦 Archive'); archBtn.onclick=()=>byId('archiveModal').style.display='flex'; top.appendChild(archBtn);
@@ -138,7 +138,7 @@ function renderCard(t,colKey){
 
 function renderBoard(data){
   const board=byId('board'); board.innerHTML='';
-  const cols=FOCUS?COLS.filter(([k])=>!['backlog','done'].includes(k)):COLS;
+  const cols=FOCUS?COLS.filter(([k])=>['doing','review'].includes(k)):COLS;
   cols.forEach(([k,label])=>{
     const items=data.columns[k]||[];
     const col=el('section','col col-'+k);
@@ -205,16 +205,6 @@ function renderOps(){
   ops.innerHTML=`<div class='ops-row'><span><span class='dot ${dot}'></span><b>Tool status</b></span><span>${tool}</span></div><div class='ops-row'><span class='muted'>Telegram</span><span>${TOOL_STATUS.telegram}</span></div><div class='ops-row'><span class='muted'>exec</span><span>${TOOL_STATUS.exec}</span></div>`;
 }
 
-function validateRules(data){
-  // Rule: cannot be in Ready without next_action + DoD (we mark discreetly by pushing missing items back to backlog in view only)
-  const ready=(data.columns.ready||[]);
-  ready.forEach(t=>{
-    const hasNext=!!(t.next_action&&t.next_action.trim());
-    const hasDoD=Array.isArray(t.definition_of_done)&&t.definition_of_done.length>0;
-    if(!hasNext || !hasDoD){ t.next_action = (t.next_action||'') + ' [⚠ behöver Next action + DoD]'; }
-  });
-}
-
 async function load(){
   try{
     const ts=Date.now();
@@ -224,10 +214,6 @@ async function load(){
       fetch('./system_stats.json?ts='+ts).catch(()=>null)
     ]);
     const data=await boardRes.json();
-    data.columns.ready = data.columns.ready || [];
-    data.columns.blocked = data.columns.blocked || [];
-    validateRules(data);
-
     let archivedCount=0; LAST_ARCHIVE={archived:[]};
     let stats=null;
     if(archiveRes&&archiveRes.ok){ LAST_ARCHIVE=await archiveRes.json(); archivedCount=(LAST_ARCHIVE.archived||[]).length; }
