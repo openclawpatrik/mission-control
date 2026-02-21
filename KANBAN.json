@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "updated_at": "2026-02-21T22:26:28.227533+01:00",
+  "updated_at": "2026-02-21T22:28:18.653887+01:00",
   "wip_limit_doing": 2,
   "columns": {
     "backlog": [
@@ -220,6 +220,28 @@
           "Kanban uppdaterad"
         ],
         "agent": "Max Mercer"
+      },
+      {
+        "id": "task-2026-02-21-023",
+        "title": "Inför custom-tool pipeline",
+        "status": "Backlog",
+        "priority": "H",
+        "owner": "Bob",
+        "agent": "Max Mercer",
+        "deadline": null,
+        "tags": [
+          "ai",
+          "tool-candidate"
+        ],
+        "next_action": "Lista första 3 kandidater för custom tools",
+        "created_at": "2026-02-21T22:28:18.653887+01:00",
+        "updated_at": "2026-02-21T22:28:18.653887+01:00",
+        "risk": "M",
+        "definition_of_done": [
+          "Pipeline dokumenterad",
+          "3 kandidater listade",
+          "1 MVP startad"
+        ]
       }
     ],
     "doing": [
