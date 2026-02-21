@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "updated_at": "2026-02-21T21:31:31.111191+01:00",
+  "updated_at": "2026-02-21T21:35:08.423716+01:00",
   "wip_limit_doing": 2,
   "columns": {
     "backlog": [
@@ -192,24 +192,23 @@
         ]
       },
       {
-        "id": "task-2026-02-21-022",
-        "title": "Sätt auto-transkribering voice notes",
+        "id": "task-2026-02-21-014",
+        "title": "Designa dream team av agenter",
         "status": "Backlog",
         "priority": "H",
         "owner": "Bob",
         "deadline": null,
         "tags": [
-          "ai",
-          "home"
+          "ai"
         ],
-        "next_action": "Välj STT-metod och aktivera ingest till VOICE_INBOX",
-        "created_at": "2026-02-21T21:31:31.111191+01:00",
-        "updated_at": "2026-02-21T21:31:31.111191+01:00",
+        "next_action": "Granska rollkarta för 5 agenter",
+        "created_at": "2026-02-21T12:43:00+01:00",
+        "updated_at": "2026-02-21T20:45:09.395018+01:00",
         "risk": "M",
         "definition_of_done": [
-          "Voice transkriberas automatiskt",
-          "Sparas i VOICE_INBOX",
-          "Veckotriage aktiv"
+          "Leverans framtagen",
+          "Verifiering körd",
+          "Kanban uppdaterad"
         ]
       }
     ],
@@ -258,26 +257,6 @@
     ],
     "review": [
       {
-        "id": "task-2026-02-21-014",
-        "title": "Designa dream team av agenter",
-        "status": "Review",
-        "priority": "H",
-        "owner": "Bob",
-        "deadline": null,
-        "tags": [
-          "ai"
-        ],
-        "next_action": "Granska rollkarta för 5 agenter",
-        "created_at": "2026-02-21T12:43:00+01:00",
-        "updated_at": "2026-02-21T20:45:09.395018+01:00",
-        "risk": "M",
-        "definition_of_done": [
-          "Leverans framtagen",
-          "Verifiering körd",
-          "Kanban uppdaterad"
-        ]
-      },
-      {
         "id": "task-2026-02-21-019",
         "title": "Aktivera self-maintenance 04:00",
         "status": "Review",
@@ -296,6 +275,27 @@
           "Cron aktiv",
           "Backup-script sparat",
           "Första körning verifierad"
+        ]
+      },
+      {
+        "id": "task-2026-02-21-022",
+        "title": "Sätt auto-transkribering voice notes",
+        "status": "Review",
+        "priority": "H",
+        "owner": "Bob",
+        "deadline": null,
+        "tags": [
+          "ai",
+          "home"
+        ],
+        "next_action": "Skicka ett voice-test i Telegram och verifiera inbox",
+        "created_at": "2026-02-21T21:31:31.111191+01:00",
+        "updated_at": "2026-02-21T21:35:08.423716+01:00",
+        "risk": "M",
+        "definition_of_done": [
+          "Voice transkriberas automatiskt",
+          "Sparas i VOICE_INBOX",
+          "Veckotriage aktiv"
         ]
       }
     ],
