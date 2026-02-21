@@ -1,49 +1,9 @@
 {
   "version": "1.0",
-  "updated_at": "2026-02-21T18:32:13.142444+01:00",
+  "updated_at": "2026-02-21T20:45:09.395018+01:00",
   "wip_limit_doing": 2,
   "columns": {
     "backlog": [
-      {
-        "id": "task-2026-02-21-013",
-        "title": "Sätt subagent-flöde för jobbtyper",
-        "status": "Backlog",
-        "priority": "H",
-        "owner": "Bob",
-        "deadline": null,
-        "tags": [
-          "ai"
-        ],
-        "next_action": "Definiera när subagents används och vilken modell som väljs",
-        "created_at": "2026-02-21T12:40:00+01:00",
-        "updated_at": "2026-02-21T12:40:00+01:00",
-        "risk": "M",
-        "definition_of_done": [
-          "Next action utförd",
-          "Resultat verifierat",
-          "Kort uppdaterat i Kanban"
-        ]
-      },
-      {
-        "id": "task-2026-02-21-014",
-        "title": "Designa dream team av agenter",
-        "status": "Backlog",
-        "priority": "H",
-        "owner": "Bob",
-        "deadline": null,
-        "tags": [
-          "ai"
-        ],
-        "next_action": "Implementera 5 fasta roller med dynamiska specialistlägen vid behov",
-        "created_at": "2026-02-21T12:43:00+01:00",
-        "updated_at": "2026-02-21T12:43:00+01:00",
-        "risk": "M",
-        "definition_of_done": [
-          "Next action utförd",
-          "Resultat verifierat",
-          "Kort uppdaterat i Kanban"
-        ]
-      },
       {
         "id": "task-2026-02-20-006",
         "title": "Skapa Docker-check påminnelse",
@@ -59,38 +19,36 @@
         "updated_at": "2026-02-20T21:12:00+01:00",
         "risk": "M",
         "definition_of_done": [
-          "Next action utförd",
-          "Resultat verifierat",
-          "Kort uppdaterat i Kanban"
+          "Leverans framtagen",
+          "Verifiering körd",
+          "Kanban uppdaterad"
         ]
       },
       {
-        "id": "task-2026-02-20-010",
-        "title": "Städa Kanban och prioritera topp 3",
+        "id": "task-2026-02-20-011",
+        "title": "Host access blocker för livebrief",
         "status": "Backlog",
         "priority": "H",
         "owner": "Bob",
         "deadline": null,
         "tags": [
-          "ai",
-          "home"
+          "ai"
         ],
-        "next_action": "Prioritera backlog mot mål och minska brus",
-        "created_at": "2026-02-20T19:45:00+01:00",
-        "updated_at": "2026-02-20T21:12:00+01:00",
+        "needs_user_input": true,
+        "next_action": "Beslut: behåll som fallback eller stäng",
+        "created_at": "2026-02-20T20:02:00+01:00",
+        "updated_at": "2026-02-21T20:45:09.395018+01:00",
         "risk": "M",
         "definition_of_done": [
-          "Next action utförd",
-          "Resultat verifierat",
-          "Kort uppdaterat i Kanban"
+          "Leverans framtagen",
+          "Verifiering körd",
+          "Kanban uppdaterad"
         ]
-      }
-    ],
-    "doing": [
+      },
       {
         "id": "task-2026-02-20-004",
         "title": "Sätt upp morgonbrief varje vardag",
-        "status": "Doing",
+        "status": "Backlog",
         "priority": "H",
         "owner": "Bob",
         "deadline": null,
@@ -100,37 +58,79 @@
         ],
         "next_action": "Standardisera brief-format för 07:30 varje vardag",
         "created_at": "2026-02-20T19:10:00+01:00",
-        "updated_at": "2026-02-20T21:12:00+01:00",
+        "updated_at": "2026-02-21T20:45:09.395018+01:00",
         "risk": "M",
         "definition_of_done": [
-          "Next action utförd",
-          "Resultat verifierat",
-          "Kort uppdaterat i Kanban"
+          "Leverans framtagen",
+          "Verifiering körd",
+          "Kanban uppdaterad"
         ]
-      }
-    ],
-    "review": [
+      },
       {
-        "id": "task-2026-02-20-011",
-        "title": "Host access blocker för livebrief",
-        "status": "Review",
+        "id": "task-2026-02-21-013",
+        "title": "Sätt subagent-flöde för jobbtyper",
+        "status": "Backlog",
         "priority": "H",
         "owner": "Bob",
         "deadline": null,
         "tags": [
           "ai"
         ],
-        "needs_user_input": true,
-        "next_action": "Exponera openclaw-CLI i runtime eller kör cron-setup via Control UI och återkom med OK",
-        "created_at": "2026-02-20T20:02:00+01:00",
-        "updated_at": "2026-02-20T21:12:00+01:00",
+        "next_action": "Definiera när subagents används och vilken modell som v...",
+        "created_at": "2026-02-21T12:40:00+01:00",
+        "updated_at": "2026-02-21T20:45:09.395018+01:00",
         "risk": "M",
         "definition_of_done": [
-          "Next action utförd",
-          "Resultat verifierat",
-          "Kort uppdaterat i Kanban"
+          "Leverans framtagen",
+          "Verifiering körd",
+          "Kanban uppdaterad"
+        ]
+      }
+    ],
+    "doing": [
+      {
+        "id": "task-2026-02-20-010",
+        "title": "Städa Kanban och prioritera topp 3",
+        "status": "Doing",
+        "priority": "H",
+        "owner": "Bob",
+        "deadline": null,
+        "tags": [
+          "ai",
+          "home"
+        ],
+        "next_action": "Prioritera backlog mot mål och minska brus",
+        "created_at": "2026-02-20T19:45:00+01:00",
+        "updated_at": "2026-02-21T20:45:09.395018+01:00",
+        "risk": "M",
+        "definition_of_done": [
+          "Leverans framtagen",
+          "Verifiering körd",
+          "Kanban uppdaterad"
         ]
       },
+      {
+        "id": "task-2026-02-21-016",
+        "title": "Kör hourly workforce cycle",
+        "status": "Doing",
+        "priority": "H",
+        "owner": "Bob",
+        "deadline": null,
+        "tags": [
+          "ai"
+        ],
+        "next_action": "Kör första cycle och logga resultat",
+        "created_at": "2026-02-21T20:45:09.395018+01:00",
+        "updated_at": "2026-02-21T20:45:09.395018+01:00",
+        "risk": "M",
+        "definition_of_done": [
+          "Cycle körd",
+          "Output sparad",
+          "Kanban syncad"
+        ]
+      }
+    ],
+    "review": [
       {
         "id": "task-2026-02-21-015",
         "title": "Bygg Mission Control vy",
@@ -147,11 +147,31 @@
         "updated_at": "2026-02-21T13:05:00+01:00",
         "risk": "M",
         "definition_of_done": [
-          "Next action utförd",
-          "Resultat verifierat",
-          "Kort uppdaterat i Kanban"
+          "Leverans framtagen",
+          "Verifiering körd",
+          "Kanban uppdaterad"
         ],
         "blocked_reason": "Väntar på godkännande/test"
+      },
+      {
+        "id": "task-2026-02-21-014",
+        "title": "Designa dream team av agenter",
+        "status": "Review",
+        "priority": "H",
+        "owner": "Bob",
+        "deadline": null,
+        "tags": [
+          "ai"
+        ],
+        "next_action": "Granska rollkarta för 5 agenter",
+        "created_at": "2026-02-21T12:43:00+01:00",
+        "updated_at": "2026-02-21T20:45:09.395018+01:00",
+        "risk": "M",
+        "definition_of_done": [
+          "Leverans framtagen",
+          "Verifiering körd",
+          "Kanban uppdaterad"
+        ]
       }
     ],
     "done": [
