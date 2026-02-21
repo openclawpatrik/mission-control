@@ -130,12 +130,13 @@
   </main>
 
 <script>
+const AVATAR_VER = 'v3';
 const TEAM = [
-  { name:'Max Mercer', role:'Orchestrator & priorities', state:'Active', avatar:'./avatars/max-mercer.svg' },
-  { name:'Nina Sparks', role:'Research & trend radar', state:'Active', avatar:'./avatars/nina-sparks.svg' },
-  { name:'Leo Byte', role:'Builder & app maker', state:'Idle', avatar:'./avatars/leo-byte.svg' },
-  { name:'Ivy Shield', role:'QA & risk guardian', state:'Idle', avatar:'./avatars/ivy-shield.svg' },
-  { name:'Owen Flux', role:'Ops & automation', state:'Active', avatar:'./avatars/owen-flux.svg' }
+  { name:'Max Mercer', role:'Orchestrator & priorities', state:'Active', avatar:`./avatars/max-mercer.svg?${AVATAR_VER}` },
+  { name:'Nina Sparks', role:'Research & trend radar', state:'Active', avatar:`./avatars/nina-sparks.svg?${AVATAR_VER}` },
+  { name:'Leo Byte', role:'Builder & app maker', state:'Idle', avatar:`./avatars/leo-byte.svg?${AVATAR_VER}` },
+  { name:'Ivy Shield', role:'QA & risk guardian', state:'Idle', avatar:`./avatars/ivy-shield.svg?${AVATAR_VER}` },
+  { name:'Owen Flux', role:'Ops & automation', state:'Active', avatar:`./avatars/owen-flux.svg?${AVATAR_VER}` }
 ];
 const STATE_META = {
   Working: { icon:'🟢', cls:'state-working', text:'Working' },
