@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mission Control</title>
+  <style>
+    :root{--bg:#0b1020;--panel:#121a2e;--panel2:#0f1628;--text:#e8eefc;--muted:#9fb0d6;--line:#243250;--accent:#4f8cff;--ok:#31c48d;--warn:#f59e0b;--done:#8b5cf6}
+    *{box-sizing:border-box} body{margin:0;background:linear-gradient(180deg,#0a0f1d,#0b1020);color:var(--text);font:14px/1.4 Inter,system-ui,Segoe UI,Roboto,Arial}
+    .top{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--line);position:sticky;top:0;background:#0a1020cc;backdrop-filter: blur(6px)}
+    .title{font-weight:700;letter-spacing:.3px}.sub{color:var(--muted);font-size:12px}
+    .layout{display:grid;grid-template-columns:260px 1fr 300px;gap:12px;padding:12px}
+    .panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px}
+    .section-title{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+    .agent{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:8px;margin-bottom:8px}
+    .agent b{display:block}.chip{display:inline-block;border:1px solid var(--line);padding:2px 7px;border-radius:999px;font-size:11px;color:var(--muted)}
+    .board{display:grid;grid-template-columns:repeat(4,minmax(220px,1fr));gap:10px}
+    .col{background:var(--panel);border:1px solid var(--line);border-radius:12px;min-height:420px;padding:8px}
+    .col h3{font-size:13px;margin:0 0 8px;display:flex;justify-content:space-between}.count{color:var(--muted);font-weight:500}
+    .card{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:8px;margin-bottom:8px}
+    .card h4{font-size:13px;margin:0 0 6px}.meta{display:flex;gap:6px;flex-wrap:wrap}.tag{font-size:11px;padding:2px 6px;border-radius:999px;background:#1a2440;color:#c8d5ff}
+    .pH{border-color:#5e2f2f;background:#2a1a1a;color:#ffb4b4}.pM{border-color:#514223;background:#2a2418;color:#ffd88a}.pL{border-color:#2b5040;background:#162a23;color:#96f7cb}
+    .feed-item{background:var(--panel2);border:1px solid var(--line);padding:8px;border-radius:10px;margin-bottom:8px}
+    .muted{color:var(--muted)}
+  </style>
+</head>
+<body>
+  <div class="top">
+    <div>
+      <div class="title">🛰️ Mission Control</div>
+      <div class="sub" id="updated">Laddar…</div>
+    </div>
+    <div class="chip">Patrik + Bob</div>
+  </div>
+
+  <div class="layout">
+    <aside class="panel">
+      <div class="section-title">Dream Team</div>
+      <div id="agents"></div>
+    </aside>
+
+    <main class="board" id="board"></main>
+
+    <aside class="panel">
+      <div class="section-title">Live Feed</div>
+      <div id="feed"></div>
+    </aside>
+  </div>
+
+<script>
+const team = [
+  {name:'Bob Orchestrator', role:'Planering & prioritering', status:'Active'},
+  {name:'Research Scout', role:'Nyheter & trendspaning', status:'Idle'},
+  {name:'Builder', role:'Kod & implementation', status:'Idle'},
+  {name:'QA Sentinel', role:'Kvalitet & riskkontroll', status:'Idle'},
+  {name:'Ops Runner', role:'Cron/automation', status:'Active'}
+];
+
+const columns = [
+  ['backlog','Backlog'],['doing','Doing'],['review','Review'],['done','Done']
+];
+
+function byId(id){return document.getElementById(id)}
+function el(tag, cls, html){const e=document.createElement(tag); if(cls)e.className=cls; if(html!==undefined)e.innerHTML=html; return e}
+
+function renderAgents(data){
+  const wrap=byId('agents'); wrap.innerHTML='';
+  const doingCount=(data.columns.doing||[]).length;
+  team.forEach((a,i)=>{
+    const d=el('div','agent');
+    const status = i===0 && doingCount>0 ? 'Working' : a.status;
+    d.innerHTML=`<b>${a.name}</b><div class="muted">${a.role}</div><div style="margin-top:6px" class="chip">${status}</div>`;
+    wrap.appendChild(d);
+  });
+}
+
+function cardHtml(t){
+  const tags=(t.tags||[]).map(x=>`<span class="tag">${x}</span>`).join('');
+  const p=`p${t.priority||'M'}`;
+  return `<h4>${t.title||'Utan titel'}</h4>
+    <div class="meta"><span class="tag ${p}">Prio ${t.priority||'M'}</span><span class="tag">${t.owner||'Bob'}</span>${tags}</div>
+    <div class="muted" style="margin-top:6px">${t.next_action||''}</div>`;
+}
+
+function renderBoard(data){
+  const board=byId('board'); board.innerHTML='';
+  columns.forEach(([key,label])=>{
+    const items=data.columns[key]||[];
+    const c=el('section','col');
+    c.appendChild(el('h3','',`${label} <span class="count">${items.length}</span>`));
+    items.forEach(t=>c.appendChild(el('article','card',cardHtml(t))));
+    board.appendChild(c);
+  });
+}
+
+function renderFeed(data){
+  const feed=byId('feed'); feed.innerHTML='';
+  const events=[];
+  ['doing','review','done'].forEach(k=> (data.columns[k]||[]).forEach(t=>events.push({k,t})));
+  events.slice(0,8).forEach(e=>{
+    const label=e.k==='doing'?'Pågår':e.k==='review'?'Review':'Klart';
+    const d=el('div','feed-item',`<b>${label}</b><div class="muted">${e.t.title}</div>`);
+    feed.appendChild(d);
+  });
+  if(!events.length) feed.appendChild(el('div','muted','Inga events ännu.'));
+}
+
+async function load(){
+  const res=await fetch('./KANBAN.json?ts='+Date.now());
+  const data=await res.json();
+  byId('updated').textContent=`Uppdaterad: ${new Date().toLocaleString('sv-SE')}`;
+  renderAgents(data); renderBoard(data); renderFeed(data);
+}
+load(); setInterval(load, 30000);
+</script>
+</body>
+</html>
