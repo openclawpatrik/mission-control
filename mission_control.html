@@ -25,6 +25,11 @@
     .section-h{display:flex;justify-content:space-between;align-items:center;padding:10px 10px 8px;color:#bdd0f3;font-size:12px;text-transform:uppercase;letter-spacing:.12em}
 
     .side,.ops{padding:8px;min-height:calc(100vh - 90px)}
+    .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+    .stat{background:linear-gradient(180deg,#142646,#101d36);border:1px solid #35568d;border-radius:12px;padding:8px}
+    .stat .k{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+    .stat .v{font-size:18px;font-weight:800;line-height:1.2;margin-top:2px}
+
     .agent{display:flex;gap:10px;align-items:center;background:linear-gradient(180deg,#132543,#0f1d35);border:1px solid #2f4b78;border-radius:12px;padding:8px;margin-bottom:8px}
     .avatar{width:42px;height:42px;border-radius:8px;object-fit:cover;border:1px solid #4168a8;image-rendering:pixelated;background:#dfe4ee;padding:2px}
     .a-meta b{display:block;font-size:13px}.a-role{font-size:12px;color:var(--muted)}
@@ -77,7 +82,9 @@
     <aside class="panel side"><div class="section-h"><span>Agents</span><span id="agentCount"></span></div><div id="agents"></div></aside>
     <section class="panel board-wrap"><div class="board" id="board"></div></section>
     <aside class="panel ops">
-      <div class="section-h"><span>OPS</span><span>compact</span></div>
+      <div class="section-h"><span>System Status</span><span id="statsUpdated"></span></div>
+      <div class="stats-grid" id="stats"></div>
+      <div class="section-h" style="padding-top:2px"><span>Tool Status</span><span>Telegram + exec</span></div>
       <div class="ops-box" id="ops"></div>
     </aside>
   </main>
@@ -169,13 +176,33 @@ function openCard(t,colKey){
   byId('cardModal').style.display='flex';
 }
 
-function heartbeatColor(state){if(state==='Working')return 'g'; if(state==='Active')return 'y'; return 'r';}
-function renderOps(data){
+function levelPercent(v){
+  if(v===null||v===undefined||Number.isNaN(Number(v))) return '';
+  v=Number(v); if(v<60) return 'g'; if(v<80) return 'y'; return 'r';
+}
+function renderStats(stats){
+  const wrap=byId('stats');
+  if(!stats){ wrap.innerHTML='<div class="empty">Ingen systemdata ännu.</div>'; return; }
+  const cpu=stats.cpu?.used_percent ?? '-';
+  const ram=stats.ram?.used_percent ?? '-';
+  const disk=stats.disk?.used_percent ?? '-';
+  const temp=(stats.temperature?.cpu_c ?? 'N/A');
+  const rx=(stats.network?.rx_kbps ?? '-');
+  const tx=(stats.network?.tx_kbps ?? '-');
+  wrap.innerHTML='';
+  wrap.appendChild(el('div','stat',`<div class='k'>CPU</div><div class='v'>${cpu}%</div>`));
+  wrap.appendChild(el('div','stat',`<div class='k'>RAM</div><div class='v'>${ram}%</div>`));
+  wrap.appendChild(el('div','stat',`<div class='k'>Disk</div><div class='v'>${disk}%</div>`));
+  wrap.appendChild(el('div','stat',`<div class='k'>Temp</div><div class='v'>${temp}</div>`));
+  wrap.appendChild(el('div','stat',`<div class='k'>Net RX</div><div class='v'>${rx} KB/s</div>`));
+  wrap.appendChild(el('div','stat',`<div class='k'>Net TX</div><div class='v'>${tx} KB/s</div>`));
+  byId('statsUpdated').textContent = stats.updated_at ? new Date(stats.updated_at).toLocaleTimeString('sv-SE') : '';
+}
+function renderOps(){
   const ops=byId('ops');
-  const queueDepth=(data.columns.ready||[]).length + (data.columns.doing||[]).length + (data.columns.review||[]).length + (data.columns.blocked||[]).length;
-  const rows=TEAM.map((a,i)=>{const st=(i===0&&(data.columns.doing||[]).length>0)?'Working':a.state; const c=heartbeatColor(st); return `<div class='ops-row'><span><span class='dot ${c}'></span>${a.name}</span><span>${st}</span></div>`;}).join('');
   const tool = (TOOL_STATUS.telegram==='OK' && TOOL_STATUS.exec==='OK') ? 'OK' : ((TOOL_STATUS.telegram==='DOWN'||TOOL_STATUS.exec==='DOWN')?'DOWN':'DEGRADED');
-  ops.innerHTML=`<div class='ops-row'><b>Heartbeat</b><span>per agent</span></div>${rows}<hr style='border-color:#2a426d;opacity:.5'><div class='ops-row'><b>Queue depth</b><span>${queueDepth}</span></div><div class='ops-row'><b>Tool status</b><span>${tool}</span></div><div class='ops-row'><span class='muted'>Telegram</span><span>${TOOL_STATUS.telegram}</span></div><div class='ops-row'><span class='muted'>exec</span><span>${TOOL_STATUS.exec}</span></div>`;
+  const dot = tool==='OK'?'g':(tool==='DEGRADED'?'y':'r');
+  ops.innerHTML=`<div class='ops-row'><span><span class='dot ${dot}'></span><b>Tool status</b></span><span>${tool}</span></div><div class='ops-row'><span class='muted'>Telegram</span><span>${TOOL_STATUS.telegram}</span></div><div class='ops-row'><span class='muted'>exec</span><span>${TOOL_STATUS.exec}</span></div>`;
 }
 
 function validateRules(data){
@@ -191,9 +218,10 @@ function validateRules(data){
 async function load(){
   try{
     const ts=Date.now();
-    const [boardRes, archiveRes]=await Promise.all([
+    const [boardRes, archiveRes, statsRes]=await Promise.all([
       fetch('./KANBAN.json?ts='+ts),
-      fetch('./KANBAN_ARCHIVE.json?ts='+ts).catch(()=>null)
+      fetch('./KANBAN_ARCHIVE.json?ts='+ts).catch(()=>null),
+      fetch('./system_stats.json?ts='+ts).catch(()=>null)
     ]);
     const data=await boardRes.json();
     data.columns.ready = data.columns.ready || [];
@@ -201,11 +229,13 @@ async function load(){
     validateRules(data);
 
     let archivedCount=0; LAST_ARCHIVE={archived:[]};
+    let stats=null;
     if(archiveRes&&archiveRes.ok){ LAST_ARCHIVE=await archiveRes.json(); archivedCount=(LAST_ARCHIVE.archived||[]).length; }
+    if(statsRes&&statsRes.ok){ stats=await statsRes.json(); }
 
     byId('updated').textContent=`Senast uppdaterad: ${new Date().toLocaleString('sv-SE')}`;
-    renderTopStats(data, archivedCount); renderAgents(data); renderBoard(data); renderArchive(LAST_ARCHIVE); renderOps(data);
-  }catch{ byId('updated').textContent='Kunde inte läsa KANBAN.json'; TOOL_STATUS.exec='DEGRADED'; }
+    renderTopStats(data, archivedCount); renderAgents(data); renderBoard(data); renderArchive(LAST_ARCHIVE); renderStats(stats); renderOps();
+  }catch{ byId('updated').textContent='Kunde inte läsa KANBAN.json'; TOOL_STATUS.exec='DEGRADED'; renderOps(); }
 }
 
 byId('closeArchive').onclick=()=>byId('archiveModal').style.display='none';
