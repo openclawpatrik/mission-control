@@ -1,8 +1,9 @@
-<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'>
-<defs><linearGradient id='bg' x1='0' y1='0' x2='1' y2='1'><stop stop-color='#705620'/><stop offset='1' stop-color='#3a2c10'/></linearGradient></defs>
-<rect width='256' height='256' rx='36' fill='url(#bg)'/>
-<circle cx='128' cy='104' r='55' fill='#f2d0b1'/><path d='M70 100c3-37 31-60 58-60 30 0 56 23 60 58-15-11-33-18-58-18-24 0-45 8-60 20z' fill='#4a3718'/>
-<rect x='104' y='104' width='11' height='7' rx='4' fill='#2a1f1a'/><rect x='141' y='104' width='11' height='7' rx='4' fill='#2a1f1a'/>
-<path d='M112 133c9 7 23 7 32 0' stroke='#c17a68' stroke-width='5' fill='none' stroke-linecap='round'/>
-<path d='M73 214c10-35 30-56 55-56 24 0 44 21 55 56' fill='#5f481e'/>
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' shape-rendering='crispEdges'>
+<rect width='64' height='64' fill='#e7e8ee'/>
+<rect x='18' y='8' width='28' height='12' fill='#4a2f1a'/>
+<rect x='14' y='18' width='36' height='28' fill='#f1cfb1'/>
+<rect x='20' y='26' width='6' height='4' fill='#2a1f1b'/><rect x='38' y='26' width='6' height='4' fill='#2a1f1b'/>
+<rect x='28' y='36' width='8' height='3' fill='#c47d6b'/>
+<rect x='12' y='46' width='40' height='18' fill='#7b5f2b'/>
+<rect x='0' y='56' width='64' height='8' fill='#9ea9bd'/>
 </svg>
