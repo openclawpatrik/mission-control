@@ -94,6 +94,8 @@
       <div class="stats-grid" id="stats"></div>
       <div class="section-h" style="padding-top:2px"><span>Tool Status</span><span>Telegram + exec</span></div>
       <div class="ops-box" id="ops"></div>
+      <div class="section-h" style="padding-top:2px"><span>Workforce Activity</span><span>latest</span></div>
+      <div class="ops-box" id="workforceActivity"></div>
     </aside>
   </main>
 
@@ -249,6 +251,17 @@ function renderOps(){
   ops.innerHTML=`<div class='ops-row'><span><span class='dot ${dot}'></span><b>Tool status</b></span><span>${tool}</span></div><div class='ops-row'><span class='muted'>Telegram</span><span>${TOOL_STATUS.telegram}</span></div><div class='ops-row'><span class='muted'>exec</span><span>${TOOL_STATUS.exec}</span></div>`;
 }
 
+
+function renderWorkforceActivity(data){
+  const box=byId('workforceActivity');
+  const tasks=[];
+  ['doing','review','backlog'].forEach(c=> (data.columns[c]||[]).forEach(t=>tasks.push({...t,_col:c})));
+  tasks.sort((a,b)=> String(b.updated_at||'').localeCompare(String(a.updated_at||'')));
+  const top=tasks.slice(0,4);
+  if(!top.length){ box.innerHTML='<div class="empty">Ingen aktivitet ännu.</div>'; return; }
+  box.innerHTML = top.map(t=>`<div class='ops-row'><span class='muted'>${t._col.toUpperCase()}</span><span>${(t.title||'').slice(0,26)}</span></div>`).join('');
+}
+
 async function load(){
   try{
     const ts=Date.now();
@@ -264,7 +277,7 @@ async function load(){
     if(statsRes&&statsRes.ok){ stats=await statsRes.json(); }
 
     byId('updated').textContent=`Senast uppdaterad: ${new Date().toLocaleString('sv-SE')}`;
-    renderTopStats(data, archivedCount); renderAgents(data); renderBoard(data); renderArchive(LAST_ARCHIVE); renderStats(stats); renderOps();
+    renderTopStats(data, archivedCount); renderAgents(data); renderBoard(data); renderArchive(LAST_ARCHIVE); renderStats(stats); renderOps(); renderWorkforceActivity(data);
   }catch{ byId('updated').textContent='Kunde inte läsa KANBAN.json'; TOOL_STATUS.exec='DEGRADED'; renderOps(); }
 }
 
