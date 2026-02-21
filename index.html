@@ -69,6 +69,10 @@
     .tree ul{list-style:none;margin:0;padding-left:18px}.tree li{margin:6px 0;position:relative}.tree li:before{content:'';position:absolute;left:-10px;top:10px;width:8px;height:1px;background:#3e5f96}
     .team-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
     .team-card{background:linear-gradient(180deg,#142646,#101d36);border:1px solid #35568d;border-radius:12px;padding:10px}
+    .xp-badge{font-size:11px;padding:2px 8px;border-radius:999px;border:1px solid #3b6eaa;background:#14315a;color:#cfe4ff}
+    .level{font-size:11px;padding:2px 8px;border-radius:999px;border:1px solid #6f5a27;background:#372b12;color:#ffe3a4}
+    .streak{font-size:11px;padding:2px 8px;border-radius:999px;border:1px solid #2f8a6d;background:#143426;color:#b8f5da}
+    .leaderboard{margin-top:8px;padding:8px;border:1px solid #35568d;border-radius:12px;background:linear-gradient(180deg,#142646,#101d36)}
     .row{display:flex;gap:10px;align-items:center}
     .avatar{width:42px;height:42px;border-radius:8px;object-fit:cover;border:1px solid #4168a8;image-rendering:pixelated;background:#dfe4ee;padding:2px}
     .muted{color:var(--muted)}
@@ -119,6 +123,8 @@
             <div class="ops-box" id="ops"></div>
             <div class="section-h" style="padding-top:2px"><span>Workforce Activity</span><span>latest</span></div>
             <div class="ops-box" id="workforceActivity"></div>
+            <div class="section-h" style="padding-top:2px"><span>Agent Leaderboard</span><span>XP</span></div>
+            <div class="leaderboard" id="leaderboard"></div>
           </div>
         </div>
       </section>
@@ -254,7 +260,35 @@ function renderOps(){const ops=byId('ops'); const tool=(TOOL_STATUS.telegram==='
 function renderWorkforceActivity(data){const box=byId('workforceActivity'); const tasks=[]; ['doing','review','backlog'].forEach(c=>(data.columns[c]||[]).forEach(t=>tasks.push({...t,_col:c}))); tasks.sort((a,b)=>String(b.updated_at||'').localeCompare(String(a.updated_at||''))); const top=tasks.slice(0,6); if(!top.length){box.innerHTML='<div class="muted">Ingen aktivitet ännu.</div>'; return;} box.innerHTML=top.map(t=>`<div class='ops-row'><span class='muted'>${(t.agent||'').split(' ')[0]}</span><span title='${t.title||''}'>${(t.title||'').slice(0,24)}</span></div>`).join('');}
 
 function renderArchive(archive){const list=byId('archiveList'); const items=(archive&&archive.archived)?archive.archived:[]; if(!items.length){list.innerHTML='<div class="muted">Inga arkiverade tasks.</div>'; return;} list.innerHTML=items.slice().reverse().map(t=>`<div class='card'><div class='next'><b>${t.title||'Untitled'}</b></div><div class='next'>${t.next_action||''}</div></div>`).join('');}
-function renderTeam(){const g=byId('teamGrid'); g.innerHTML=''; TEAM.forEach(a=>g.appendChild(el('div','team-card',`<div class='row'><img class='avatar' src='${a.avatar}' alt='${a.name}'/><div><b>${a.name}</b><div class='muted'>${a.role}</div><div class='muted'>Model: ${MODEL_SHORT[a.model]||a.model}</div></div></div><div class='muted' style='margin-top:8px'>Personlighet: ${a.personality}</div><div class='muted'>Huvudområde: ${a.focus}</div>`)));}
+
+function computeAgentStats(data){
+  const stats={};
+  TEAM.forEach(a=>stats[a.name]={xp:0,done:0,doing:0,review:0,streak:0,level:1});
+  const mapCol=(arr,col)=> (arr||[]).forEach(t=>{
+    const n=t.agent||'Max Mercer';
+    if(!stats[n]) stats[n]={xp:0,done:0,doing:0,review:0,streak:0,level:1};
+    if(col==='done'){stats[n].xp += 120; stats[n].done +=1; stats[n].streak +=1;}
+    if(col==='doing'){stats[n].xp += 40; stats[n].doing +=1;}
+    if(col==='review'){stats[n].xp += 25; stats[n].review +=1;}
+    if(col==='backlog'){stats[n].xp += 8;}
+    const prog=Number(t.progress_pct||0); stats[n].xp += Math.floor(prog*0.2);
+  });
+  mapCol(data.columns.backlog,'backlog');
+  mapCol(data.columns.doing,'doing');
+  mapCol(data.columns.review,'review');
+  mapCol(data.columns.done,'done');
+  Object.values(stats).forEach(v=>{ v.level = Math.max(1, Math.floor(v.xp/150)+1); });
+  return stats;
+}
+
+function renderLeaderboard(agentStats){
+  const box=byId('leaderboard');
+  const rows=Object.entries(agentStats).sort((a,b)=>b[1].xp-a[1].xp).slice(0,8);
+  if(!rows.length){box.innerHTML='<div class="muted">Ingen data ännu.</div>'; return;}
+  box.innerHTML=rows.map(([name,s],i)=>`<div class='ops-row'><span>${i+1}. ${name.split(' ')[0]}</span><span>${s.xp} XP · L${s.level}</span></div>`).join('');
+}
+
+function renderTeam(agentStats){const g=byId('teamGrid'); g.innerHTML=''; TEAM.forEach(a=>{ const s=(agentStats&&agentStats[a.name])?agentStats[a.name]:{xp:0,level:1,streak:0}; g.appendChild(el('div','team-card',`<div class='row'><img class='avatar' src='${a.avatar}' alt='${a.name}'/><div><b>${a.name}</b><div class='muted'>${a.role}</div><div class='muted'>Model: ${MODEL_SHORT[a.model]||a.model}</div></div></div><div style='display:flex;gap:6px;margin-top:8px'><span class='xp-badge'>${s.xp} XP</span><span class='level'>Level ${s.level}</span><span class='streak'>Streak ${s.streak}</span></div><div class='muted' style='margin-top:8px'>Personlighet: ${a.personality}</div><div class='muted'>Huvudområde: ${a.focus}</div>`)); });}
 
 async function renderDocs(){const list=byId('docsList'); const viewer=byId('docsViewer'); list.innerHTML=''; DOC_FILES.forEach(f=>{const b=document.createElement('button'); b.textContent=f; b.onclick=async()=>{try{const r=await fetch('./'+f+'?ts='+Date.now()); viewer.textContent=await r.text();}catch{viewer.textContent='Kunde inte läsa fil.';}}; list.appendChild(b);});}
 async function renderMemory(){const list=byId('memoryList'); const viewer=byId('memoryViewer'); const search=byId('memorySearch'); const entries=[]; for(const f of MEMORY_FILES){try{const r=await fetch('./'+f+'?ts='+Date.now()); const txt=await r.text(); entries.push({file:f,text:txt});}catch{}}
@@ -268,7 +302,8 @@ async function load(){
     const data=await boardRes.json(); let stats=null, archive={archived:[]}, archivedCount=0; if(statsRes&&statsRes.ok) stats=await statsRes.json(); if(archiveRes&&archiveRes.ok){archive=await archiveRes.json(); archivedCount=(archive.archived||[]).length;}
     LAST_BOARD=data; LAST_ARCHIVE=archive; LAST_STATS=stats;
     byId('updated').textContent=`Senast uppdaterad: ${new Date().toLocaleString('sv-SE')}`;
-    renderTopStats(data,archivedCount); renderBoard(data); renderStats(stats); renderOps(); renderWorkforceActivity(data); renderArchive(archive); renderTeam(); renderOpsTab();
+    const agentStats=computeAgentStats(data);
+    renderTopStats(data,archivedCount); renderBoard(data); renderStats(stats); renderOps(); renderWorkforceActivity(data); renderLeaderboard(agentStats); renderArchive(archive); renderTeam(agentStats); renderOpsTab();
   }catch{byId('updated').textContent='Kunde inte läsa data'; TOOL_STATUS.exec='DEGRADED'; renderOps();}
 }
 
