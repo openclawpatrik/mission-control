@@ -5,103 +5,123 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mission Control</title>
   <style>
-    :root{--bg:#050912;--bg2:#0a1222;--panel:#0f1a31cc;--line:#28406a;--text:#eaf1ff;--muted:#9ab0d9;--red:#ff5c7a;--yellow:#ffcd59;--blue:#61b2ff;--green:#44d695;--radius:14px}
+    :root{--bg:#050912;--bg2:#0a1222;--panel:#0f1a31cc;--line:#28406a;--text:#eaf1ff;--muted:#9ab0d9;--radius:14px;--red:#ff5c7a;--yellow:#ffcd59;--blue:#61b2ff;--green:#44d695}
     *{box-sizing:border-box} html,body{height:100%}
-    body{margin:0;color:var(--text);font:14px/1.45 Inter,system-ui,Segoe UI,Roboto,Arial;background:
-      radial-gradient(1200px 500px at 10% 100%, rgba(255,90,120,.12), transparent 60%),
-      radial-gradient(900px 500px at 80% 20%, rgba(87,159,255,.14), transparent 60%),
-      linear-gradient(180deg,var(--bg),var(--bg2));overflow-x:hidden}
+    body{margin:0;color:var(--text);font:14px/1.45 Inter,system-ui,Segoe UI,Roboto,Arial;background:radial-gradient(1200px 500px at 10% 100%, rgba(255,90,120,.12), transparent 60%),radial-gradient(900px 500px at 80% 20%, rgba(87,159,255,.14), transparent 60%),linear-gradient(180deg,var(--bg),var(--bg2));overflow:hidden}
 
-    .topbar{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:#070e1dcf;border-bottom:1px solid var(--line);backdrop-filter:blur(10px)}
-    .brand{display:flex;align-items:center;gap:10px}.logo{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(145deg,#243f72,#132747)}
-    .title{font-weight:800;letter-spacing:.08em}.subtitle{font-size:12px;color:var(--muted)}
-    .topstats{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:flex-end}
-    .pill{font-size:12px;padding:6px 10px;border-radius:999px;border:1px solid #345286;background:#0e1c35;color:#d6e5ff}
-    .btn{font-size:12px;padding:6px 11px;border-radius:999px;border:1px solid #4a5f8f;background:#17233f;color:#dce8ff;cursor:pointer}
-    .btn:hover{background:#1d2d50}
-    .agent-filter{font-size:12px;padding:6px 10px;border-radius:999px;border:1px solid #4a5f8f;background:#17233f;color:#dce8ff}
+    .topbar{height:56px;display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--line);background:#070e1dcc}
+    .brand{display:flex;gap:10px;align-items:center}.logo{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(145deg,#243f72,#132747)}
+    .subtitle{font-size:12px;color:var(--muted)}
+    .pill{font-size:12px;padding:5px 10px;border-radius:999px;border:1px solid #345286;background:#0e1c35;color:#d6e5ff}
 
-    .app{max-width:2000px;margin:0 auto;padding:12px;display:grid;grid-template-columns:280px minmax(980px,1fr) 300px;gap:12px}
-    .panel{border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);box-shadow:0 14px 30px rgba(0,0,0,.28)}
-    .section-h{display:flex;justify-content:space-between;align-items:center;padding:10px 10px 8px;color:#bdd0f3;font-size:12px;text-transform:uppercase;letter-spacing:.12em}
+    .shell{display:grid;grid-template-columns:200px 1fr;height:calc(100vh - 56px)}
+    .sidebar{border-right:1px solid var(--line);padding:10px;background:#081226}
+    .tab{display:block;width:100%;text-align:left;margin:4px 0;padding:8px 10px;border-radius:10px;border:1px solid transparent;background:transparent;color:#d7e7ff;cursor:pointer}
+    .tab:hover{background:#12213c}.tab.active{background:#162949;border-color:#345286}
 
-    .side,.ops{padding:8px;min-height:calc(100vh - 90px)}
-    .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
-    .stat{background:linear-gradient(180deg,#142646,#101d36);border:1px solid #35568d;border-radius:12px;padding:8px}
-    .stat .k{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
-    .stat .v{font-size:18px;font-weight:800;line-height:1.2;margin-top:2px}
-    .stat-good{border-color:#2e8d66;background:linear-gradient(180deg,#123324,#0f271d)}
-    .stat-good .v{color:#bff6dc}
-    .stat-warn{border-color:#9a7a2f;background:linear-gradient(180deg,#352a12,#2a200e)}
-    .stat-warn .v{color:#ffe4a1}
-    .stat-bad{border-color:#9b4159;background:linear-gradient(180deg,#361722,#2a1118)}
-    .stat-bad .v{color:#ffc2cf}
+    .main{padding:10px;overflow:auto}
+    .panel{border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);box-shadow:0 8px 24px rgba(0,0,0,.25)}
+    .section-h{display:flex;justify-content:space-between;align-items:center;padding:10px;color:#bdd0f3;font-size:12px;text-transform:uppercase;letter-spacing:.12em}
 
-    .agent{display:flex;gap:10px;align-items:center;background:linear-gradient(180deg,#132543,#0f1d35);border:1px solid #2f4b78;border-radius:12px;padding:8px;margin-bottom:8px}
-    .avatar{width:42px;height:42px;border-radius:8px;object-fit:cover;border:1px solid #4168a8;image-rendering:pixelated;background:#dfe4ee;padding:2px}
-    .a-meta{min-width:0;flex:1}.a-meta b{display:block;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.a-role{font-size:12px;color:var(--muted);line-height:1.25}
-    .badge{margin-left:auto;font-size:11px;padding:3px 8px;border-radius:999px;border:1px solid #315288;background:#11213d;color:#d2e2ff;display:flex;gap:5px;align-items:center}
-    .a-status{display:flex;flex-direction:column;align-items:flex-end;gap:4px;min-width:126px}
-    .a-model{font-size:10px;color:#9fb4dc;background:#0e1930;border:1px solid #2d456f;border-radius:999px;padding:2px 7px;max-width:126px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-
+    .tasks-layout{display:grid;grid-template-columns:1fr 300px;gap:10px}
     .board-wrap{padding:8px;overflow:auto}
-    .board{display:grid;gap:10px;width:100%;min-width:0}
-    .col{border:1px solid #2b4068;border-radius:12px;padding:8px;min-height:530px;background:linear-gradient(180deg,rgba(12,21,38,.88),rgba(10,18,34,.88));position:relative;overflow:hidden}
-    .col::after{content:'';position:absolute;inset:auto -40% -45% -40%;height:120px;filter:blur(30px);opacity:.35;pointer-events:none}
+    .board{display:grid;gap:10px;width:100%}
+    .col{border:1px solid #2b4068;border-radius:12px;padding:8px;min-height:460px;background:linear-gradient(180deg,rgba(12,21,38,.88),rgba(10,18,34,.88))}
     .colhead{display:flex;justify-content:space-between;align-items:center;padding:7px 9px;border-radius:10px;border:1px solid #355489;background:#132748;margin-bottom:8px}
     .coltitle{font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:700}
     .count{font-size:11px;padding:2px 8px;border-radius:999px;border:1px solid #45689d;background:#18325a;color:#ddecff}
     .soft-limit{box-shadow:0 0 0 1px rgba(255,205,89,.5) inset}
 
-    .col-backlog .colhead{border-color:#7b3a4b;background:linear-gradient(180deg,#331821,#261118)} .col-backlog::after{background:radial-gradient(circle,var(--red),transparent 60%)}
-    .col-ready .colhead{border-color:#2d6f86;background:linear-gradient(180deg,#132f3a,#112731)} .col-ready::after{background:radial-gradient(circle,#59d4ff,transparent 60%)}
-    .col-doing .colhead{border-color:#816529;background:linear-gradient(180deg,#342a14,#261d0e)} .col-doing::after{background:radial-gradient(circle,var(--yellow),transparent 60%)}
-    .col-blocked .colhead{border-color:#7f3f97;background:linear-gradient(180deg,#2d1837,#25132d)} .col-blocked::after{background:radial-gradient(circle,#d47bff,transparent 60%)}
-    .col-review .colhead{border-color:#3f6ba7;background:linear-gradient(180deg,#142943,#11243a)} .col-review::after{background:radial-gradient(circle,var(--blue),transparent 60%)}
-    .col-done .colhead{border-color:#2c7a60;background:linear-gradient(180deg,#132b22,#10231c)} .col-done::after{background:radial-gradient(circle,var(--green),transparent 60%)}
+    .col-backlog .colhead{border-color:#7b3a4b;background:linear-gradient(180deg,#331821,#261118)}
+    .col-doing .colhead{border-color:#816529;background:linear-gradient(180deg,#342a14,#261d0e)}
+    .col-review .colhead{border-color:#3f6ba7;background:linear-gradient(180deg,#142943,#11243a)}
+    .col-done .colhead{border-color:#2c7a60;background:linear-gradient(180deg,#132b22,#10231c)}
 
-    .card{position:relative;z-index:1;background:linear-gradient(180deg,#142646,#101d36);border:1px solid #35568d;border-radius:12px;padding:10px;margin-bottom:9px;cursor:pointer}
+    .card{background:linear-gradient(180deg,#142646,#101d36);border:1px solid #35568d;border-radius:12px;padding:10px;margin-bottom:8px;cursor:pointer}
     .meta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}
     .tag{font-size:11px;padding:2px 7px;border-radius:999px;border:1px solid #43689f;background:#17305a;color:#d7e6ff}
-    .prio-H{border-color:#8e4359;background:#3a1721;color:#ffc3cf}
-    .prio-M{border-color:#8d6f2e;background:#3a2d12;color:#ffe2a0}
-    .prio-L{border-color:#2f8a6d;background:#143426;color:#b8f5da}
+    .prio-H{border-color:#8e4359;background:#3a1721;color:#ffc3cf}.prio-M{border-color:#8d6f2e;background:#3a2d12;color:#ffe2a0}.prio-L{border-color:#2f8a6d;background:#143426;color:#b8f5da}
     .next{font-size:12px;color:#c5d6f5;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
-    .task-agent{border-color:#2f5f9a;background:#11294b;color:#cde2ff}
+
+    .btn{font-size:12px;padding:6px 11px;border-radius:999px;border:1px solid #4a5f8f;background:#17233f;color:#dce8ff;cursor:pointer}
+    .agent-filter{font-size:12px;padding:6px 10px;border-radius:999px;border:1px solid #4a5f8f;background:#17233f;color:#dce8ff}
+
+    .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+    .stat{background:linear-gradient(180deg,#142646,#101d36);border:1px solid #35568d;border-radius:12px;padding:8px}
+    .stat .k{font-size:11px;color:var(--muted);text-transform:uppercase}.stat .v{font-size:18px;font-weight:800}
+    .stat-good{border-color:#2e8d66;background:linear-gradient(180deg,#123324,#0f271d)} .stat-good .v{color:#bff6dc}
+    .stat-warn{border-color:#9a7a2f;background:linear-gradient(180deg,#352a12,#2a200e)} .stat-warn .v{color:#ffe4a1}
+    .stat-bad{border-color:#9b4159;background:linear-gradient(180deg,#361722,#2a1118)} .stat-bad .v{color:#ffc2cf}
 
     .ops-box{background:linear-gradient(180deg,#132543,#0f1d35);border:1px solid #2f4b78;border-radius:12px;padding:8px;margin-bottom:8px}
     .ops-row{display:flex;justify-content:space-between;align-items:center;font-size:12px;margin:6px 0}
-    .dot{width:8px;height:8px;border-radius:999px;display:inline-block;margin-right:6px}
-    .g{background:#33d08f}.y{background:#f0c24e}.r{background:#ff637f}
+    .dot{width:8px;height:8px;border-radius:999px;display:inline-block;margin-right:6px}.g{background:#33d08f}.y{background:#f0c24e}.r{background:#ff637f}
 
-    .empty{color:var(--muted);font-size:12px;opacity:.8}
+    .team-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px}
+    .team-card{background:linear-gradient(180deg,#142646,#101d36);border:1px solid #35568d;border-radius:12px;padding:10px}
+    .avatar{width:42px;height:42px;border-radius:8px;object-fit:cover;border:1px solid #4168a8;image-rendering:pixelated;background:#dfe4ee;padding:2px}
+    .row{display:flex;gap:10px;align-items:center}
+    .muted{color:var(--muted)}
 
+    .hidden{display:none !important}
     .modal{display:none;position:fixed;inset:0;background:rgba(3,8,18,.75);z-index:80;align-items:center;justify-content:center;padding:18px}
-    .modal-card{width:min(900px,95vw);max-height:85vh;overflow:auto;background:#0f1a31;border:1px solid #2f4d82;border-radius:14px;box-shadow:0 20px 50px rgba(0,0,0,.55);padding:12px}
-
-    @media (max-width:1280px){.app{grid-template-columns:1fr}.side,.ops{min-height:auto}}
+    .modal-card{width:min(900px,95vw);max-height:85vh;overflow:auto;background:#0f1a31;border:1px solid #2f4d82;border-radius:14px;padding:12px}
   </style>
 </head>
 <body>
   <header class="topbar">
-    <div class="brand"><div class="logo">🛰️</div><div><div class="title">MISSION CONTROL</div><div class="subtitle" id="updated">Laddar data…</div></div></div>
-    <div class="topstats" id="topstats"></div>
+    <div class="brand"><div class="logo">🛰️</div><div><div style="font-weight:800;letter-spacing:.08em">MISSION CONTROL</div><div class="subtitle" id="updated">Laddar...</div></div></div>
+    <div style="display:flex;gap:8px;align-items:center" id="topstats"></div>
   </header>
 
-  <main class="app">
-    <aside class="panel side"><div class="section-h"><span>Agents</span><span id="agentCount"></span></div><div id="agents"></div></aside>
-    <section class="panel board-wrap"><div class="board" id="board"></div></section>
-    <aside class="panel ops">
-      <div class="section-h"><span>System Status</span><span id="statsUpdated"></span></div><div class="muted" style="padding:0 10px 6px;font-size:11px" id="profileLabel"></div>
-      <div class="stats-grid" id="stats"></div>
-      <div class="section-h" style="padding-top:2px"><span>Tool Status</span><span>Telegram + exec</span></div>
-      <div class="ops-box" id="ops"></div>
-      <div class="section-h" style="padding-top:2px"><span>Workforce Activity</span><span>latest</span></div>
-      <div class="ops-box" id="workforceActivity"></div>
+  <div class="shell">
+    <aside class="sidebar">
+      <button class="tab active" data-tab="tasks">Tasks</button>
+      <button class="tab" data-tab="team">Team</button>
+      <button class="tab" data-tab="ops">Ops</button>
+      <button class="tab" data-tab="memory">Memory</button>
+      <button class="tab" data-tab="docs">Docs</button>
     </aside>
-  </main>
 
-  <div id="archiveModal" class="modal"><div class="modal-card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;"><b>Archived Tasks</b><button id="closeArchive" class="btn">Stäng</button></div><div id="archiveList" class="empty">Inga arkiverade tasks.</div></div></div>
+    <main class="main">
+      <section id="view-tasks">
+        <div class="tasks-layout">
+          <div class="panel board-wrap"><div class="board" id="board"></div></div>
+          <div class="panel" style="padding:8px">
+            <div class="section-h"><span>System Status</span><span id="statsUpdated"></span></div>
+            <div class="stats-grid" id="stats"></div>
+            <div class="section-h" style="padding-top:2px"><span>Tool Status</span><span>Telegram + exec</span></div>
+            <div class="ops-box" id="ops"></div>
+            <div class="section-h" style="padding-top:2px"><span>Workforce Activity</span><span>latest</span></div>
+            <div class="ops-box" id="workforceActivity"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="view-team" class="hidden panel">
+        <div class="section-h"><span>Team</span><span>AI Workforce</span></div>
+        <div style="padding:0 10px 10px" class="muted">Vi bygger en local-first AI workforce som omvandlar idéer till resultat, skapar långsiktig passiv inkomst och minskar mental belastning.</div>
+        <div class="team-grid" id="teamGrid"></div>
+      </section>
+
+      <section id="view-ops" class="hidden panel" style="padding:10px">
+        <h3 style="margin:0 0 8px">Ops Overview</h3>
+        <div class="muted">Driftstatus, cron-rutiner och maintenance-flöde syns i Tasks-vyn till höger.</div>
+      </section>
+
+      <section id="view-memory" class="hidden panel" style="padding:10px">
+        <h3 style="margin:0 0 8px">Memory</h3>
+        <div class="muted">HOT/WARM/COLD semantic memory-policy aktiv. Weekly summaries och decisions loggas i filer.</div>
+      </section>
+
+      <section id="view-docs" class="hidden panel" style="padding:10px">
+        <h3 style="margin:0 0 8px">Docs</h3>
+        <div class="muted">Policyer: MISSION.md, SOUL.md, CUSTOM_TOOLS.md, SEMANTIC_MEMORY.md.</div>
+      </section>
+    </main>
+  </div>
+
+  <div id="archiveModal" class="modal"><div class="modal-card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;"><b>Archived Tasks</b><button id="closeArchive" class="btn">Stäng</button></div><div id="archiveList" class="muted">Inga arkiverade tasks.</div></div></div>
   <div id="cardModal" class="modal"><div class="modal-card"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;"><b>Task details</b><button id="closeCard" class="btn">Stäng</button></div><div id="cardDetail"></div></div></div>
 
 <script>
@@ -116,191 +136,123 @@ const TEAM=[
   {name:'Rex Droid',role:'Android Venture Agent',state:'Active',model:'ollama/qwen2.5-coder:7b-instruct-16k',avatar:`./avatars/leo-byte.png?${AVATAR_VER}`},
   {name:'Zoe Pulse',role:'Use-case Research Agent',state:'Active',model:'ollama/qwen3:8b-16k',avatar:`./avatars/ivy-shield.png?${AVATAR_VER}`}
 ];
-const MODEL_SHORT = {
-  'gpt-5.3-codex':'gpt-5.3-codex',
-  'ollama/qwen3:8b-16k':'qwen3 8b',
-  'ollama/qwen2.5-coder:7b-instruct-16k':'qwen2.5-coder 7b',
-  'ollama/MFDoom/deepseek-r1-tool-calling:8b-16k':'deepseek-r1 8b',
-  'ollama/qwen3:4b-16k':'qwen3 4b'
+const MODEL_SHORT={
+  'gpt-5.3-codex':'gpt-5.3-codex','ollama/qwen3:8b-16k':'qwen3 8b','ollama/qwen2.5-coder:7b-instruct-16k':'qwen2.5-coder 7b','ollama/MFDoom/deepseek-r1-tool-calling:8b-16k':'deepseek-r1 8b','ollama/qwen3:4b-16k':'qwen3 4b'
 };
-const STATE_META={Working:{icon:'🟢',cls:'state-working',text:'Working'},Active:{icon:'⚡',cls:'state-active',text:'Active'},Idle:{icon:'🌙',cls:'state-idle',text:'Idle'},Review:{icon:'🔎',cls:'state-review',text:'Review'}};
 const WIP={doing:2,review:2};
 const COLS=[['backlog','Backlog'],['doing','In Progress'],['review','Review'],['done','Done']];
 const DEVICE_PROFILE={name:'Mac mini M4 (16GB/256GB)',limits:{cpu:{warn:65,bad:85},ram:{warn:75,bad:90},disk:{warn:80,bad:92},temp:{warn:78,bad:90},net:{warn:2000,bad:8000}}};
-let FOCUS=false; let LAST_ARCHIVE={archived:[]}; let TOOL_STATUS={telegram:'OK',exec:'OK'}; let AGENT_FILTER='ALL';
+let FOCUS=false,AGENT_FILTER='ALL',TOOL_STATUS={telegram:'OK',exec:'OK'},LAST_ARCHIVE={archived:[]};
 const byId=id=>document.getElementById(id); const el=(t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!==undefined)e.innerHTML=h;return e};
 
+function switchTab(name){
+  ['tasks','team','ops','memory','docs'].forEach(x=>byId('view-'+x).classList.toggle('hidden',x!==name));
+  document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active', b.dataset.tab===name));
+}
+
 function renderTopStats(data, archivedCount=0){
-  const top=byId('topstats'); top.innerHTML='';
   const vals={backlog:(data.columns.backlog||[]).length,doing:(data.columns.doing||[]).length,review:(data.columns.review||[]).length,done:(data.columns.done||[]).length};
-  [`Backlog ${vals.backlog}`,`In Progress ${vals.doing}/${WIP.doing}`,`Review ${vals.review}/${WIP.review}`,`Done ${vals.done}`,`Archived ${archivedCount}`,`Agents ${TEAM.length}`]
-  .forEach(x=>top.appendChild(el('span','pill',x)));
-  const filter = document.createElement('select');
-  filter.className='agent-filter';
-  const opts=['ALL', ...TEAM.map(a=>a.name)];
-  filter.innerHTML = opts.map(n=>`<option value="${n}" ${AGENT_FILTER===n?'selected':''}>${n==='ALL'?'All agents':n}</option>`).join('');
-  filter.onchange = (e)=>{ AGENT_FILTER=e.target.value; renderBoard(data); };
-  top.appendChild(filter);
-  const focusBtn=el('button','btn',FOCUS?'Exit Focus':'Focus Mode'); focusBtn.onclick=()=>{FOCUS=!FOCUS;renderBoard(data);}; top.appendChild(focusBtn);
-  const archBtn=el('button','btn','📦 Archive'); archBtn.onclick=()=>byId('archiveModal').style.display='flex'; top.appendChild(archBtn);
-}
-
-function renderAgents(data){
-  const wrap=byId('agents'); wrap.innerHTML='';
-  const doing=(data.columns.doing||[]).length;
-  TEAM.forEach((a,i)=>{
-    const state=(i===0&&doing>0)?'Working':a.state; const meta=STATE_META[state]||STATE_META.Active;
-    const mLabel = MODEL_SHORT[a.model] || a.model || '';
-    const card=el('div','agent',`<img class=\"avatar\" src=\"${a.avatar}\" alt=\"${a.name}\"/><div class=\"a-meta\"><b title=\"${a.name}\">${a.name}</b><div class=\"a-role\">${a.role}</div></div><div class=\"a-status\"><span class=\"badge ${meta.cls}\"><span>${meta.icon}</span><span>${meta.text}</span></span><span class=\"a-model\" title=\"${a.model||''}\">${mLabel}</span></div>`);
-    wrap.appendChild(card);
-  });
-  byId('agentCount').textContent=TEAM.length;
-}
-
-function renderCard(t,colKey){
-  const card=el('article','card');
-  const p=(t.priority||'M');
-  // compact view: only Owner + Next action + Prio
-  const agent = t.agent || 'Max Mercer';
-  card.innerHTML=`<div class="meta"><span class="tag prio-${p}">Prio ${p}</span><span class="tag">${t.owner||'Bob'}</span><span class="tag task-agent" title="Agent">${agent}</span></div><div class="next" title="${t.next_action||''}">${t.next_action||'(saknar next action)'}</div>`;
-  card.onclick=()=>openCard(t,colKey);
-  return card;
+  const top=byId('topstats'); top.innerHTML='';
+  [`Backlog ${vals.backlog}`,`In Progress ${vals.doing}/${WIP.doing}`,`Review ${vals.review}/${WIP.review}`,`Done ${vals.done}`,`Archived ${archivedCount}`,`Agents ${TEAM.length}`].forEach(x=>top.appendChild(el('span','pill',x)));
+  const filter=document.createElement('select'); filter.className='agent-filter';
+  const opts=['ALL',...TEAM.map(a=>a.name)]; filter.innerHTML=opts.map(n=>`<option value="${n}" ${AGENT_FILTER===n?'selected':''}>${n==='ALL'?'All agents':n}</option>`).join('');
+  filter.onchange=e=>{AGENT_FILTER=e.target.value; renderBoard(data);}; top.appendChild(filter);
+  const focus=el('button','btn',FOCUS?'Exit Focus':'Focus Mode'); focus.onclick=()=>{FOCUS=!FOCUS; renderBoard(data); renderTopStats(data,archivedCount);}; top.appendChild(focus);
+  const arch=el('button','btn','📦 Archive'); arch.onclick=()=>byId('archiveModal').style.display='flex'; top.appendChild(arch);
 }
 
 function renderBoard(data){
   const board=byId('board'); board.innerHTML='';
   const cols=FOCUS?COLS.filter(([k])=>['doing','review'].includes(k)):COLS;
-  board.style.gridTemplateColumns = `repeat(${cols.length}, minmax(220px, 1fr))`;
+  board.style.gridTemplateColumns=`repeat(${cols.length}, minmax(220px, 1fr))`;
   cols.forEach(([k,label])=>{
-    const baseItems=data.columns[k]||[];
-    const items=(AGENT_FILTER==='ALL') ? baseItems : baseItems.filter(t => (t.agent||'Max Mercer')===AGENT_FILTER);
+    const base=data.columns[k]||[];
+    const items=AGENT_FILTER==='ALL'?base:base.filter(t=>(t.agent||'Max Mercer')===AGENT_FILTER);
     const col=el('section','col col-'+k);
-    let countText=`${items.length}`;
-    if(k==='doing') countText=`${items.length}/${WIP.doing}`;
-    if(k==='review') countText=`${items.length}/${WIP.review}`;
-    col.innerHTML=`<div class="colhead ${((k==='doing'&&items.length>=WIP.doing)||(k==='review'&&items.length>=WIP.review))?'soft-limit':''}"><div class="coltitle">${label}</div><div class="count">${countText}</div></div>`;
-    if(!items.length) col.appendChild(el('div','empty','Inga kort.'));
+    let count=String(items.length); if(k==='doing')count=`${items.length}/${WIP.doing}`; if(k==='review')count=`${items.length}/${WIP.review}`;
+    col.innerHTML=`<div class="colhead ${((k==='doing'&&items.length>=WIP.doing)||(k==='review'&&items.length>=WIP.review))?'soft-limit':''}"><div class="coltitle">${label}</div><div class="count">${count}</div></div>`;
+    if(!items.length) col.appendChild(el('div','muted','Inga kort.'));
     items.forEach(t=>col.appendChild(renderCard(t,k)));
     board.appendChild(col);
   });
 }
 
-function renderArchive(archiveData){
-  const list=byId('archiveList'); const items=(archiveData&&archiveData.archived)?archiveData.archived:[];
-  if(!items.length){list.innerHTML='<div class="empty">Inga arkiverade tasks.</div>';return;}
-  list.innerHTML='';
-  items.slice().reverse().forEach(t=>list.appendChild(el('div','agent',`<div class="a-meta"><b>${t.title||'Untitled'}</b><div class="a-role">${t.next_action||''}</div><div class="a-role">Arkiverad: ${t.archived_at?new Date(t.archived_at).toLocaleString('sv-SE'):''}</div></div>`)));
+function renderCard(t,colKey){
+  const p=t.priority||'M'; const agent=t.agent||'Max Mercer';
+  const card=el('article','card',`<div class="meta"><span class="tag prio-${p}">Prio ${p}</span><span class="tag">${t.owner||'Bob'}</span><span class="tag" style="border-color:#2f5f9a;background:#11294b;color:#cde2ff">${agent}</span></div><div class="next" title="${t.next_action||''}">${t.next_action||'(saknar next action)'}</div>`);
+  card.onclick=()=>openCard(t,colKey); return card;
 }
 
 function openCard(t,colKey){
-  const dod=(t.definition_of_done && t.definition_of_done.length)?t.definition_of_done:['(saknas)'];
-  const risk=t.risk||'M';
-  const approval=t.approval_required?'<span class="tag" style="border-color:#8e4359;background:#3a1721;color:#ffc3cf">Approval required</span>':'';
-  const blocked=(colKey==='blocked' && t.blocked_reason)?`<p><b>Blocked reason:</b> ${t.blocked_reason}</p>`:'';
-  byId('cardDetail').innerHTML=`
-    <h3 style="margin:0 0 8px">${t.title||'Untitled'}</h3>
-    <p><b>Owner:</b> ${t.owner||'Bob'}</p>
-    <p><b>Agent:</b> ${t.agent||'Max Mercer'}</p>
-    <p><b>Next action:</b> ${t.next_action||'(saknas)'}</p>
-    <p><b>Risk:</b> <span class="tag">${risk}</span> ${approval}</p>
-    <p><b>Definition of Done:</b></p>
-    <ul>${dod.map(x=>`<li>${x}</li>`).join('')}</ul>
-    ${blocked}
-  `;
+  const dod=(t.definition_of_done&&t.definition_of_done.length)?t.definition_of_done:['(saknas)'];
+  const blocked=(colKey==='blocked'&&t.blocked_reason)?`<p><b>Blocked reason:</b> ${t.blocked_reason}</p>`:'';
+  byId('cardDetail').innerHTML=`<h3 style="margin:0 0 8px">${t.title||'Untitled'}</h3><p><b>Owner:</b> ${t.owner||'Bob'}</p><p><b>Agent:</b> ${t.agent||'Max Mercer'}</p><p><b>Next action:</b> ${t.next_action||'(saknas)'}</p><p><b>Risk:</b> ${t.risk||'M'} ${t.approval_required?'<span class="tag" style="border-color:#8e4359;background:#3a1721;color:#ffc3cf">Approval required</span>':''}</p><p><b>Definition of Done:</b></p><ul>${dod.map(x=>`<li>${x}</li>`).join('')}</ul>${blocked}`;
   byId('cardModal').style.display='flex';
 }
 
-function levelBy(v, lim){
-  if(v===null||v===undefined||Number.isNaN(Number(v))) return '';
-  v=Number(v); if(v < lim.warn) return 'stat-good'; if(v < lim.bad) return 'stat-warn'; return 'stat-bad';
-}
-function levelPercent(v, kind){
-  const lim = (typeof DEVICE_PROFILE!=='undefined' && DEVICE_PROFILE.limits && DEVICE_PROFILE.limits[kind]) ? DEVICE_PROFILE.limits[kind] : {warn:70,bad:85};
-  return levelBy(v, lim);
-}
-function levelTemp(temp, thermal){
-  if(temp!==null && temp!==undefined && !Number.isNaN(Number(temp))){
-    const lim = (typeof DEVICE_PROFILE!=='undefined' && DEVICE_PROFILE.limits && DEVICE_PROFILE.limits.temp) ? DEVICE_PROFILE.limits.temp : {warn:78,bad:90};
-    return levelBy(Number(temp), lim);
-  }
-  const t=(thermal||'').toLowerCase();
-  if(t.includes('normal')) return 'stat-good';
-  if(t.includes('constrained')||t.includes('warning')) return 'stat-warn';
-  if(t.includes('critical')||t.includes('throttle')) return 'stat-bad';
-  return '';
-}
-function levelNet(kbps){
-  const lim = (typeof DEVICE_PROFILE!=='undefined' && DEVICE_PROFILE.limits && DEVICE_PROFILE.limits.net) ? DEVICE_PROFILE.limits.net : {warn:2000,bad:8000};
-  return levelBy(kbps, lim);
-}
+function levelBy(v,lim){if(v===null||v===undefined||Number.isNaN(Number(v))) return ''; v=Number(v); if(v<lim.warn) return 'stat-good'; if(v<lim.bad) return 'stat-warn'; return 'stat-bad';}
+function levelPercent(v,kind){const lim=(DEVICE_PROFILE.limits&&DEVICE_PROFILE.limits[kind])?DEVICE_PROFILE.limits[kind]:{warn:70,bad:85}; return levelBy(v,lim);}
+function levelTemp(t,thermal){if(t!==null&&!Number.isNaN(Number(t))) return levelBy(Number(t),DEVICE_PROFILE.limits.temp); const x=(thermal||'').toLowerCase(); if(x.includes('normal')) return 'stat-good'; if(x.includes('constrained')||x.includes('warning')) return 'stat-warn'; if(x.includes('critical')||x.includes('throttle')) return 'stat-bad'; return '';}
+function levelNet(v){return levelBy(v,DEVICE_PROFILE.limits.net);}
 
 function renderStats(stats){
-  const wrap=byId('stats');
-  if(!stats){ wrap.innerHTML='<div class="empty">Ingen systemdata ännu.</div>'; return; }
-  const cpu=stats.cpu?.used_percent ?? null;
-  const ram=stats.ram?.used_percent ?? null;
-  const disk=stats.disk?.used_percent ?? null;
-  const temp=stats.temperature?.cpu_c ?? null;
-  const thermal=stats.temperature?.thermal_status || 'Unknown';
-  const rx=stats.network?.rx_kbps ?? null;
-  const tx=stats.network?.tx_kbps ?? null;
-
-  const tempText=(temp===null||temp===undefined)?'N/A':`${temp}°C`;
-  const tempSub=(temp===null||temp===undefined)?`Thermal: ${thermal}`:'CPU temp';
-
+  const wrap=byId('stats'); if(!stats){wrap.innerHTML='<div class="muted">Ingen systemdata ännu.</div>'; return;}
+  const cpu=stats.cpu?.used_percent??null, ram=stats.ram?.used_percent??null, disk=stats.disk?.used_percent??null, temp=stats.temperature?.cpu_c??null, thermal=stats.temperature?.thermal_status||'Unknown', rx=stats.network?.rx_kbps??null, tx=stats.network?.tx_kbps??null;
+  const tempText=(temp===null)?'N/A':`${temp}°C`; const tempSub=(temp===null)?`Thermal: ${thermal}`:'CPU temp';
   wrap.innerHTML='';
-  wrap.appendChild(el('div',`stat ${levelPercent(cpu,'cpu')}`,`<div class='k'>CPU</div><div class='v'>${cpu ?? '-'}%</div>`));
-  wrap.appendChild(el('div',`stat ${levelPercent(ram,'ram')}`,`<div class='k'>RAM</div><div class='v'>${ram ?? '-'}%</div>`));
-  wrap.appendChild(el('div',`stat ${levelPercent(disk,'disk')}`,`<div class='k'>Disk</div><div class='v'>${disk ?? '-'}%</div>`));
-  wrap.appendChild(el('div',`stat ${levelTemp(temp, thermal)}`,`<div class='k'>Temp</div><div class='v'>${tempText}</div><div class='muted'>${tempSub}</div>`));
-  wrap.appendChild(el('div',`stat ${levelNet(rx)}`,`<div class='k'>Net RX</div><div class='v'>${rx ?? '-'} KB/s</div>`));
-  wrap.appendChild(el('div',`stat ${levelNet(tx)}`,`<div class='k'>Net TX</div><div class='v'>${tx ?? '-'} KB/s</div>`));
-  byId('statsUpdated').textContent = stats.updated_at ? new Date(stats.updated_at).toLocaleTimeString('sv-SE') : '';
-  const pl = byId('profileLabel'); if(pl && typeof DEVICE_PROFILE!=='undefined') pl.textContent = DEVICE_PROFILE.name;
-}
-function renderOps(){
-  const ops=byId('ops');
-  const tool = (TOOL_STATUS.telegram==='OK' && TOOL_STATUS.exec==='OK') ? 'OK' : ((TOOL_STATUS.telegram==='DOWN'||TOOL_STATUS.exec==='DOWN')?'DOWN':'DEGRADED');
-  const dot = tool==='OK'?'g':(tool==='DEGRADED'?'y':'r');
-  ops.innerHTML=`<div class='ops-row'><span><span class='dot ${dot}'></span><b>Tool status</b></span><span>${tool}</span></div><div class='ops-row'><span class='muted'>Telegram</span><span>${TOOL_STATUS.telegram}</span></div><div class='ops-row'><span class='muted'>exec</span><span>${TOOL_STATUS.exec}</span></div>`;
+  wrap.appendChild(el('div',`stat ${levelPercent(cpu,'cpu')}`,`<div class='k'>CPU</div><div class='v'>${cpu??'-'}%</div>`));
+  wrap.appendChild(el('div',`stat ${levelPercent(ram,'ram')}`,`<div class='k'>RAM</div><div class='v'>${ram??'-'}%</div>`));
+  wrap.appendChild(el('div',`stat ${levelPercent(disk,'disk')}`,`<div class='k'>Disk</div><div class='v'>${disk??'-'}%</div>`));
+  wrap.appendChild(el('div',`stat ${levelTemp(temp,thermal)}`,`<div class='k'>Temp</div><div class='v'>${tempText}</div><div class='muted'>${tempSub}</div>`));
+  wrap.appendChild(el('div',`stat ${levelNet(rx)}`,`<div class='k'>Net RX</div><div class='v'>${rx??'-'} KB/s</div>`));
+  wrap.appendChild(el('div',`stat ${levelNet(tx)}`,`<div class='k'>Net TX</div><div class='v'>${tx??'-'} KB/s</div>`));
+  byId('statsUpdated').textContent=stats.updated_at?new Date(stats.updated_at).toLocaleTimeString('sv-SE'):'';
 }
 
+function renderOps(){
+  const ops=byId('ops'); const tool=(TOOL_STATUS.telegram==='OK'&&TOOL_STATUS.exec==='OK')?'OK':((TOOL_STATUS.telegram==='DOWN'||TOOL_STATUS.exec==='DOWN')?'DOWN':'DEGRADED'); const dot=tool==='OK'?'g':(tool==='DEGRADED'?'y':'r');
+  ops.innerHTML=`<div class='ops-row'><span><span class='dot ${dot}'></span><b>Tool status</b></span><span>${tool}</span></div><div class='ops-row'><span class='muted'>Telegram</span><span>${TOOL_STATUS.telegram}</span></div><div class='ops-row'><span class='muted'>exec</span><span>${TOOL_STATUS.exec}</span></div><div class='ops-row'><span class='muted'>Profile</span><span>${DEVICE_PROFILE.name}</span></div>`;
+}
 
 function renderWorkforceActivity(data){
-  const box=byId('workforceActivity');
-  const tasks=[];
-  ['doing','review','backlog'].forEach(c=> (data.columns[c]||[]).forEach(t=>tasks.push({...t,_col:c})));
-  tasks.sort((a,b)=> String(b.updated_at||'').localeCompare(String(a.updated_at||'')));
-  const top=tasks.slice(0,4);
-  if(!top.length){ box.innerHTML='<div class="empty">Ingen aktivitet ännu.</div>'; return; }
-  box.innerHTML = top.map(t=>`<div class='ops-row'><span class='muted'>${t._col.toUpperCase()}</span><span>${(t.title||'').slice(0,26)}</span></div>`).join('');
+  const box=byId('workforceActivity'); const tasks=[]; ['doing','review','backlog'].forEach(c=>(data.columns[c]||[]).forEach(t=>tasks.push({...t,_col:c})));
+  tasks.sort((a,b)=>String(b.updated_at||'').localeCompare(String(a.updated_at||''))); const top=tasks.slice(0,4);
+  if(!top.length){box.innerHTML='<div class="muted">Ingen aktivitet ännu.</div>'; return;}
+  box.innerHTML=top.map(t=>`<div class='ops-row'><span class='muted'>${(t.agent||'').split(' ')[0]}</span><span title='${t.title||''}'>${(t.title||'').slice(0,24)}</span></div>`).join('');
+}
+
+function renderArchive(archive){
+  const list=byId('archiveList'); const items=(archive&&archive.archived)?archive.archived:[];
+  if(!items.length){list.innerHTML='<div class="muted">Inga arkiverade tasks.</div>'; return;}
+  list.innerHTML=items.slice().reverse().map(t=>`<div class='card'><div class='meta'><span class='tag'>${t.title||'Untitled'}</span></div><div class='next'>${t.next_action||''}</div></div>`).join('');
+}
+
+function renderTeam(){
+  const g=byId('teamGrid'); g.innerHTML='';
+  TEAM.forEach(a=>g.appendChild(el('div','team-card',`<div class='row'><img class='avatar' src='${a.avatar}' alt='${a.name}'/><div><b>${a.name}</b><div class='muted'>${a.role}</div><div class='muted'>${MODEL_SHORT[a.model]||a.model}</div></div></div>`)));
 }
 
 async function load(){
   try{
     const ts=Date.now();
-    const [boardRes, archiveRes, statsRes]=await Promise.all([
-      fetch('./KANBAN.json?ts='+ts),
-      fetch('./KANBAN_ARCHIVE.json?ts='+ts).catch(()=>null),
-      fetch('./system_stats.json?ts='+ts).catch(()=>null)
-    ]);
+    const [boardRes,archiveRes,statsRes]=await Promise.all([fetch('./KANBAN.json?ts='+ts),fetch('./KANBAN_ARCHIVE.json?ts='+ts).catch(()=>null),fetch('./system_stats.json?ts='+ts).catch(()=>null)]);
     const data=await boardRes.json();
-    let archivedCount=0; LAST_ARCHIVE={archived:[]};
-    let stats=null;
-    if(archiveRes&&archiveRes.ok){ LAST_ARCHIVE=await archiveRes.json(); archivedCount=(LAST_ARCHIVE.archived||[]).length; }
-    if(statsRes&&statsRes.ok){ stats=await statsRes.json(); }
-
+    let stats=null, archive={archived:[]}, archivedCount=0;
+    if(statsRes&&statsRes.ok) stats=await statsRes.json();
+    if(archiveRes&&archiveRes.ok){archive=await archiveRes.json(); archivedCount=(archive.archived||[]).length;}
     byId('updated').textContent=`Senast uppdaterad: ${new Date().toLocaleString('sv-SE')}`;
-    renderTopStats(data, archivedCount); renderAgents(data); renderBoard(data); renderArchive(LAST_ARCHIVE); renderStats(stats); renderOps(); renderWorkforceActivity(data);
-  }catch{ byId('updated').textContent='Kunde inte läsa KANBAN.json'; TOOL_STATUS.exec='DEGRADED'; renderOps(); }
+    LAST_ARCHIVE=archive;
+    renderTopStats(data,archivedCount); renderBoard(data); renderStats(stats); renderOps(); renderWorkforceActivity(data); renderArchive(archive); renderTeam();
+  }catch{byId('updated').textContent='Kunde inte läsa data'; TOOL_STATUS.exec='DEGRADED'; renderOps();}
 }
 
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>switchTab(b.dataset.tab));
 byId('closeArchive').onclick=()=>byId('archiveModal').style.display='none';
 byId('archiveModal').addEventListener('click',e=>{if(e.target.id==='archiveModal')byId('archiveModal').style.display='none';});
 byId('closeCard').onclick=()=>byId('cardModal').style.display='none';
 byId('cardModal').addEventListener('click',e=>{if(e.target.id==='cardModal')byId('cardModal').style.display='none';});
 
-load(); setInterval(load,10000);
+switchTab('tasks'); load(); setInterval(load,10000);
 </script>
 </body>
 </html>
