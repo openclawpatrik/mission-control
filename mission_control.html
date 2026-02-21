@@ -90,7 +90,7 @@
     <aside class="panel side"><div class="section-h"><span>Agents</span><span id="agentCount"></span></div><div id="agents"></div></aside>
     <section class="panel board-wrap"><div class="board" id="board"></div></section>
     <aside class="panel ops">
-      <div class="section-h"><span>System Status</span><span id="statsUpdated"></span></div>
+      <div class="section-h"><span>System Status</span><span id="statsUpdated"></span></div><div class="muted" style="padding:0 10px 6px;font-size:11px" id="profileLabel"></div>
       <div class="stats-grid" id="stats"></div>
       <div class="section-h" style="padding-top:2px"><span>Tool Status</span><span>Telegram + exec</span></div>
       <div class="ops-box" id="ops"></div>
@@ -193,13 +193,17 @@ function openCard(t,colKey){
   byId('cardModal').style.display='flex';
 }
 
-function levelPercent(v){
+function levelBy(v, lim){
   if(v===null||v===undefined||Number.isNaN(Number(v))) return '';
-  v=Number(v); if(v<60) return 'stat-good'; if(v<80) return 'stat-warn'; return 'stat-bad';
+  v=Number(v); if(v < lim.warn) return 'stat-good'; if(v < lim.bad) return 'stat-warn'; return 'stat-bad';
+}
+function levelPercent(v, kind){
+  const lim = DEVICE_PROFILE.limits[kind] || {warn:70,bad:85};
+  return levelBy(v, lim);
 }
 function levelTemp(temp, thermal){
   if(temp!==null && temp!==undefined && !Number.isNaN(Number(temp))){
-    temp=Number(temp); if(temp<70) return 'stat-good'; if(temp<85) return 'stat-warn'; return 'stat-bad';
+    return levelBy(Number(temp), DEVICE_PROFILE.limits.temp);
   }
   const t=(thermal||'').toLowerCase();
   if(t.includes('normal')) return 'stat-good';
@@ -207,10 +211,10 @@ function levelTemp(temp, thermal){
   if(t.includes('critical')||t.includes('throttle')) return 'stat-bad';
   return '';
 }
-function levelNet(v){
-  if(v===null||v===undefined||Number.isNaN(Number(v))) return '';
-  v=Number(v); if(v<100) return 'stat-good'; if(v<1000) return 'stat-warn'; return 'stat-bad';
+function levelNet(kbps){
+  return levelBy(kbps, DEVICE_PROFILE.limits.net);
 }
+
 function renderStats(stats){
   const wrap=byId('stats');
   if(!stats){ wrap.innerHTML='<div class="empty">Ingen systemdata ännu.</div>'; return; }
@@ -226,13 +230,14 @@ function renderStats(stats){
   const tempSub=(temp===null||temp===undefined)?`Thermal: ${thermal}`:'CPU temp';
 
   wrap.innerHTML='';
-  wrap.appendChild(el('div',`stat ${levelPercent(cpu)}`,`<div class='k'>CPU</div><div class='v'>${cpu ?? '-'}%</div>`));
-  wrap.appendChild(el('div',`stat ${levelPercent(ram)}`,`<div class='k'>RAM</div><div class='v'>${ram ?? '-'}%</div>`));
-  wrap.appendChild(el('div',`stat ${levelPercent(disk)}`,`<div class='k'>Disk</div><div class='v'>${disk ?? '-'}%</div>`));
+  wrap.appendChild(el('div',`stat ${levelPercent(cpu,'cpu')}`,`<div class='k'>CPU</div><div class='v'>${cpu ?? '-'}%</div>`));
+  wrap.appendChild(el('div',`stat ${levelPercent(ram,'ram')}`,`<div class='k'>RAM</div><div class='v'>${ram ?? '-'}%</div>`));
+  wrap.appendChild(el('div',`stat ${levelPercent(disk,'disk')}`,`<div class='k'>Disk</div><div class='v'>${disk ?? '-'}%</div>`));
   wrap.appendChild(el('div',`stat ${levelTemp(temp, thermal)}`,`<div class='k'>Temp</div><div class='v'>${tempText}</div><div class='muted'>${tempSub}</div>`));
   wrap.appendChild(el('div',`stat ${levelNet(rx)}`,`<div class='k'>Net RX</div><div class='v'>${rx ?? '-'} KB/s</div>`));
   wrap.appendChild(el('div',`stat ${levelNet(tx)}`,`<div class='k'>Net TX</div><div class='v'>${tx ?? '-'} KB/s</div>`));
   byId('statsUpdated').textContent = stats.updated_at ? new Date(stats.updated_at).toLocaleTimeString('sv-SE') : '';
+  const pl = byId('profileLabel'); if(pl) pl.textContent = DEVICE_PROFILE.name;
 }
 function renderOps(){
   const ops=byId('ops');
