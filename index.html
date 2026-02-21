@@ -9,13 +9,13 @@
     *{box-sizing:border-box} html,body{height:100%}
     body{margin:0;color:var(--text);font:14px/1.45 Inter,system-ui,Segoe UI,Roboto,Arial;background:radial-gradient(1200px 500px at 10% 100%, rgba(255,90,120,.12), transparent 60%),radial-gradient(900px 500px at 80% 20%, rgba(87,159,255,.14), transparent 60%),linear-gradient(180deg,var(--bg),var(--bg2));overflow:hidden}
 
-    .topbar{height:58px;display:grid;grid-template-columns:1fr 1fr 1fr;align-items:center;padding:10px 14px;border-bottom:1px solid var(--line);background:#070e1dcc}
+    .topbar{min-height:58px;display:grid;grid-template-columns:minmax(220px,1fr) auto minmax(420px,1fr);align-items:center;padding:8px 12px;border-bottom:1px solid var(--line);background:#070e1dcc;gap:10px}
     .brand{display:flex;gap:10px;align-items:center}.logo{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(145deg,#243f72,#132747)}
     .subtitle{font-size:12px;color:var(--muted)}
-    .fitz{justify-self:center;font-weight:900;letter-spacing:.12em;font-size:18px;text-transform:uppercase}
+    .fitz{justify-self:center;font-weight:900;letter-spacing:.12em;font-size:18px;text-transform:uppercase;line-height:1}
     .fitz span{color:#7ad0ff}
-    .topstats{justify-self:end;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-    .pill{font-size:12px;padding:5px 10px;border-radius:999px;border:1px solid #345286;background:#0e1c35;color:#d6e5ff}
+    .topstats{justify-self:end;display:flex;gap:6px;align-items:center;flex-wrap:nowrap;white-space:nowrap;overflow:auto;scrollbar-width:none}
+    .pill{font-size:11px;padding:4px 8px;border-radius:999px;border:1px solid #345286;background:#0e1c35;color:#d6e5ff;flex:0 0 auto}
 
     .shell{display:grid;grid-template-columns:220px 1fr;height:calc(100vh - 58px)}
     .sidebar{border-right:1px solid var(--line);padding:10px;background:#081226}
@@ -45,8 +45,8 @@
     .prio-H{border-color:#8e4359;background:#3a1721;color:#ffc3cf}.prio-M{border-color:#8d6f2e;background:#3a2d12;color:#ffe2a0}.prio-L{border-color:#2f8a6d;background:#143426;color:#b8f5da}
     .next{font-size:12px;color:#c5d6f5;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
 
-    .btn{font-size:12px;padding:6px 11px;border-radius:999px;border:1px solid #4a5f8f;background:#17233f;color:#dce8ff;cursor:pointer}
-    .agent-filter{font-size:12px;padding:6px 10px;border-radius:999px;border:1px solid #4a5f8f;background:#17233f;color:#dce8ff}
+    .btn{font-size:11px;padding:5px 9px;border-radius:999px;border:1px solid #4a5f8f;background:#17233f;color:#dce8ff;cursor:pointer;flex:0 0 auto}
+    .agent-filter{font-size:11px;padding:5px 8px;border-radius:999px;border:1px solid #4a5f8f;background:#17233f;color:#dce8ff;max-width:120px}
 
     .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
     .stat{background:linear-gradient(180deg,#142646,#101d36);border:1px solid #35568d;border-radius:12px;padding:8px}
@@ -77,6 +77,14 @@
     .hidden{display:none !important}
     .modal{display:none;position:fixed;inset:0;background:rgba(3,8,18,.75);z-index:80;align-items:center;justify-content:center;padding:18px}
     .modal-card{width:min(900px,95vw);max-height:85vh;overflow:auto;background:#0f1a31;border:1px solid #2f4d82;border-radius:14px;padding:12px}
+
+    @media (max-width:1200px){
+      .topbar{grid-template-columns:1fr;gap:6px;padding:8px}
+      .fitz{justify-self:start}
+      .topstats{justify-self:start;overflow:auto;width:100%}
+      .shell{grid-template-columns:1fr}
+    }
+
   </style>
 </head>
 <body>
