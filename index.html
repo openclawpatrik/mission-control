@@ -253,7 +253,7 @@ async function load(){
     renderTopStats(data); renderAgents(data); renderBoard(data); renderStats(stats); renderFeed(data);
   }catch{ byId('updated').textContent='Kunde inte läsa KANBAN.json'; }
 }
-load(); setInterval(load,30000);
+load(); setInterval(load,10000);
 </script>
 </body>
 </html>
