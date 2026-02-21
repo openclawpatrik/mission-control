@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mission Control</title>
+  <style>
+    :root{
+      --bg:#070b14;
+      --bg2:#0b1220;
+      --panel:#0f1728;
+      --panel2:#131d33;
+      --line:#243553;
+      --text:#e9f0ff;
+      --muted:#9fb2d8;
+      --accent:#4f8cff;
+      --glow: 0 0 0 1px rgba(79,140,255,.18), 0 10px 30px rgba(0,0,0,.35);
+      --h:#ff6b6b;
+      --m:#f6c453;
+      --l:#4cd39a;
+      --radius:14px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      color:var(--text);
+      font:14px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      background:
+        radial-gradient(1200px 600px at 80% -10%, rgba(79,140,255,.16), transparent 60%),
+        radial-gradient(900px 500px at -10% 10%, rgba(118,77,255,.16), transparent 60%),
+        linear-gradient(180deg,var(--bg),var(--bg2));
+    }
+
+    .topbar{
+      position:sticky;top:0;z-index:30;
+      display:flex;align-items:center;justify-content:space-between;
+      padding:12px 16px;
+      background:rgba(8,13,24,.82);
+      border-bottom:1px solid var(--line);
+      backdrop-filter: blur(10px);
+    }
+    .brand{display:flex;align-items:center;gap:10px}
+    .logo{width:34px;height:34px;border-radius:10px;background:linear-gradient(145deg,#1e2f55,#13203a);display:grid;place-items:center;font-size:17px;box-shadow:var(--glow)}
+    .title{font-size:14px;font-weight:700;letter-spacing:.05em}
+    .subtitle{font-size:12px;color:var(--muted)}
+    .topstats{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+    .pill{font-size:12px;padding:6px 10px;border-radius:999px;background:#101a2d;border:1px solid var(--line);color:#cfe0ff}
+
+    .app{display:grid;grid-template-columns:260px minmax(780px,1fr) 320px;gap:12px;padding:12px;max-width:1800px;margin:0 auto}
+    .panel{background:linear-gradient(180deg,#101a2e,#0d1628);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--glow)}
+
+    .side{padding:10px;min-height:calc(100vh - 90px)}
+    .section-h{display:flex;justify-content:space-between;align-items:center;padding:4px 4px 8px;color:#b9c9eb;font-size:12px;text-transform:uppercase;letter-spacing:.1em}
+    .agent{background:rgba(15,25,44,.72);border:1px solid var(--line);border-radius:12px;padding:9px;margin-bottom:8px}
+    .agent .row{display:flex;justify-content:space-between;gap:8px}
+    .agent b{font-size:13px}
+    .agent .role{color:var(--muted);font-size:12px;margin-top:2px}
+    .badge{font-size:11px;padding:3px 7px;border-radius:999px;border:1px solid #2a3d61;background:#13203a;color:#c6d7fb}
+
+    .board-wrap{overflow:auto;padding:8px}
+    .board{display:grid;grid-template-columns:repeat(4,minmax(250px,1fr));gap:10px;min-width:1040px}
+    .col{background:linear-gradient(180deg,rgba(18,29,51,.9),rgba(13,22,40,.9));border:1px solid var(--line);border-radius:12px;padding:8px;min-height:520px}
+    .colhead{display:flex;justify-content:space-between;align-items:center;margin:2px 2px 8px}
+    .coltitle{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#b8c9ed}
+    .count{font-size:11px;color:#d6e4ff;background:#11203c;border:1px solid #27406a;padding:2px 8px;border-radius:999px}
+
+    .card{background:linear-gradient(180deg,#121d33,#0f182b);border:1px solid #263a5d;border-radius:12px;padding:10px;margin-bottom:9px;transition:.18s transform,.18s border-color,.18s box-shadow}
+    .card:hover{transform:translateY(-2px);border-color:#4068a9;box-shadow:0 8px 20px rgba(0,0,0,.35)}
+    .card h4{margin:0 0 7px;font-size:13px;line-height:1.35}
+    .meta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px}
+    .tag{font-size:11px;padding:2px 7px;border-radius:999px;background:#13213c;border:1px solid #294169;color:#d1dfff}
+    .prio-H{background:#2a171e;border-color:#6e2d42;color:#ffb2c2}
+    .prio-M{background:#2a2313;border-color:#705b20;color:#ffe3a6}
+    .prio-L{background:#152922;border-color:#2e6952;color:#aef5d7}
+    .next{font-size:12px;color:#b8c9ea}
+
+    .feed{padding:10px;min-height:calc(100vh - 90px)}
+    .feed-item{background:rgba(16,26,44,.75);border:1px solid var(--line);border-radius:12px;padding:8px;margin-bottom:8px}
+    .feed-item b{font-size:12px}
+    .feed-item .muted{font-size:12px;color:var(--muted);margin-top:2px}
+
+    .empty{opacity:.7;color:var(--muted);font-size:12px}
+
+    @media (max-width:1200px){
+      .app{grid-template-columns:1fr;}
+      .side,.feed{min-height:auto}
+      .board{min-width:920px}
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">🛰️</div>
+      <div>
+        <div class="title">MISSION CONTROL</div>
+        <div class="subtitle" id="updated">Laddar data…</div>
+      </div>
+    </div>
+    <div class="topstats" id="topstats"></div>
+  </header>
+
+  <main class="app">
+    <aside class="panel side">
+      <div class="section-h"><span>Agents</span><span id="agentCount"></span></div>
+      <div id="agents"></div>
+    </aside>
+
+    <section class="panel board-wrap">
+      <div class="board" id="board"></div>
+    </section>
+
+    <aside class="panel feed">
+      <div class="section-h"><span>Live Feed</span><span id="feedCount"></span></div>
+      <div id="feed"></div>
+    </aside>
+  </main>
+
+<script>
+const TEAM = [
+  { name:'Bob Orchestrator', role:'Planering & prioritering', state:'Active' },
+  { name:'Research Scout', role:'OpenClaw + AI-trender', state:'Active' },
+  { name:'Builder', role:'Kod, appar, implementation', state:'Idle' },
+  { name:'QA Sentinel', role:'Risk, kvalitet, verifiering', state:'Idle' },
+  { name:'Ops Runner', role:'Cron, automation, drift', state:'Active' }
+];
+const COLUMNS = [
+  ['backlog','Backlog'],
+  ['doing','In Progress'],
+  ['review','Review'],
+  ['done','Done']
+];
+const el = (t,c,h)=>{const e=document.createElement(t); if(c)e.className=c; if(h!==undefined)e.innerHTML=h; return e};
+const byId=id=>document.getElementById(id);
+
+function renderTopStats(data){
+  const top=byId('topstats');
+  const b=(data.columns.backlog||[]).length;
+  const d=(data.columns.doing||[]).length;
+  const r=(data.columns.review||[]).length;
+  const dn=(data.columns.done||[]).length;
+  top.innerHTML='';
+  [
+    `Backlog ${b}`,
+    `In Progress ${d}/${data.wip_limit_doing||3}`,
+    `Review ${r}`,
+    `Done ${dn}`,
+    `Agents ${TEAM.length}`
+  ].forEach(x=>top.appendChild(el('span','pill',x)));
+}
+
+function renderAgents(data){
+  const wrap=byId('agents'); wrap.innerHTML='';
+  const doing=(data.columns.doing||[]).length;
+  TEAM.forEach((a,i)=>{
+    const state=(i===0 && doing>0)?'Working':a.state;
+    const d=el('div','agent');
+    d.innerHTML=`<div class="row"><b>${a.name}</b><span class="badge">${state}</span></div><div class="role">${a.role}</div>`;
+    wrap.appendChild(d);
+  });
+  byId('agentCount').textContent = TEAM.length;
+}
+
+function prioClass(p){return p==='H'?'prio-H':p==='L'?'prio-L':'prio-M'}
+function renderCard(task){
+  const card=el('article','card');
+  const tags=(task.tags||[]).map(t=>`<span class="tag">${t}</span>`).join('');
+  card.innerHTML=`
+    <h4>${task.title||'Untitled'}</h4>
+    <div class="meta">
+      <span class="tag ${prioClass(task.priority)}">Prio ${task.priority||'M'}</span>
+      <span class="tag">${task.owner||'Bob'}</span>
+      ${tags}
+    </div>
+    <div class="next">${task.next_action||''}</div>
+  `;
+  return card;
+}
+
+function renderBoard(data){
+  const board=byId('board'); board.innerHTML='';
+  COLUMNS.forEach(([k,label])=>{
+    const col=el('section','col');
+    const items=data.columns[k]||[];
+    col.innerHTML=`<div class="colhead"><div class="coltitle">${label}</div><div class="count">${items.length}</div></div>`;
+    if(!items.length) col.appendChild(el('div','empty','Inga kort.'));
+    items.forEach(t=>col.appendChild(renderCard(t)));
+    board.appendChild(col);
+  });
+}
+
+function renderFeed(data){
+  const out=[];
+  (data.columns.doing||[]).forEach(t=>out.push({s:'Working',t:t.title}));
+  (data.columns.review||[]).forEach(t=>out.push({s:'Review',t:t.title}));
+  (data.columns.done||[]).forEach(t=>out.push({s:'Done',t:t.title}));
+  const feed=byId('feed'); feed.innerHTML='';
+  if(!out.length) feed.appendChild(el('div','empty','Inga events ännu.'));
+  out.slice(0,12).forEach(x=>{
+    const d=el('div','feed-item',`<b>${x.s}</b><div class="muted">${x.t}</div>`);
+    feed.appendChild(d);
+  });
+  byId('feedCount').textContent = out.length;
+}
+
+async function load(){
+  try{
+    const res=await fetch('./KANBAN.json?ts='+Date.now());
+    const data=await res.json();
+    byId('updated').textContent = `Senast uppdaterad: ${new Date().toLocaleString('sv-SE')}`;
+    renderTopStats(data);
+    renderAgents(data);
+    renderBoard(data);
+    renderFeed(data);
+  }catch(e){
+    byId('updated').textContent = 'Kunde inte läsa KANBAN.json';
+  }
+}
+load(); setInterval(load, 30000);
+</script>
+</body>
+</html>
