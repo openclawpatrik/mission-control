@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "updated_at": "2026-02-21T21:18:44.727890+01:00",
+  "updated_at": "2026-02-21T21:31:31.111191+01:00",
   "wip_limit_doing": 2,
   "columns": {
     "backlog": [
@@ -189,6 +189,27 @@
           "Top 3 trender hittade",
           "Feasibility checkad",
           "1 rekommendation given"
+        ]
+      },
+      {
+        "id": "task-2026-02-21-022",
+        "title": "Sätt auto-transkribering voice notes",
+        "status": "Backlog",
+        "priority": "H",
+        "owner": "Bob",
+        "deadline": null,
+        "tags": [
+          "ai",
+          "home"
+        ],
+        "next_action": "Välj STT-metod och aktivera ingest till VOICE_INBOX",
+        "created_at": "2026-02-21T21:31:31.111191+01:00",
+        "updated_at": "2026-02-21T21:31:31.111191+01:00",
+        "risk": "M",
+        "definition_of_done": [
+          "Voice transkriberas automatiskt",
+          "Sparas i VOICE_INBOX",
+          "Veckotriage aktiv"
         ]
       }
     ],
