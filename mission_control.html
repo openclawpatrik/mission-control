@@ -47,7 +47,11 @@
     .avatar{width:36px;height:36px;border-radius:999px;object-fit:cover;display:block;border:1px solid #4168a8;box-shadow:0 4px 10px rgba(0,0,0,.35)}
     .a-meta b{display:block;font-size:13px}
     .a-role{font-size:12px;color:var(--muted)}
-    .badge{margin-left:auto;font-size:11px;padding:3px 8px;border-radius:999px;border:1px solid #315288;background:#11213d;color:#d2e2ff}
+    .badge{margin-left:auto;font-size:11px;padding:3px 8px;border-radius:999px;border:1px solid #315288;background:#11213d;color:#d2e2ff;display:flex;align-items:center;gap:5px;font-weight:600}
+    .state-working{border-color:#2a7e62;background:#103528;color:#bff5dd}
+    .state-active{border-color:#6d5a25;background:#34290f;color:#ffe5aa}
+    .state-idle{border-color:#3b5a8e;background:#132a4a;color:#c9dcff}
+    .state-review{border-color:#6a4a90;background:#2a1b45;color:#e5d2ff}
 
     .board-wrap{padding:8px;overflow:auto}
     .board{display:grid;grid-template-columns:repeat(4,minmax(250px,1fr));gap:10px;min-width:1060px}
@@ -121,6 +125,12 @@ const TEAM = [
   { name:'Ivy Shield', role:'QA & risk guardian', state:'Idle', avatar:'./avatars/ivy-shield.svg' },
   { name:'Owen Flux', role:'Ops & automation', state:'Active', avatar:'./avatars/owen-flux.svg' }
 ];
+const STATE_META = {
+  Working: { icon:'🟢', cls:'state-working', text:'Working' },
+  Active: { icon:'⚡', cls:'state-active', text:'Active' },
+  Idle: { icon:'🌙', cls:'state-idle', text:'Idle' },
+  Review: { icon:'🔎', cls:'state-review', text:'Review' }
+};
 const COLUMNS=[['backlog','Backlog'],['doing','In Progress'],['review','Review'],['done','Done']];
 const byId=id=>document.getElementById(id);
 const el=(t,c,h)=>{const e=document.createElement(t); if(c)e.className=c; if(h!==undefined)e.innerHTML=h; return e};
@@ -139,8 +149,9 @@ function renderAgents(data){
   const doing=(data.columns.doing||[]).length;
   TEAM.forEach((a,i)=>{
     const state=(i===0&&doing>0)?'Working':a.state;
+    const meta = STATE_META[state] || STATE_META.Active;
     const card=el('div','agent');
-    card.innerHTML=`<img class="avatar" src="${a.avatar}" alt="${a.name}" /><div class="a-meta"><b>${a.name}</b><div class="a-role">${a.role}</div></div><span class="badge">${state}</span>`;
+    card.innerHTML=`<img class="avatar" src="${a.avatar}" alt="${a.name}" /><div class="a-meta"><b>${a.name}</b><div class="a-role">${a.role}</div></div><span class="badge ${meta.cls}"><span>${meta.icon}</span><span>${meta.text}</span></span>`;
     wrap.appendChild(card);
   });
   byId('agentCount').textContent=TEAM.length;
