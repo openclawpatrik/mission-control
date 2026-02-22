@@ -317,9 +317,18 @@ function parseBankRows(md){
     if(!line.startsWith('|')) continue;
     if(line.includes('---')) continue;
     const cols=line.split('|').map(s=>s.trim()).filter((_,i,a)=>i>0&&i<a.length-1);
-    if(cols.length<6 || cols[0]==='Datum') continue;
-    const match=(cols[4]||'').match(/\[(.*?)\]\((.*?)\)/);
-    rows.push({date:cols[0],title:cols[1],channel:cols[2],status:cols[3],file:(match?match[2]:''),notes:cols[5]});
+    if(cols[0]==='Datum') continue;
+    // New format: date,title,channel,categories,status,link,notes
+    if(cols.length>=7){
+      const match=(cols[5]||'').match(/\[(.*?)\]\((.*?)\)/);
+      rows.push({date:cols[0],title:cols[1],channel:cols[2],categories:cols[3],status:cols[4],file:(match?match[2]:''),notes:cols[6]});
+      continue;
+    }
+    // Legacy format fallback: date,title,channel,status,link,notes
+    if(cols.length>=6){
+      const match=(cols[4]||'').match(/\[(.*?)\]\((.*?)\)/);
+      rows.push({date:cols[0],title:cols[1],channel:cols[2],categories:'Övrigt',status:cols[3],file:(match?match[2]:''),notes:cols[5]});
+    }
   }
   return rows;
 }
@@ -333,12 +342,12 @@ async function renderYoutube(){
     const rows=parseBankRows(md).sort((a,b)=>String(b.date).localeCompare(String(a.date)));
     function draw(q=''){
       const s=q.toLowerCase();
-      const filt=rows.filter(r=>!s || [r.title,r.channel,r.status,r.notes].join(' ').toLowerCase().includes(s));
+      const filt=rows.filter(r=>!s || [r.title,r.channel,r.categories,r.status,r.notes].join(' ').toLowerCase().includes(s));
       list.innerHTML='';
       if(!filt.length){list.innerHTML='<div class="muted">Inga träffar.</div>'; return;}
       filt.forEach(r=>{
         const b=document.createElement('button');
-        b.innerHTML=`<div><b>${r.title}</b></div><div class='muted'>${r.date} · ${r.channel} · ${r.status}</div><div class='muted'>${r.notes}</div>`;
+        b.innerHTML=`<div><b>${r.title}</b></div><div class='muted'>${r.date} · ${r.channel} · ${r.status}</div><div class='muted'>Kategori: ${r.categories}</div><div class='muted'>${r.notes}</div>`;
         b.onclick=async()=>{
           try{
             const path='./research/youtube/'+r.file;

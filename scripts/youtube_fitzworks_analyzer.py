@@ -93,13 +93,27 @@ def classify_now_or_later(analysis: str) -> str:
     return 'BANK'
 
 
+def infer_categories(title: str, channel: str, analysis: str) -> str:
+    blob = f"{title} {channel} {analysis}".lower()
+    cats = []
+    if any(x in blob for x in ['ai', 'artificiell', 'openai', 'anthropic']): cats.append('AI')
+    if any(x in blob for x in ['aktie', 'stocks', 'invest', 'portfolio', 'market']): cats.append('Investering')
+    if any(x in blob for x in ['risk', 'bubble', 'krasch', 'crash']): cats.append('Risk')
+    if any(x in blob for x in ['energy', 'energi', 'nuclear', 'data center', 'infrastruktur']): cats.append('Infrastruktur')
+    if any(x in blob for x in ['automation', 'produktiv', 'workflow', 'process']): cats.append('Automation')
+    if 'comparative advantage' in blob or 'komparativ' in blob: cats.append('Comparative advantage')
+    if not cats: cats = ['Övrigt']
+    return ', '.join(dict.fromkeys(cats))
+
+
 def append_bank_entry(title: str, url: str, channel: str, out_path: pathlib.Path, analysis: str):
     bank = OUTDIR / 'BANK.md'
     if not bank.exists():
-        bank.write_text('# YouTube Knowledge Bank (FitzWorks)\n\n| Datum | Titel | Kanal | Status | Länk | Notes |\n|---|---|---|---|---|---|\n', encoding='utf-8')
+        bank.write_text('# YouTube Knowledge Bank (FitzWorks)\n\n| Datum | Titel | Kanal | Kategorier | Status | Länk | Notes |\n|---|---|---|---|---|---|---|\n', encoding='utf-8')
     status = classify_now_or_later(analysis)
     note = 'Direkt kandidat' if status == 'NOW' else 'Spara för senare'
-    row = f"| {dt.datetime.now().astimezone().strftime('%Y-%m-%d')} | {title.replace('|','/')} | {channel.replace('|','/')} | {status} | [{out_path.name}]({out_path.name}) | {note} |\n"
+    categories = infer_categories(title, channel, analysis).replace('|','/')
+    row = f"| {dt.datetime.now().astimezone().strftime('%Y-%m-%d')} | {title.replace('|','/')} | {channel.replace('|','/')} | {categories} | {status} | [{out_path.name}]({out_path.name}) | {note} |\n"
     with bank.open('a', encoding='utf-8') as f:
         f.write(row)
 
