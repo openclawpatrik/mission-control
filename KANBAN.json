@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "updated_at": "2026-02-22T08:55:53.488573+01:00",
+  "updated_at": "2026-02-22T08:59:25.957418+01:00",
   "wip_limit_doing": 2,
   "columns": {
     "backlog": [
@@ -377,6 +377,81 @@
         "agent": "Max Mercer",
         "category": "build",
         "progress_pct": 5,
+        "eta": "2-5 dagar"
+      },
+      {
+        "id": "task-2026-02-22-028",
+        "title": "Gamified: Quality streaks kopplat till leveranskvalitet",
+        "status": "Backlog",
+        "priority": "M",
+        "owner": "Bob",
+        "deadline": null,
+        "tags": [
+          "gamification",
+          "ops"
+        ],
+        "next_action": "Definiera streak-regel: endast verifierad leverans räknas",
+        "created_at": "2026-02-22T08:59:25.957418+01:00",
+        "updated_at": "2026-02-22T08:59:25.957418+01:00",
+        "risk": "L",
+        "definition_of_done": [
+          "Regel definierad",
+          "Datakälla kopplad",
+          "UI-indikator klar"
+        ],
+        "agent": "Max Mercer",
+        "category": "strategy",
+        "progress_pct": 0,
+        "eta": "1-2 dagar"
+      },
+      {
+        "id": "task-2026-02-22-029",
+        "title": "Gamified: Combo bonus för Research→Build→Review-flöde",
+        "status": "Backlog",
+        "priority": "M",
+        "owner": "Bob",
+        "deadline": null,
+        "tags": [
+          "gamification",
+          "workflow"
+        ],
+        "next_action": "Mappa eventkedja och bonuspoäng per komplett flow",
+        "created_at": "2026-02-22T08:59:25.957418+01:00",
+        "updated_at": "2026-02-22T08:59:25.957418+01:00",
+        "risk": "L",
+        "definition_of_done": [
+          "Eventkedja mappad",
+          "Bonuslogik implementerbar",
+          "Visning i Team-vy"
+        ],
+        "agent": "Zoe Pulse",
+        "category": "research",
+        "progress_pct": 0,
+        "eta": "1-2 dagar"
+      },
+      {
+        "id": "task-2026-02-22-030",
+        "title": "Gamified: Raid events för större mål (MVP release)",
+        "status": "Backlog",
+        "priority": "M",
+        "owner": "Bob",
+        "deadline": null,
+        "tags": [
+          "gamification",
+          "build"
+        ],
+        "next_action": "Definiera raid-template med delmål och agentbidrag live",
+        "created_at": "2026-02-22T08:59:25.957418+01:00",
+        "updated_at": "2026-02-22T08:59:25.957418+01:00",
+        "risk": "M",
+        "definition_of_done": [
+          "Raid-template klar",
+          "Delmål kopplade till riktiga tasks",
+          "Progressbar live"
+        ],
+        "agent": "Rex Droid",
+        "category": "build",
+        "progress_pct": 0,
         "eta": "2-5 dagar"
       }
     ],
