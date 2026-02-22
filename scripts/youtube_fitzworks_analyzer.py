@@ -77,12 +77,31 @@ Gör en KORT svensk rapport med exakt dessa rubriker:
 2) Viktiga idéer (max 5 bullets)
 3) Applicering i FitzWorks (max 5 konkreta actions)
 4) Vad vi INTE ska göra (max 3 risker)
-5) Rekommenderat nästa steg (1 sak idag)
+5) Applicerbar nu? (JA/NEJ + 1 mening varför)
+6) Rekommenderat nästa steg (1 sak idag)
 '''
     p = run(['ollama', 'run', 'qwen3:8b-16k'], input_text=prompt, check=False)
     if p.returncode != 0 or not p.stdout.strip():
         return 'Ollama-summering misslyckades. Transkript sparat för manuell analys.'
     return p.stdout.strip()
+
+
+def classify_now_or_later(analysis: str) -> str:
+    m = re.search(r'Applicerbar nu\?\s*\(?\s*(JA|NEJ)', analysis, re.IGNORECASE)
+    if m:
+        return 'NOW' if m.group(1).upper() == 'JA' else 'BANK'
+    return 'BANK'
+
+
+def append_bank_entry(title: str, url: str, channel: str, out_path: pathlib.Path, analysis: str):
+    bank = OUTDIR / 'BANK.md'
+    if not bank.exists():
+        bank.write_text('# YouTube Knowledge Bank (FitzWorks)\n\n| Datum | Titel | Kanal | Status | Länk | Notes |\n|---|---|---|---|---|---|\n', encoding='utf-8')
+    status = classify_now_or_later(analysis)
+    note = 'Direkt kandidat' if status == 'NOW' else 'Spara för senare'
+    row = f"| {dt.datetime.now().astimezone().strftime('%Y-%m-%d')} | {title.replace('|','/')} | {channel.replace('|','/')} | {status} | [{out_path.name}]({out_path.name}) | {note} |\n"
+    with bank.open('a', encoding='utf-8') as f:
+        f.write(row)
 
 
 def main():
@@ -129,6 +148,7 @@ def main():
 {transcript if transcript else '(none)'}
 """
     out_path.write_text(md, encoding='utf-8')
+    append_bank_entry(title, args.url, channel, out_path, analysis)
     print(str(out_path))
 
 

@@ -22,6 +22,7 @@ Valfri whisper-modell (snabbare/långsammare):
 ## Output
 Sparas till:
 - `research/youtube/<timestamp>_<title>_<id>.md`
+- `research/youtube/BANK.md` (index över alla analyser, inkl NOW/BANK-status)
 
 ## Telegram-flöde
 Skicka YouTube-länken i chatten så kör jag analysen och återkommer med applicerbar summary.
