@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "updated_at": "2026-02-22T10:32:14.086507+01:00",
+  "updated_at": "2026-02-22T13:05:20.219907+01:00",
   "wip_limit_doing": 2,
   "columns": {
     "backlog": [
@@ -645,6 +645,26 @@
         "eta": "1-2 dagar",
         "deadline_status": "on_track",
         "deadline_policy_ref": "deadline-governance-v1"
+      },
+      {
+        "id": "task-2026-02-22-033",
+        "title": "YouTube analyzer för FitzWorks via Telegram-länkar",
+        "status": "Review",
+        "priority": "H",
+        "owner": "Bob",
+        "agent": "Leo Byte",
+        "tags": [
+          "ai",
+          "research",
+          "automation"
+        ],
+        "next_action": "Kör första riktig videoanalys och verifiera kvalitet i summary",
+        "created_at": "2026-02-22T13:05:20.219907+01:00",
+        "updated_at": "2026-02-22T13:05:20.219907+01:00",
+        "deadline": "2026-02-23",
+        "risk": "M",
+        "progress_pct": 85,
+        "eta": "<1 dag"
       }
     ],
     "done": [
