@@ -109,6 +109,7 @@
       <button class="tab" data-tab="team">Team</button>
       <button class="tab" data-tab="ops">Ops</button>
       <button class="tab" data-tab="memory">Memory</button>
+      <button class="tab" data-tab="youtube">YouTube</button>
       <button class="tab" data-tab="docs">Docs</button>
     </aside>
 
@@ -171,6 +172,14 @@
         <div class="viewer" id="memoryViewer">Välj en post i vänsterlistan.</div>
       </section>
 
+      <section id="view-youtube" class="hidden panel docs-layout">
+        <div class="list">
+          <input class="search" id="ytSearch" placeholder="Sök titel/kanal/kategori..." />
+          <div id="ytList"></div>
+        </div>
+        <div class="viewer" id="ytViewer">Välj en video i listan.</div>
+      </section>
+
       <section id="view-docs" class="hidden panel docs-layout">
         <div class="list" id="docsList"></div>
         <div class="viewer" id="docsViewer">Välj ett dokument.</div>
@@ -203,7 +212,7 @@ let FOCUS=false,AGENT_FILTER='ALL',TOOL_STATUS={telegram:'OK',exec:'OK'},LAST_AR
 let LAST_STATS_SOURCE='./system_stats.json';
 const byId=id=>document.getElementById(id); const el=(t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!==undefined)e.innerHTML=h;return e};
 
-function switchTab(name){['tasks','team','ops','memory','docs'].forEach(x=>byId('view-'+x).classList.toggle('hidden',x!==name));document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===name));}
+function switchTab(name){['tasks','team','ops','memory','youtube','docs'].forEach(x=>byId('view-'+x).classList.toggle('hidden',x!==name));document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===name));}
 
 function renderTopStats(data, archivedCount=0){
   const vals={backlog:(data.columns.backlog||[]).length,doing:(data.columns.doing||[]).length,review:(data.columns.review||[]).length,done:(data.columns.done||[]).length};
@@ -301,6 +310,50 @@ async function renderDocs(){const list=byId('docsList'); const viewer=byId('docs
 async function renderMemory(){const list=byId('memoryList'); const viewer=byId('memoryViewer'); const search=byId('memorySearch'); const entries=[]; for(const f of MEMORY_FILES){try{const r=await fetch('./'+f+'?ts='+Date.now()); const txt=await r.text(); entries.push({file:f,text:txt});}catch{}}
   function draw(filter=''){list.innerHTML=''; entries.filter(e=>!filter||e.text.toLowerCase().includes(filter.toLowerCase())||e.file.toLowerCase().includes(filter.toLowerCase())).forEach(e=>{const b=document.createElement('button'); b.textContent=e.file; b.onclick=()=>{viewer.textContent=e.text;}; list.appendChild(b);}); if(!list.children.length) list.innerHTML='<div class="muted">Inga träffar.</div>';}
   search.oninput=()=>draw(search.value); draw('');}
+function parseBankRows(md){
+  const rows=[];
+  const lines=(md||'').split('\n').filter(Boolean);
+  for(const line of lines){
+    if(!line.startsWith('|')) continue;
+    if(line.includes('---')) continue;
+    const cols=line.split('|').map(s=>s.trim()).filter((_,i,a)=>i>0&&i<a.length-1);
+    if(cols.length<6 || cols[0]==='Datum') continue;
+    const match=(cols[4]||'').match(/\[(.*?)\]\((.*?)\)/);
+    rows.push({date:cols[0],title:cols[1],channel:cols[2],status:cols[3],file:(match?match[2]:''),notes:cols[5]});
+  }
+  return rows;
+}
+
+async function renderYoutube(){
+  const list=byId('ytList'); const viewer=byId('ytViewer'); const search=byId('ytSearch');
+  try{
+    const bankRes=await fetch('./research/youtube/BANK.md?ts='+Date.now());
+    if(!bankRes.ok){list.innerHTML='<div class="muted">Ingen YouTube-bank hittad ännu.</div>'; return;}
+    const md=await bankRes.text();
+    const rows=parseBankRows(md).sort((a,b)=>String(b.date).localeCompare(String(a.date)));
+    function draw(q=''){
+      const s=q.toLowerCase();
+      const filt=rows.filter(r=>!s || [r.title,r.channel,r.status,r.notes].join(' ').toLowerCase().includes(s));
+      list.innerHTML='';
+      if(!filt.length){list.innerHTML='<div class="muted">Inga träffar.</div>'; return;}
+      filt.forEach(r=>{
+        const b=document.createElement('button');
+        b.innerHTML=`<div><b>${r.title}</b></div><div class='muted'>${r.date} · ${r.channel} · ${r.status}</div><div class='muted'>${r.notes}</div>`;
+        b.onclick=async()=>{
+          try{
+            const path='./research/youtube/'+r.file;
+            const res=await fetch(path+'?ts='+Date.now());
+            viewer.textContent=await res.text();
+          }catch{viewer.textContent='Kunde inte läsa analysfil.';}
+        };
+        list.appendChild(b);
+      });
+    }
+    search.oninput=()=>draw(search.value);
+    draw('');
+  }catch{list.innerHTML='<div class="muted">YouTube-vyn kunde inte laddas.</div>';}
+}
+
 function renderOpsTab(){const s=byId('opsStats'); const d=LAST_STATS; if(!d){s.innerHTML='<div class="muted">Ingen statsdata.</div>'; return;} s.innerHTML=byId('stats').innerHTML; byId('opsDetails').innerHTML=byId('ops').innerHTML + `<div class='ops-row'><span class='muted'>Refresh</span><span>2s</span></div><div class='ops-row'><span class='muted'>Stats source</span><span style='max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap'>${LAST_STATS_SOURCE}</span></div>`;}
 
 function resolveStatsSource(){
@@ -336,7 +389,7 @@ async function load(){
 document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>switchTab(b.dataset.tab));
 byId('closeArchive').onclick=()=>byId('archiveModal').style.display='none'; byId('archiveModal').addEventListener('click',e=>{if(e.target.id==='archiveModal')byId('archiveModal').style.display='none';}); byId('closeCard').onclick=()=>byId('cardModal').style.display='none'; byId('cardModal').addEventListener('click',e=>{if(e.target.id==='cardModal')byId('cardModal').style.display='none';});
 
-switchTab('tasks'); renderDocs(); renderMemory(); load(); setInterval(load,2000);
+switchTab('tasks'); renderDocs(); renderMemory(); renderYoutube(); load(); setInterval(load,2000);
 </script>
 </body>
 </html>
