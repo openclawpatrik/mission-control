@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "updated_at": "2026-02-21T22:51:36.614998+01:00",
+  "updated_at": "2026-02-22T08:55:53.488573+01:00",
   "wip_limit_doing": 2,
   "columns": {
     "backlog": [
@@ -274,6 +274,109 @@
         ],
         "category": "general",
         "progress_pct": 10,
+        "eta": "2-5 dagar"
+      },
+      {
+        "id": "task-2026-02-22-024",
+        "title": "AI Study Coach MVP (körkort) kickoff",
+        "status": "Backlog",
+        "priority": "H",
+        "owner": "Bob",
+        "deadline": null,
+        "tags": [
+          "ai",
+          "work",
+          "android"
+        ],
+        "next_action": "Lås 1-screen scope + definiera kärnflöde quiz/resultat",
+        "created_at": "2026-02-22T08:55:53.488573+01:00",
+        "updated_at": "2026-02-22T08:55:53.488573+01:00",
+        "risk": "M",
+        "definition_of_done": [
+          "MVP-scope låst",
+          "Skärmflöde klart",
+          "Task breakdown klar"
+        ],
+        "agent": "Rex Droid",
+        "category": "build",
+        "progress_pct": 5,
+        "eta": "1-2 dagar"
+      },
+      {
+        "id": "task-2026-02-22-025",
+        "title": "ASO + validering AI Study Coach",
+        "status": "Backlog",
+        "priority": "H",
+        "owner": "Bob",
+        "deadline": null,
+        "tags": [
+          "ai",
+          "growth"
+        ],
+        "next_action": "Ta fram 20 sökord + enkel intressetest-sida",
+        "created_at": "2026-02-22T08:55:53.488573+01:00",
+        "updated_at": "2026-02-22T08:55:53.488573+01:00",
+        "risk": "L",
+        "definition_of_done": [
+          "20 sökord listade",
+          "Store copy draftad",
+          "Valideringssignal definierad"
+        ],
+        "agent": "Maya Yield",
+        "category": "research",
+        "progress_pct": 5,
+        "eta": "1 dag"
+      },
+      {
+        "id": "task-2026-02-22-026",
+        "title": "Gamification: daily quest + boss task kopplat till riktigt arbete",
+        "status": "Backlog",
+        "priority": "H",
+        "owner": "Bob",
+        "deadline": null,
+        "tags": [
+          "ai",
+          "ops",
+          "gamification"
+        ],
+        "next_action": "Definiera poängregler direkt från Kanban/workflow events",
+        "created_at": "2026-02-22T08:55:53.488573+01:00",
+        "updated_at": "2026-02-22T08:55:53.488573+01:00",
+        "risk": "M",
+        "definition_of_done": [
+          "Quest-regler definierade",
+          "Boss task-logik kopplad till verkliga tasks",
+          "UI-copy klar"
+        ],
+        "agent": "Max Mercer",
+        "category": "strategy",
+        "progress_pct": 5,
+        "eta": "1-2 dagar"
+      },
+      {
+        "id": "task-2026-02-22-027",
+        "title": "Mission Control Team: 2D retro office live view (MVP)",
+        "status": "Backlog",
+        "priority": "H",
+        "owner": "Bob",
+        "deadline": null,
+        "tags": [
+          "ai",
+          "frontend",
+          "gamification"
+        ],
+        "next_action": "Prototypa canvas-baserad kontorsvy med agent-state från KANBAN",
+        "created_at": "2026-02-22T08:55:53.488573+01:00",
+        "updated_at": "2026-02-22T08:55:53.488573+01:00",
+        "risk": "M",
+        "definition_of_done": [
+          "2D office renderad",
+          "Agenter rör sig mellan stationer",
+          "Live status kopplat till tasks"
+        ],
+        "agent": "Max Mercer",
+        "category": "build",
+        "progress_pct": 5,
         "eta": "2-5 dagar"
       }
     ],
