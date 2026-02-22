@@ -1,0 +1,1 @@
+Night cycle step: 2026-02-22 02:15 (Europe/Stockholm). No urgent tasks detected.- 2026-02-22: Patrik vill att konceptet "comparative advantage" används i FitzWorks. Praktik: fördela uppgifter efter relativ styrka per agent för högre total throughput och lägre friktion.
