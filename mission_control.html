@@ -118,8 +118,6 @@
         <div class="tasks-layout">
           <div class="panel board-wrap"><div class="board" id="board"></div></div>
           <div class="panel" style="padding:8px">
-            <div class="section-h"><span>System Status</span><span id="statsUpdated"></span></div>
-            <div class="stats-grid" id="stats"></div>
             <div class="section-h" style="padding-top:2px"><span>Tool Status</span><span>Telegram + exec</span></div>
             <div class="ops-box" id="ops"></div>
             <div class="section-h" style="padding-top:2px"><span>Agent Leaderboard</span><span>XP</span></div>
@@ -260,7 +258,7 @@ function levelBy(v,lim){if(v===null||v===undefined||Number.isNaN(Number(v))) ret
 function levelPercent(v,kind){const lim=(DEVICE_PROFILE.limits&&DEVICE_PROFILE.limits[kind])?DEVICE_PROFILE.limits[kind]:{warn:70,bad:85}; return levelBy(v,lim);} function levelTemp(t,thermal){if(t!==null&&!Number.isNaN(Number(t))) return levelBy(Number(t),DEVICE_PROFILE.limits.temp); const x=(thermal||'').toLowerCase(); if(x.includes('normal')) return 'stat-good'; if(x.includes('constrained')||x.includes('warning')) return 'stat-warn'; if(x.includes('critical')||x.includes('throttle')) return 'stat-bad'; return '';} function levelNet(v){return levelBy(v,DEVICE_PROFILE.limits.net);}
 
 function renderStats(stats){
-  const wrap=byId('stats'); if(!stats){wrap.innerHTML='<div class="muted">Ingen systemdata ännu.</div>'; return;}
+  const wrap=byId('stats'); if(!wrap) return; if(!stats){wrap.innerHTML='<div class="muted">Ingen systemdata ännu.</div>'; return;}
   const cpu=stats.cpu?.used_percent??null, ram=stats.ram?.used_percent??null, disk=stats.disk?.used_percent??null, temp=stats.temperature?.cpu_c??null, thermal=stats.temperature?.thermal_status||'Unknown', rx=stats.network?.rx_kbps??null, tx=stats.network?.tx_kbps??null;
   const tempText=(temp===null)?'N/A':`${temp}°C`; const tempSub=(temp===null)?`Thermal: ${thermal}`:'CPU temp';
   wrap.innerHTML=''; wrap.appendChild(el('div',`stat ${levelPercent(cpu,'cpu')}`,`<div class='k'>CPU</div><div class='v'>${cpu??'-'}%</div>`)); wrap.appendChild(el('div',`stat ${levelPercent(ram,'ram')}`,`<div class='k'>RAM</div><div class='v'>${ram??'-'}%</div>`)); wrap.appendChild(el('div',`stat ${levelPercent(disk,'disk')}`,`<div class='k'>Disk</div><div class='v'>${disk??'-'}%</div>`)); wrap.appendChild(el('div',`stat ${levelTemp(temp,thermal)}`,`<div class='k'>Temp</div><div class='v'>${tempText}</div><div class='muted'>${tempSub}</div>`)); wrap.appendChild(el('div',`stat ${levelNet(rx)}`,`<div class='k'>Net RX</div><div class='v'>${rx??'-'} KB/s</div>`)); wrap.appendChild(el('div',`stat ${levelNet(tx)}`,`<div class='k'>Net TX</div><div class='v'>${tx??'-'} KB/s</div>`));
@@ -371,7 +369,7 @@ async function renderYoutube(){
   }catch{list.innerHTML='<div class="muted">YouTube-vyn kunde inte laddas.</div>';}
 }
 
-function renderOpsTab(){const s=byId('opsStats'); const d=LAST_STATS; if(!d){s.innerHTML='<div class="muted">Ingen statsdata.</div>'; return;} s.innerHTML=byId('stats').innerHTML; byId('opsDetails').innerHTML=byId('ops').innerHTML + `<div class='ops-row'><span class='muted'>Refresh</span><span>2s</span></div><div class='ops-row'><span class='muted'>Stats source</span><span style='max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap'>${LAST_STATS_SOURCE}</span></div>`;}
+function renderOpsTab(){const s=byId('opsStats'); const d=LAST_STATS; if(!d){s.innerHTML='<div class="muted">Ingen statsdata.</div>'; return;} s.innerHTML='<div class="muted">Systemstatus visas i separat rutin (Telegram alerts).</div>'; byId('opsDetails').innerHTML=byId('ops').innerHTML + `<div class='ops-row'><span class='muted'>Refresh</span><span>2s</span></div><div class='ops-row'><span class='muted'>Stats source</span><span style='max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap'>${LAST_STATS_SOURCE}</span></div>`;}
 
 function resolveStatsSource(){
   const p=new URLSearchParams(window.location.search);
