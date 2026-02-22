@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "updated_at": "2026-02-22T08:59:25.957418+01:00",
+  "updated_at": "2026-02-22T09:57:37.536472+01:00",
   "wip_limit_doing": 2,
   "columns": {
     "backlog": [
@@ -10,13 +10,13 @@
         "status": "Backlog",
         "priority": "M",
         "owner": "Bob",
-        "deadline": null,
+        "deadline": "2026-03-01",
         "tags": [
           "home"
         ],
         "next_action": "Föreslå veckofrekvens och 3-punkters check",
         "created_at": "2026-02-20T19:10:00+01:00",
-        "updated_at": "2026-02-20T21:12:00+01:00",
+        "updated_at": "2026-02-22T09:57:37.536472+01:00",
         "risk": "M",
         "definition_of_done": [
           "Leverans framtagen",
@@ -26,7 +26,9 @@
         "agent": "Owen Flux",
         "category": "ops",
         "progress_pct": 10,
-        "eta": "2-5 dagar"
+        "eta": "2-5 dagar",
+        "deadline_status": "on_track",
+        "deadline_policy_ref": "deadline-governance-v1"
       },
       {
         "id": "task-2026-02-20-011",
@@ -34,14 +36,14 @@
         "status": "Backlog",
         "priority": "H",
         "owner": "Bob",
-        "deadline": null,
+        "deadline": "2026-02-26",
         "tags": [
           "ai"
         ],
         "needs_user_input": true,
         "next_action": "Beslut: behåll som fallback eller stäng",
         "created_at": "2026-02-20T20:02:00+01:00",
-        "updated_at": "2026-02-21T20:45:09.395018+01:00",
+        "updated_at": "2026-02-22T09:57:37.536472+01:00",
         "risk": "M",
         "definition_of_done": [
           "Leverans framtagen",
@@ -51,7 +53,9 @@
         "agent": "Owen Flux",
         "category": "general",
         "progress_pct": 10,
-        "eta": "2-5 dagar"
+        "eta": "2-5 dagar",
+        "deadline_status": "on_track",
+        "deadline_policy_ref": "deadline-governance-v1"
       },
       {
         "id": "task-2026-02-20-004",
@@ -59,14 +63,14 @@
         "status": "Backlog",
         "priority": "H",
         "owner": "Bob",
-        "deadline": null,
+        "deadline": "2026-02-26",
         "tags": [
           "ai",
           "home"
         ],
         "next_action": "Standardisera brief-format för 07:30 varje vardag",
         "created_at": "2026-02-20T19:10:00+01:00",
-        "updated_at": "2026-02-21T20:45:09.395018+01:00",
+        "updated_at": "2026-02-22T09:57:37.536472+01:00",
         "risk": "M",
         "definition_of_done": [
           "Leverans framtagen",
@@ -76,7 +80,9 @@
         "agent": "Max Mercer",
         "category": "ops",
         "progress_pct": 10,
-        "eta": "2-5 dagar"
+        "eta": "2-5 dagar",
+        "deadline_status": "on_track",
+        "deadline_policy_ref": "deadline-governance-v1"
       },
       {
         "id": "task-2026-02-21-013",
@@ -84,13 +90,13 @@
         "status": "Backlog",
         "priority": "H",
         "owner": "Bob",
-        "deadline": null,
+        "deadline": "2026-02-26",
         "tags": [
           "ai"
         ],
         "next_action": "Definiera när subagents används och vilken modell som v...",
         "created_at": "2026-02-21T12:40:00+01:00",
-        "updated_at": "2026-02-21T20:45:09.395018+01:00",
+        "updated_at": "2026-02-22T09:57:37.536472+01:00",
         "risk": "M",
         "definition_of_done": [
           "Leverans framtagen",
@@ -100,7 +106,9 @@
         "agent": "Max Mercer",
         "category": "strategy",
         "progress_pct": 10,
-        "eta": "2-5 dagar"
+        "eta": "2-5 dagar",
+        "deadline_status": "on_track",
+        "deadline_policy_ref": "deadline-governance-v1"
       },
       {
         "id": "task-2026-02-21-017",
@@ -108,14 +116,14 @@
         "status": "Backlog",
         "priority": "H",
         "owner": "Bob",
-        "deadline": null,
+        "deadline": "2026-02-26",
         "tags": [
           "ai",
           "home"
         ],
         "next_action": "Skapa nattcykel och morgonbrief för passiv inkomst",
         "created_at": "2026-02-21T20:56:57.620393+01:00",
-        "updated_at": "2026-02-21T20:56:57.620393+01:00",
+        "updated_at": "2026-02-22T09:57:37.536472+01:00",
         "risk": "M",
         "definition_of_done": [
           "Cykel aktiv",
@@ -125,7 +133,9 @@
         "agent": "Maya Yield",
         "category": "ops",
         "progress_pct": 10,
-        "eta": "2-5 dagar"
+        "eta": "2-5 dagar",
+        "deadline_status": "on_track",
+        "deadline_policy_ref": "deadline-governance-v1"
       },
       {
         "id": "task-2026-02-21-018",
@@ -133,14 +143,14 @@
         "status": "Backlog",
         "priority": "H",
         "owner": "Bob",
-        "deadline": null,
+        "deadline": "2026-02-26",
         "tags": [
           "ai",
           "work"
         ],
         "next_action": "Definiera app-pipeline från idé till Play Store",
         "created_at": "2026-02-21T20:56:57.620393+01:00",
-        "updated_at": "2026-02-21T20:56:57.620393+01:00",
+        "updated_at": "2026-02-22T09:57:37.536472+01:00",
         "risk": "M",
         "definition_of_done": [
           "Pipeline definierad",
@@ -150,7 +160,9 @@
         "agent": "Rex Droid",
         "category": "build",
         "progress_pct": 10,
-        "eta": "2-5 dagar"
+        "eta": "2-5 dagar",
+        "deadline_status": "on_track",
+        "deadline_policy_ref": "deadline-governance-v1"
       },
       {
         "id": "task-2026-02-21-015",
@@ -158,14 +170,14 @@
         "status": "Backlog",
         "priority": "H",
         "owner": "Bob",
-        "deadline": null,
+        "deadline": "2026-02-26",
         "tags": [
           "ai",
           "home"
         ],
         "next_action": "Öppna mission_control.html och be Patrik godkänna layouten",
         "created_at": "2026-02-21T13:05:00+01:00",
-        "updated_at": "2026-02-21T21:03:21.714553+01:00",
+        "updated_at": "2026-02-22T09:57:37.536472+01:00",
         "risk": "M",
         "definition_of_done": [
           "Leverans framtagen",
@@ -176,7 +188,9 @@
         "agent": "Max Mercer",
         "category": "ops",
         "progress_pct": 10,
-        "eta": "2-5 dagar"
+        "eta": "2-5 dagar",
+        "deadline_status": "on_track",
+        "deadline_policy_ref": "deadline-governance-v1"
       },
       {
         "id": "task-2026-02-21-020",
@@ -184,13 +198,13 @@
         "status": "Backlog",
         "priority": "M",
         "owner": "Bob",
-        "deadline": null,
+        "deadline": "2026-03-01",
         "tags": [
           "ai"
         ],
         "next_action": "Validera top 3 use-cases i morgonbrief",
         "created_at": "2026-02-21T21:10:36.479692+01:00",
-        "updated_at": "2026-02-21T21:10:36.479692+01:00",
+        "updated_at": "2026-02-22T09:57:37.536472+01:00",
         "risk": "L",
         "definition_of_done": [
           "Top 3 listad",
@@ -200,7 +214,9 @@
         "agent": "Zoe Pulse",
         "category": "research",
         "progress_pct": 10,
-        "eta": "2-5 dagar"
+        "eta": "2-5 dagar",
+        "deadline_status": "on_track",
+        "deadline_policy_ref": "deadline-governance-v1"
       },
       {
         "id": "task-2026-02-21-021",
@@ -208,14 +224,14 @@
         "status": "Backlog",
         "priority": "H",
         "owner": "Bob",
-        "deadline": null,
+        "deadline": "2026-02-26",
         "tags": [
           "ai",
           "work"
         ],
         "next_action": "Presentera 1 validerad appidé i morgonbrief",
         "created_at": "2026-02-21T21:18:44.727890+01:00",
-        "updated_at": "2026-02-21T21:18:44.727890+01:00",
+        "updated_at": "2026-02-22T09:57:37.536472+01:00",
         "risk": "M",
         "definition_of_done": [
           "Top 3 trender hittade",
@@ -225,7 +241,9 @@
         "agent": "Rex Droid",
         "category": "build",
         "progress_pct": 10,
-        "eta": "2-5 dagar"
+        "eta": "2-5 dagar",
+        "deadline_status": "on_track",
+        "deadline_policy_ref": "deadline-governance-v1"
       },
       {
         "id": "task-2026-02-21-014",
@@ -233,13 +251,13 @@
         "status": "Backlog",
         "priority": "H",
         "owner": "Bob",
-        "deadline": null,
+        "deadline": "2026-02-26",
         "tags": [
           "ai"
         ],
         "next_action": "Granska rollkarta för 5 agenter",
         "created_at": "2026-02-21T12:43:00+01:00",
-        "updated_at": "2026-02-21T20:45:09.395018+01:00",
+        "updated_at": "2026-02-22T09:57:37.536472+01:00",
         "risk": "M",
         "definition_of_done": [
           "Leverans framtagen",
@@ -249,7 +267,9 @@
         "agent": "Max Mercer",
         "category": "strategy",
         "progress_pct": 10,
-        "eta": "2-5 dagar"
+        "eta": "2-5 dagar",
+        "deadline_status": "on_track",
+        "deadline_policy_ref": "deadline-governance-v1"
       },
       {
         "id": "task-2026-02-21-023",
@@ -258,14 +278,14 @@
         "priority": "H",
         "owner": "Bob",
         "agent": "Max Mercer",
-        "deadline": null,
+        "deadline": "2026-02-26",
         "tags": [
           "ai",
           "tool-candidate"
         ],
         "next_action": "Lista första 3 kandidater för custom tools",
         "created_at": "2026-02-21T22:28:18.653887+01:00",
-        "updated_at": "2026-02-21T22:28:18.653887+01:00",
+        "updated_at": "2026-02-22T09:57:37.536472+01:00",
         "risk": "M",
         "definition_of_done": [
           "Pipeline dokumenterad",
@@ -274,7 +294,9 @@
         ],
         "category": "general",
         "progress_pct": 10,
-        "eta": "2-5 dagar"
+        "eta": "2-5 dagar",
+        "deadline_status": "on_track",
+        "deadline_policy_ref": "deadline-governance-v1"
       },
       {
         "id": "task-2026-02-22-024",
@@ -282,7 +304,7 @@
         "status": "Backlog",
         "priority": "H",
         "owner": "Bob",
-        "deadline": null,
+        "deadline": "2026-02-26",
         "tags": [
           "ai",
           "work",
@@ -290,7 +312,7 @@
         ],
         "next_action": "Lås 1-screen scope + definiera kärnflöde quiz/resultat",
         "created_at": "2026-02-22T08:55:53.488573+01:00",
-        "updated_at": "2026-02-22T08:55:53.488573+01:00",
+        "updated_at": "2026-02-22T09:57:37.536472+01:00",
         "risk": "M",
         "definition_of_done": [
           "MVP-scope låst",
@@ -300,7 +322,9 @@
         "agent": "Rex Droid",
         "category": "build",
         "progress_pct": 5,
-        "eta": "1-2 dagar"
+        "eta": "1-2 dagar",
+        "deadline_status": "on_track",
+        "deadline_policy_ref": "deadline-governance-v1"
       },
       {
         "id": "task-2026-02-22-025",
@@ -308,14 +332,14 @@
         "status": "Backlog",
         "priority": "H",
         "owner": "Bob",
-        "deadline": null,
+        "deadline": "2026-02-26",
         "tags": [
           "ai",
           "growth"
         ],
         "next_action": "Ta fram 20 sökord + enkel intressetest-sida",
         "created_at": "2026-02-22T08:55:53.488573+01:00",
-        "updated_at": "2026-02-22T08:55:53.488573+01:00",
+        "updated_at": "2026-02-22T09:57:37.536472+01:00",
         "risk": "L",
         "definition_of_done": [
           "20 sökord listade",
@@ -325,7 +349,9 @@
         "agent": "Maya Yield",
         "category": "research",
         "progress_pct": 5,
-        "eta": "1 dag"
+        "eta": "1 dag",
+        "deadline_status": "on_track",
+        "deadline_policy_ref": "deadline-governance-v1"
       },
       {
         "id": "task-2026-02-22-026",
@@ -333,7 +359,7 @@
         "status": "Backlog",
         "priority": "H",
         "owner": "Bob",
-        "deadline": null,
+        "deadline": "2026-02-26",
         "tags": [
           "ai",
           "ops",
@@ -341,7 +367,7 @@
         ],
         "next_action": "Definiera poängregler direkt från Kanban/workflow events",
         "created_at": "2026-02-22T08:55:53.488573+01:00",
-        "updated_at": "2026-02-22T08:55:53.488573+01:00",
+        "updated_at": "2026-02-22T09:57:37.536472+01:00",
         "risk": "M",
         "definition_of_done": [
           "Quest-regler definierade",
@@ -351,7 +377,9 @@
         "agent": "Max Mercer",
         "category": "strategy",
         "progress_pct": 5,
-        "eta": "1-2 dagar"
+        "eta": "1-2 dagar",
+        "deadline_status": "on_track",
+        "deadline_policy_ref": "deadline-governance-v1"
       },
       {
         "id": "task-2026-02-22-027",
@@ -359,7 +387,7 @@
         "status": "Backlog",
         "priority": "H",
         "owner": "Bob",
-        "deadline": null,
+        "deadline": "2026-02-26",
         "tags": [
           "ai",
           "frontend",
@@ -367,7 +395,7 @@
         ],
         "next_action": "Prototypa canvas-baserad kontorsvy med agent-state från KANBAN",
         "created_at": "2026-02-22T08:55:53.488573+01:00",
-        "updated_at": "2026-02-22T08:55:53.488573+01:00",
+        "updated_at": "2026-02-22T09:57:37.536472+01:00",
         "risk": "M",
         "definition_of_done": [
           "2D office renderad",
@@ -377,7 +405,9 @@
         "agent": "Max Mercer",
         "category": "build",
         "progress_pct": 5,
-        "eta": "2-5 dagar"
+        "eta": "2-5 dagar",
+        "deadline_status": "on_track",
+        "deadline_policy_ref": "deadline-governance-v1"
       },
       {
         "id": "task-2026-02-22-028",
@@ -385,14 +415,14 @@
         "status": "Backlog",
         "priority": "M",
         "owner": "Bob",
-        "deadline": null,
+        "deadline": "2026-03-01",
         "tags": [
           "gamification",
           "ops"
         ],
         "next_action": "Definiera streak-regel: endast verifierad leverans räknas",
         "created_at": "2026-02-22T08:59:25.957418+01:00",
-        "updated_at": "2026-02-22T08:59:25.957418+01:00",
+        "updated_at": "2026-02-22T09:57:37.536472+01:00",
         "risk": "L",
         "definition_of_done": [
           "Regel definierad",
@@ -402,7 +432,9 @@
         "agent": "Max Mercer",
         "category": "strategy",
         "progress_pct": 0,
-        "eta": "1-2 dagar"
+        "eta": "1-2 dagar",
+        "deadline_status": "on_track",
+        "deadline_policy_ref": "deadline-governance-v1"
       },
       {
         "id": "task-2026-02-22-029",
@@ -410,14 +442,14 @@
         "status": "Backlog",
         "priority": "M",
         "owner": "Bob",
-        "deadline": null,
+        "deadline": "2026-03-01",
         "tags": [
           "gamification",
           "workflow"
         ],
         "next_action": "Mappa eventkedja och bonuspoäng per komplett flow",
         "created_at": "2026-02-22T08:59:25.957418+01:00",
-        "updated_at": "2026-02-22T08:59:25.957418+01:00",
+        "updated_at": "2026-02-22T09:57:37.536472+01:00",
         "risk": "L",
         "definition_of_done": [
           "Eventkedja mappad",
@@ -427,7 +459,9 @@
         "agent": "Zoe Pulse",
         "category": "research",
         "progress_pct": 0,
-        "eta": "1-2 dagar"
+        "eta": "1-2 dagar",
+        "deadline_status": "on_track",
+        "deadline_policy_ref": "deadline-governance-v1"
       },
       {
         "id": "task-2026-02-22-030",
@@ -435,14 +469,14 @@
         "status": "Backlog",
         "priority": "M",
         "owner": "Bob",
-        "deadline": null,
+        "deadline": "2026-03-01",
         "tags": [
           "gamification",
           "build"
         ],
         "next_action": "Definiera raid-template med delmål och agentbidrag live",
         "created_at": "2026-02-22T08:59:25.957418+01:00",
-        "updated_at": "2026-02-22T08:59:25.957418+01:00",
+        "updated_at": "2026-02-22T09:57:37.536472+01:00",
         "risk": "M",
         "definition_of_done": [
           "Raid-template klar",
@@ -452,7 +486,9 @@
         "agent": "Rex Droid",
         "category": "build",
         "progress_pct": 0,
-        "eta": "2-5 dagar"
+        "eta": "2-5 dagar",
+        "deadline_status": "on_track",
+        "deadline_policy_ref": "deadline-governance-v1"
       }
     ],
     "doing": [
@@ -462,14 +498,14 @@
         "status": "Doing",
         "priority": "H",
         "owner": "Bob",
-        "deadline": null,
+        "deadline": "2026-02-23",
         "tags": [
           "ai",
           "home"
         ],
         "next_action": "Prioritera backlog mot mål och minska brus",
         "created_at": "2026-02-20T19:45:00+01:00",
-        "updated_at": "2026-02-21T20:45:09.395018+01:00",
+        "updated_at": "2026-02-22T09:57:37.536472+01:00",
         "risk": "M",
         "definition_of_done": [
           "Leverans framtagen",
@@ -479,7 +515,9 @@
         "agent": "Max Mercer",
         "category": "ops",
         "progress_pct": 50,
-        "eta": "1-2 dagar"
+        "eta": "1-2 dagar",
+        "deadline_status": "on_track",
+        "deadline_policy_ref": "deadline-governance-v1"
       },
       {
         "id": "task-2026-02-21-016",
@@ -487,13 +525,13 @@
         "status": "Doing",
         "priority": "H",
         "owner": "Bob",
-        "deadline": null,
+        "deadline": "2026-02-23",
         "tags": [
           "ai"
         ],
         "next_action": "Kör första cycle och logga resultat",
         "created_at": "2026-02-21T20:45:09.395018+01:00",
-        "updated_at": "2026-02-21T20:45:09.395018+01:00",
+        "updated_at": "2026-02-22T09:57:37.536472+01:00",
         "risk": "M",
         "definition_of_done": [
           "Cycle körd",
@@ -503,7 +541,9 @@
         "agent": "Max Mercer",
         "category": "general",
         "progress_pct": 50,
-        "eta": "1-2 dagar"
+        "eta": "1-2 dagar",
+        "deadline_status": "on_track",
+        "deadline_policy_ref": "deadline-governance-v1"
       }
     ],
     "review": [
@@ -513,14 +553,14 @@
         "status": "Review",
         "priority": "H",
         "owner": "Bob",
-        "deadline": null,
+        "deadline": "2026-02-23",
         "tags": [
           "ai",
           "home"
         ],
         "next_action": "Verifiera första körning och backup-output",
         "created_at": "2026-02-21T21:03:21.714553+01:00",
-        "updated_at": "2026-02-21T21:03:21.714553+01:00",
+        "updated_at": "2026-02-22T09:57:37.536472+01:00",
         "risk": "M",
         "definition_of_done": [
           "Cron aktiv",
@@ -530,7 +570,9 @@
         "agent": "Owen Flux",
         "category": "ops",
         "progress_pct": 85,
-        "eta": "<1 dag"
+        "eta": "<1 dag",
+        "deadline_status": "on_track",
+        "deadline_policy_ref": "deadline-governance-v1"
       },
       {
         "id": "task-2026-02-21-022",
@@ -538,14 +580,14 @@
         "status": "Review",
         "priority": "H",
         "owner": "Bob",
-        "deadline": null,
+        "deadline": "2026-02-23",
         "tags": [
           "ai",
           "home"
         ],
         "next_action": "Skicka ett voice-test i Telegram och verifiera inbox",
         "created_at": "2026-02-21T21:31:31.111191+01:00",
-        "updated_at": "2026-02-21T21:35:08.423716+01:00",
+        "updated_at": "2026-02-22T09:57:37.536472+01:00",
         "risk": "M",
         "definition_of_done": [
           "Voice transkriberas automatiskt",
@@ -555,7 +597,9 @@
         "agent": "Owen Flux",
         "category": "ops",
         "progress_pct": 85,
-        "eta": "<1 dag"
+        "eta": "<1 dag",
+        "deadline_status": "on_track",
+        "deadline_policy_ref": "deadline-governance-v1"
       }
     ],
     "done": [
@@ -585,5 +629,35 @@
       }
     ]
   },
-  "wip_limit_review": 2
+  "wip_limit_review": 2,
+  "governance": {
+    "deadline": {
+      "id": "deadline-governance-v1",
+      "applies_to": [
+        "backlog",
+        "doing",
+        "review"
+      ],
+      "rules": [
+        "Alla aktiva tasks ska ha deadline (YYYY-MM-DD).",
+        "Missad deadline triggar obligatorisk orsakskod + åtgärdsplan inom 24h.",
+        "Om orsaken är kapacitetsbrist: omfördela/delegera agentresurser samma dag.",
+        "Om deadline måste förlängas: ny deadline + tydligt syfte + motivering krävs innan status uppdateras.",
+        "Ingen task får förlängas två gånger utan explicit risknotering och ägarbeslut."
+      ],
+      "required_on_miss": [
+        "why_missed",
+        "impact",
+        "recovery_plan",
+        "resource_reassignment",
+        "owner_decision_at"
+      ],
+      "extension_requirements": [
+        "new_deadline",
+        "extension_purpose",
+        "extension_rationale",
+        "expected_outcome"
+      ]
+    }
+  }
 }
