@@ -200,6 +200,7 @@ const DEVICE_PROFILE={name:'Mac mini M4 (16GB/256GB)',limits:{cpu:{warn:65,bad:8
 const DOC_FILES=['MISSION.md','SOUL.md','CUSTOM_TOOLS.md','SEMANTIC_MEMORY.md','NOTES.md','DECISIONS.md','USER_PROFILE.md'];
 const MEMORY_FILES=['MEMORY.md','VOICE_INBOX.md','VOICE_TRIAGE.md','KANBAN_ARCHIVE.json','memory/2026-02-20.md'];
 let FOCUS=false,AGENT_FILTER='ALL',TOOL_STATUS={telegram:'OK',exec:'OK'},LAST_ARCHIVE={archived:[]},LAST_BOARD=null,LAST_STATS=null;
+let LAST_STATS_SOURCE='./system_stats.json';
 const byId=id=>document.getElementById(id); const el=(t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!==undefined)e.innerHTML=h;return e};
 
 function switchTab(name){['tasks','team','ops','memory','docs'].forEach(x=>byId('view-'+x).classList.toggle('hidden',x!==name));document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===name));}
@@ -300,12 +301,31 @@ async function renderDocs(){const list=byId('docsList'); const viewer=byId('docs
 async function renderMemory(){const list=byId('memoryList'); const viewer=byId('memoryViewer'); const search=byId('memorySearch'); const entries=[]; for(const f of MEMORY_FILES){try{const r=await fetch('./'+f+'?ts='+Date.now()); const txt=await r.text(); entries.push({file:f,text:txt});}catch{}}
   function draw(filter=''){list.innerHTML=''; entries.filter(e=>!filter||e.text.toLowerCase().includes(filter.toLowerCase())||e.file.toLowerCase().includes(filter.toLowerCase())).forEach(e=>{const b=document.createElement('button'); b.textContent=e.file; b.onclick=()=>{viewer.textContent=e.text;}; list.appendChild(b);}); if(!list.children.length) list.innerHTML='<div class="muted">Inga träffar.</div>';}
   search.oninput=()=>draw(search.value); draw('');}
-function renderOpsTab(){const s=byId('opsStats'); const d=LAST_STATS; if(!d){s.innerHTML='<div class="muted">Ingen statsdata.</div>'; return;} s.innerHTML=byId('stats').innerHTML; byId('opsDetails').innerHTML=byId('ops').innerHTML + `<div class='ops-row'><span class='muted'>Refresh</span><span>2s</span></div>`;}
+function renderOpsTab(){const s=byId('opsStats'); const d=LAST_STATS; if(!d){s.innerHTML='<div class="muted">Ingen statsdata.</div>'; return;} s.innerHTML=byId('stats').innerHTML; byId('opsDetails').innerHTML=byId('ops').innerHTML + `<div class='ops-row'><span class='muted'>Refresh</span><span>2s</span></div><div class='ops-row'><span class='muted'>Stats source</span><span style='max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap'>${LAST_STATS_SOURCE}</span></div>`;}
+
+function resolveStatsSource(){
+  const p=new URLSearchParams(window.location.search);
+  const q=p.get('stats_api');
+  const ls=localStorage.getItem('mc_stats_api')||'';
+  const src=q||ls||'./system_stats.json';
+  LAST_STATS_SOURCE=src;
+  return src;
+}
+
+async function fetchStats(ts){
+  const src=resolveStatsSource();
+  const token=localStorage.getItem('mc_stats_token')||'';
+  const headers={}; if(token) headers['x-api-key']=token;
+  const url = src.includes('?') ? `${src}&ts=${ts}` : `${src}?ts=${ts}`;
+  const res=await fetch(url,{headers});
+  if(!res.ok) throw new Error(`stats fetch failed ${res.status}`);
+  return await res.json();
+}
 
 async function load(){
   try{
-    const ts=Date.now(); const [boardRes,archiveRes,statsRes]=await Promise.all([fetch('./KANBAN.json?ts='+ts),fetch('./KANBAN_ARCHIVE.json?ts='+ts).catch(()=>null),fetch('./system_stats.json?ts='+ts).catch(()=>null)]);
-    const data=await boardRes.json(); let stats=null, archive={archived:[]}, archivedCount=0; if(statsRes&&statsRes.ok) stats=await statsRes.json(); if(archiveRes&&archiveRes.ok){archive=await archiveRes.json(); archivedCount=(archive.archived||[]).length;}
+    const ts=Date.now(); const [boardRes,archiveRes,statsObj]=await Promise.all([fetch('./KANBAN.json?ts='+ts),fetch('./KANBAN_ARCHIVE.json?ts='+ts).catch(()=>null),fetchStats(ts).catch(()=>null)]);
+    const data=await boardRes.json(); let stats=statsObj, archive={archived:[]}, archivedCount=0; if(archiveRes&&archiveRes.ok){archive=await archiveRes.json(); archivedCount=(archive.archived||[]).length;}
     LAST_BOARD=data; LAST_ARCHIVE=archive; LAST_STATS=stats;
     byId('updated').textContent=`Senast uppdaterad: ${new Date().toLocaleString('sv-SE')}`;
     const agentStats=computeAgentStats(data);
