@@ -310,7 +310,7 @@ async function load(){
 document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>switchTab(b.dataset.tab));
 byId('closeArchive').onclick=()=>byId('archiveModal').style.display='none'; byId('archiveModal').addEventListener('click',e=>{if(e.target.id==='archiveModal')byId('archiveModal').style.display='none';}); byId('closeCard').onclick=()=>byId('cardModal').style.display='none'; byId('cardModal').addEventListener('click',e=>{if(e.target.id==='cardModal')byId('cardModal').style.display='none';});
 
-switchTab('tasks'); renderDocs(); renderMemory(); load(); setInterval(load,10000);
+switchTab('tasks'); renderDocs(); renderMemory(); load(); setInterval(load,2000);
 </script>
 </body>
 </html>
