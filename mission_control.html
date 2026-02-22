@@ -345,17 +345,25 @@ async function renderYoutube(){
       const filt=rows.filter(r=>!s || [r.title,r.channel,r.categories,r.status,r.notes].join(' ').toLowerCase().includes(s));
       list.innerHTML='';
       if(!filt.length){list.innerHTML='<div class="muted">Inga träffar.</div>'; return;}
-      filt.forEach(r=>{
-        const b=document.createElement('button');
-        b.innerHTML=`<div><b>${r.title}</b></div><div class='muted'>${r.date} · ${r.channel} · ${r.status}</div><div class='muted'>Kategori: ${r.categories}</div><div class='muted'>${r.notes}</div>`;
-        b.onclick=async()=>{
-          try{
-            const path='./research/youtube/'+r.file;
-            const res=await fetch(path+'?ts='+Date.now());
-            viewer.textContent=await res.text();
-          }catch{viewer.textContent='Kunde inte läsa analysfil.';}
-        };
-        list.appendChild(b);
+      const groups={};
+      filt.forEach(r=>{const k=(r.categories||'Övrigt').split(',')[0].trim()||'Övrigt'; (groups[k]=groups[k]||[]).push(r);});
+      Object.keys(groups).sort().forEach(cat=>{
+        const h=document.createElement('div');
+        h.className='muted'; h.style.margin='8px 4px 4px'; h.style.fontWeight='700';
+        h.textContent=`${cat} (${groups[cat].length})`;
+        list.appendChild(h);
+        groups[cat].forEach(r=>{
+          const b=document.createElement('button');
+          b.innerHTML=`<div><b>${r.title}</b></div><div class='muted'>${r.date} · ${r.channel} · ${r.status}</div><div class='muted'>Kategori: ${r.categories}</div><div class='muted'>${r.notes}</div>`;
+          b.onclick=async()=>{
+            try{
+              const path='./research/youtube/'+r.file;
+              const res=await fetch(path+'?ts='+Date.now());
+              viewer.textContent=await res.text();
+            }catch{viewer.textContent='Kunde inte läsa analysfil.';}
+          };
+          list.appendChild(b);
+        });
       });
     }
     search.oninput=()=>draw(search.value);
