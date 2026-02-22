@@ -315,7 +315,7 @@ function parseBankRows(md){
   const lines=(md||'').split('\n').filter(Boolean);
   for(const line of lines){
     if(!line.startsWith('|')) continue;
-    if(line.includes('---')) continue;
+    if(/^\|[\-\s|]+\|$/.test(line)) continue;
     const cols=line.split('|').map(s=>s.trim()).filter((_,i,a)=>i>0&&i<a.length-1);
     if(cols[0]==='Datum') continue;
     // New format: date,title,channel,categories,status,link,notes
