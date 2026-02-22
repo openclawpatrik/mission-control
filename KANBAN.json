@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "updated_at": "2026-02-22T09:59:33.821243+01:00",
+  "updated_at": "2026-02-22T10:32:14.086507+01:00",
   "wip_limit_doing": 2,
   "columns": {
     "backlog": [
@@ -493,6 +493,46 @@
         "eta": "1-2 dagar",
         "deadline_status": "on_track",
         "deadline_policy_ref": "deadline-governance-v1"
+      },
+      {
+        "id": "task-2026-02-22-031",
+        "title": "Resource watchdog: detect sustained high CPU/RAM/Disk/Net",
+        "status": "Doing",
+        "priority": "H",
+        "owner": "Bob",
+        "agent": "Owen Flux",
+        "tags": [
+          "ops",
+          "monitoring",
+          "telegram"
+        ],
+        "next_action": "Implementera watchdog som flaggar >90% i 10 min och samlar processbevis",
+        "created_at": "2026-02-22T10:32:14.086507+01:00",
+        "updated_at": "2026-02-22T10:32:14.086507+01:00",
+        "deadline": "2026-02-23",
+        "risk": "M",
+        "progress_pct": 10,
+        "eta": "<1 dag"
+      },
+      {
+        "id": "task-2026-02-22-032",
+        "title": "Telegram alerts med orsak och åtgärd vid hög usage",
+        "status": "Doing",
+        "priority": "H",
+        "owner": "Bob",
+        "agent": "Max Mercer",
+        "tags": [
+          "ops",
+          "alerting",
+          "telegram"
+        ],
+        "next_action": "Skicka alert med: vad som är högt, sannolik orsak, koppling till aktiva agentjobb, rekommenderad åtgärd",
+        "created_at": "2026-02-22T10:32:14.086507+01:00",
+        "updated_at": "2026-02-22T10:32:14.086507+01:00",
+        "deadline": "2026-02-23",
+        "risk": "M",
+        "progress_pct": 10,
+        "eta": "<1 dag"
       }
     ],
     "review": [
