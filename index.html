@@ -121,8 +121,6 @@
             <div class="stats-grid" id="stats"></div>
             <div class="section-h" style="padding-top:2px"><span>Tool Status</span><span>Telegram + exec</span></div>
             <div class="ops-box" id="ops"></div>
-            <div class="section-h" style="padding-top:2px"><span>Workforce Activity</span><span>latest</span></div>
-            <div class="ops-box" id="workforceActivity"></div>
             <div class="section-h" style="padding-top:2px"><span>Agent Leaderboard</span><span>XP</span></div>
             <div class="leaderboard" id="leaderboard"></div>
           </div>
@@ -155,6 +153,7 @@
             </li>
           </ul>
         </div>
+        <div class="leaderboard"><div class="section-h" style="padding:0 0 8px 0"><span>Workforce Activity</span><span>live</span></div><div id="teamActivity"></div></div>
         <div class="team-grid" id="teamGrid"></div>
       </section>
 
@@ -257,7 +256,7 @@ function renderStats(stats){
   wrap.innerHTML=''; wrap.appendChild(el('div',`stat ${levelPercent(cpu,'cpu')}`,`<div class='k'>CPU</div><div class='v'>${cpu??'-'}%</div>`)); wrap.appendChild(el('div',`stat ${levelPercent(ram,'ram')}`,`<div class='k'>RAM</div><div class='v'>${ram??'-'}%</div>`)); wrap.appendChild(el('div',`stat ${levelPercent(disk,'disk')}`,`<div class='k'>Disk</div><div class='v'>${disk??'-'}%</div>`)); wrap.appendChild(el('div',`stat ${levelTemp(temp,thermal)}`,`<div class='k'>Temp</div><div class='v'>${tempText}</div><div class='muted'>${tempSub}</div>`)); wrap.appendChild(el('div',`stat ${levelNet(rx)}`,`<div class='k'>Net RX</div><div class='v'>${rx??'-'} KB/s</div>`)); wrap.appendChild(el('div',`stat ${levelNet(tx)}`,`<div class='k'>Net TX</div><div class='v'>${tx??'-'} KB/s</div>`)); byId('statsUpdated').textContent=stats.updated_at?new Date(stats.updated_at).toLocaleTimeString('sv-SE'):'';
 }
 function renderOps(){const ops=byId('ops'); const tool=(TOOL_STATUS.telegram==='OK'&&TOOL_STATUS.exec==='OK')?'OK':((TOOL_STATUS.telegram==='DOWN'||TOOL_STATUS.exec==='DOWN')?'DOWN':'DEGRADED'); const dot=tool==='OK'?'g':(tool==='DEGRADED'?'y':'r'); ops.innerHTML=`<div class='ops-row'><span><span class='dot ${dot}'></span><b>Tool status</b></span><span>${tool}</span></div><div class='ops-row'><span class='muted'>Telegram</span><span>${TOOL_STATUS.telegram}</span></div><div class='ops-row'><span class='muted'>exec</span><span>${TOOL_STATUS.exec}</span></div><div class='ops-row'><span class='muted'>Profile</span><span>${DEVICE_PROFILE.name}</span></div>`;}
-function renderWorkforceActivity(data){const box=byId('workforceActivity'); const tasks=[]; ['doing','review','backlog'].forEach(c=>(data.columns[c]||[]).forEach(t=>tasks.push({...t,_col:c}))); tasks.sort((a,b)=>String(b.updated_at||'').localeCompare(String(a.updated_at||''))); const top=tasks.slice(0,6); if(!top.length){box.innerHTML='<div class="muted">Ingen aktivitet ännu.</div>'; return;} box.innerHTML=top.map(t=>`<div class='ops-row'><span class='muted'>${(t.agent||'').split(' ')[0]}</span><span title='${t.title||''}'>${(t.title||'').slice(0,24)}</span></div>`).join('');}
+function renderTeamActivity(data){const box=byId('teamActivity'); if(!box) return; const tasks=[]; ['doing','review','backlog'].forEach(c=>(data.columns[c]||[]).forEach(t=>tasks.push({...t,_col:c}))); tasks.sort((a,b)=>String(b.updated_at||'').localeCompare(String(a.updated_at||''))); const top=tasks.slice(0,8); if(!top.length){box.innerHTML='<div class="muted">Ingen aktivitet ännu.</div>'; return;} box.innerHTML=top.map(t=>`<div class='ops-row'><span class='muted'>${(t.agent||'').split(' ')[0]} · ${t._col}</span><span title='${t.title||''}'>${(t.title||'').slice(0,34)}</span></div>`).join('');}
 
 function renderArchive(archive){const list=byId('archiveList'); const items=(archive&&archive.archived)?archive.archived:[]; if(!items.length){list.innerHTML='<div class="muted">Inga arkiverade tasks.</div>'; return;} list.innerHTML=items.slice().reverse().map(t=>`<div class='card'><div class='next'><b>${t.title||'Untitled'}</b></div><div class='next'>${t.next_action||''}</div></div>`).join('');}
 
@@ -288,13 +287,14 @@ function renderLeaderboard(agentStats){
   box.innerHTML=rows.map(([name,s],i)=>`<div class='ops-row'><span>${i+1}. ${name.split(' ')[0]}</span><span>${s.xp} XP · L${s.level}</span></div>`).join('');
 }
 
-function renderTeam(agentStats){const g=byId('teamGrid'); g.innerHTML=''; TEAM.forEach(a=>{ const s=(agentStats&&agentStats[a.name])?agentStats[a.name]:{xp:0,level:1,streak:0}; g.appendChild(el('div','team-card',`<div class='row'><img class='avatar' src='${a.avatar}' alt='${a.name}'/><div><b>${a.name}</b><div class='muted'>${a.role}</div><div class='muted'>Model: ${MODEL_SHORT[a.model]||a.model}</div></div></div><div style='display:flex;gap:6px;margin-top:8px'><span class='xp-badge'>${s.xp} XP</span><span class='level'>Level ${s.level}</span><span class='streak'>Streak ${s.streak}</span></div><div class='muted' style='margin-top:8px'>Personlighet: ${a.personality}</div><div class='muted'>Huvudområde: ${a.focus}</div>`)); });}
+function latestTasksByAgent(data){const map={}; ['doing','review','backlog','done'].forEach(col=>(data.columns[col]||[]).forEach(t=>{const n=t.agent||'Max Mercer'; const prev=map[n]; if(!prev||String(t.updated_at||'')>String(prev.updated_at||'')) map[n]={...t,_col:col};})); return map;}
+function renderTeam(agentStats,data){const g=byId('teamGrid'); g.innerHTML=''; const latest=latestTasksByAgent(data); TEAM.forEach(a=>{ const s=(agentStats&&agentStats[a.name])?agentStats[a.name]:{xp:0,level:1,streak:0}; const t=latest[a.name]; const nowTask=t?`${t.title||t.next_action||'Utan titel'}`:'Ingen aktiv task'; const nowState=t?`${t._col.toUpperCase()}${t.deadline?` · Due ${t.deadline}`:''}`:'IDLE'; g.appendChild(el('div','team-card',`<div class='row'><img class='avatar' src='${a.avatar}' alt='${a.name}'/><div><b>${a.name}</b><div class='muted'>${a.role}</div><div class='muted'>Model: ${MODEL_SHORT[a.model]||a.model}</div></div></div><div style='display:flex;gap:6px;margin-top:8px'><span class='xp-badge'>${s.xp} XP</span><span class='level'>Level ${s.level}</span><span class='streak'>Streak ${s.streak}</span></div><div class='muted' style='margin-top:8px'>Nu: ${nowTask}</div><div class='muted'>Status: ${nowState}</div><div class='muted'>Huvudområde: ${a.focus}</div>`)); });}
 
 async function renderDocs(){const list=byId('docsList'); const viewer=byId('docsViewer'); list.innerHTML=''; DOC_FILES.forEach(f=>{const b=document.createElement('button'); b.textContent=f; b.onclick=async()=>{try{const r=await fetch('./'+f+'?ts='+Date.now()); viewer.textContent=await r.text();}catch{viewer.textContent='Kunde inte läsa fil.';}}; list.appendChild(b);});}
 async function renderMemory(){const list=byId('memoryList'); const viewer=byId('memoryViewer'); const search=byId('memorySearch'); const entries=[]; for(const f of MEMORY_FILES){try{const r=await fetch('./'+f+'?ts='+Date.now()); const txt=await r.text(); entries.push({file:f,text:txt});}catch{}}
   function draw(filter=''){list.innerHTML=''; entries.filter(e=>!filter||e.text.toLowerCase().includes(filter.toLowerCase())||e.file.toLowerCase().includes(filter.toLowerCase())).forEach(e=>{const b=document.createElement('button'); b.textContent=e.file; b.onclick=()=>{viewer.textContent=e.text;}; list.appendChild(b);}); if(!list.children.length) list.innerHTML='<div class="muted">Inga träffar.</div>';}
   search.oninput=()=>draw(search.value); draw('');}
-function renderOpsTab(){const s=byId('opsStats'); const d=LAST_STATS; if(!d){s.innerHTML='<div class="muted">Ingen statsdata.</div>'; return;} s.innerHTML=byId('stats').innerHTML; byId('opsDetails').innerHTML=byId('ops').innerHTML + `<div class='ops-row'><span class='muted'>Refresh</span><span>10s</span></div>`;}
+function renderOpsTab(){const s=byId('opsStats'); const d=LAST_STATS; if(!d){s.innerHTML='<div class="muted">Ingen statsdata.</div>'; return;} s.innerHTML=byId('stats').innerHTML; byId('opsDetails').innerHTML=byId('ops').innerHTML + `<div class='ops-row'><span class='muted'>Refresh</span><span>2s</span></div>`;}
 
 async function load(){
   try{
@@ -303,7 +303,7 @@ async function load(){
     LAST_BOARD=data; LAST_ARCHIVE=archive; LAST_STATS=stats;
     byId('updated').textContent=`Senast uppdaterad: ${new Date().toLocaleString('sv-SE')}`;
     const agentStats=computeAgentStats(data);
-    renderTopStats(data,archivedCount); renderBoard(data); renderStats(stats); renderOps(); renderWorkforceActivity(data); renderLeaderboard(agentStats); renderArchive(archive); renderTeam(agentStats); renderOpsTab();
+    renderTopStats(data,archivedCount); renderBoard(data); renderStats(stats); renderOps(); renderLeaderboard(agentStats); renderArchive(archive); renderTeam(agentStats,data); renderTeamActivity(data); renderOpsTab();
   }catch{byId('updated').textContent='Kunde inte läsa data'; TOOL_STATUS.exec='DEGRADED'; renderOps();}
 }
 
