@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "updated_at": "2026-02-22T09:57:37.536472+01:00",
+  "updated_at": "2026-02-22T09:59:33.821243+01:00",
   "wip_limit_doing": 2,
   "columns": {
     "backlog": [
@@ -354,129 +354,20 @@
         "deadline_policy_ref": "deadline-governance-v1"
       },
       {
-        "id": "task-2026-02-22-026",
-        "title": "Gamification: daily quest + boss task kopplat till riktigt arbete",
-        "status": "Backlog",
-        "priority": "H",
-        "owner": "Bob",
-        "deadline": "2026-02-26",
-        "tags": [
-          "ai",
-          "ops",
-          "gamification"
-        ],
-        "next_action": "Definiera poängregler direkt från Kanban/workflow events",
-        "created_at": "2026-02-22T08:55:53.488573+01:00",
-        "updated_at": "2026-02-22T09:57:37.536472+01:00",
-        "risk": "M",
-        "definition_of_done": [
-          "Quest-regler definierade",
-          "Boss task-logik kopplad till verkliga tasks",
-          "UI-copy klar"
-        ],
-        "agent": "Max Mercer",
-        "category": "strategy",
-        "progress_pct": 5,
-        "eta": "1-2 dagar",
-        "deadline_status": "on_track",
-        "deadline_policy_ref": "deadline-governance-v1"
-      },
-      {
-        "id": "task-2026-02-22-027",
-        "title": "Mission Control Team: 2D retro office live view (MVP)",
-        "status": "Backlog",
-        "priority": "H",
-        "owner": "Bob",
-        "deadline": "2026-02-26",
-        "tags": [
-          "ai",
-          "frontend",
-          "gamification"
-        ],
-        "next_action": "Prototypa canvas-baserad kontorsvy med agent-state från KANBAN",
-        "created_at": "2026-02-22T08:55:53.488573+01:00",
-        "updated_at": "2026-02-22T09:57:37.536472+01:00",
-        "risk": "M",
-        "definition_of_done": [
-          "2D office renderad",
-          "Agenter rör sig mellan stationer",
-          "Live status kopplat till tasks"
-        ],
-        "agent": "Max Mercer",
-        "category": "build",
-        "progress_pct": 5,
-        "eta": "2-5 dagar",
-        "deadline_status": "on_track",
-        "deadline_policy_ref": "deadline-governance-v1"
-      },
-      {
-        "id": "task-2026-02-22-028",
-        "title": "Gamified: Quality streaks kopplat till leveranskvalitet",
-        "status": "Backlog",
-        "priority": "M",
-        "owner": "Bob",
-        "deadline": "2026-03-01",
-        "tags": [
-          "gamification",
-          "ops"
-        ],
-        "next_action": "Definiera streak-regel: endast verifierad leverans räknas",
-        "created_at": "2026-02-22T08:59:25.957418+01:00",
-        "updated_at": "2026-02-22T09:57:37.536472+01:00",
-        "risk": "L",
-        "definition_of_done": [
-          "Regel definierad",
-          "Datakälla kopplad",
-          "UI-indikator klar"
-        ],
-        "agent": "Max Mercer",
-        "category": "strategy",
-        "progress_pct": 0,
-        "eta": "1-2 dagar",
-        "deadline_status": "on_track",
-        "deadline_policy_ref": "deadline-governance-v1"
-      },
-      {
-        "id": "task-2026-02-22-029",
-        "title": "Gamified: Combo bonus för Research→Build→Review-flöde",
-        "status": "Backlog",
-        "priority": "M",
-        "owner": "Bob",
-        "deadline": "2026-03-01",
-        "tags": [
-          "gamification",
-          "workflow"
-        ],
-        "next_action": "Mappa eventkedja och bonuspoäng per komplett flow",
-        "created_at": "2026-02-22T08:59:25.957418+01:00",
-        "updated_at": "2026-02-22T09:57:37.536472+01:00",
-        "risk": "L",
-        "definition_of_done": [
-          "Eventkedja mappad",
-          "Bonuslogik implementerbar",
-          "Visning i Team-vy"
-        ],
-        "agent": "Zoe Pulse",
-        "category": "research",
-        "progress_pct": 0,
-        "eta": "1-2 dagar",
-        "deadline_status": "on_track",
-        "deadline_policy_ref": "deadline-governance-v1"
-      },
-      {
         "id": "task-2026-02-22-030",
         "title": "Gamified: Raid events för större mål (MVP release)",
         "status": "Backlog",
-        "priority": "M",
+        "priority": "H",
         "owner": "Bob",
         "deadline": "2026-03-01",
         "tags": [
+          "build",
           "gamification",
-          "build"
+          "live-visibility"
         ],
         "next_action": "Definiera raid-template med delmål och agentbidrag live",
         "created_at": "2026-02-22T08:59:25.957418+01:00",
-        "updated_at": "2026-02-22T09:57:37.536472+01:00",
+        "updated_at": "2026-02-22T09:59:33.821243+01:00",
         "risk": "M",
         "definition_of_done": [
           "Raid-template klar",
@@ -489,13 +380,11 @@
         "eta": "2-5 dagar",
         "deadline_status": "on_track",
         "deadline_policy_ref": "deadline-governance-v1"
-      }
-    ],
-    "doing": [
+      },
       {
         "id": "task-2026-02-20-010",
         "title": "Städa Kanban och prioritera topp 3",
-        "status": "Doing",
+        "status": "Backlog",
         "priority": "H",
         "owner": "Bob",
         "deadline": "2026-02-23",
@@ -505,7 +394,7 @@
         ],
         "next_action": "Prioritera backlog mot mål och minska brus",
         "created_at": "2026-02-20T19:45:00+01:00",
-        "updated_at": "2026-02-22T09:57:37.536472+01:00",
+        "updated_at": "2026-02-22T09:59:33.821243+01:00",
         "risk": "M",
         "definition_of_done": [
           "Leverans framtagen",
@@ -522,7 +411,7 @@
       {
         "id": "task-2026-02-21-016",
         "title": "Kör hourly workforce cycle",
-        "status": "Doing",
+        "status": "Backlog",
         "priority": "H",
         "owner": "Bob",
         "deadline": "2026-02-23",
@@ -531,7 +420,7 @@
         ],
         "next_action": "Kör första cycle och logga resultat",
         "created_at": "2026-02-21T20:45:09.395018+01:00",
-        "updated_at": "2026-02-22T09:57:37.536472+01:00",
+        "updated_at": "2026-02-22T09:59:33.821243+01:00",
         "risk": "M",
         "definition_of_done": [
           "Cycle körd",
@@ -541,6 +430,66 @@
         "agent": "Max Mercer",
         "category": "general",
         "progress_pct": 50,
+        "eta": "1-2 dagar",
+        "deadline_status": "on_track",
+        "deadline_policy_ref": "deadline-governance-v1"
+      }
+    ],
+    "doing": [
+      {
+        "id": "task-2026-02-22-027",
+        "title": "Mission Control Team: 2D retro office live view (MVP)",
+        "status": "Doing",
+        "priority": "H",
+        "owner": "Bob",
+        "deadline": "2026-02-26",
+        "tags": [
+          "ai",
+          "frontend",
+          "gamification",
+          "live-visibility"
+        ],
+        "next_action": "Bygg Team-tab v0 med live agent-status från KANBAN och rörelse mellan stationer",
+        "created_at": "2026-02-22T08:55:53.488573+01:00",
+        "updated_at": "2026-02-22T09:59:33.821243+01:00",
+        "risk": "M",
+        "definition_of_done": [
+          "2D office renderad",
+          "Agenter rör sig mellan stationer",
+          "Live status kopplat till tasks"
+        ],
+        "agent": "Max Mercer",
+        "category": "build",
+        "progress_pct": 15,
+        "eta": "1-2 dagar",
+        "deadline_status": "on_track",
+        "deadline_policy_ref": "deadline-governance-v1"
+      },
+      {
+        "id": "task-2026-02-22-026",
+        "title": "Gamification: daily quest + boss task kopplat till riktigt arbete",
+        "status": "Doing",
+        "priority": "H",
+        "owner": "Bob",
+        "deadline": "2026-02-26",
+        "tags": [
+          "ai",
+          "gamification",
+          "live-visibility",
+          "ops"
+        ],
+        "next_action": "Implementera daily quest + boss task overlay kopplat till verkliga task-events",
+        "created_at": "2026-02-22T08:55:53.488573+01:00",
+        "updated_at": "2026-02-22T09:59:33.821243+01:00",
+        "risk": "M",
+        "definition_of_done": [
+          "Quest-regler definierade",
+          "Boss task-logik kopplad till verkliga tasks",
+          "UI-copy klar"
+        ],
+        "agent": "Max Mercer",
+        "category": "strategy",
+        "progress_pct": 15,
         "eta": "1-2 dagar",
         "deadline_status": "on_track",
         "deadline_policy_ref": "deadline-governance-v1"
@@ -598,6 +547,62 @@
         "category": "ops",
         "progress_pct": 85,
         "eta": "<1 dag",
+        "deadline_status": "on_track",
+        "deadline_policy_ref": "deadline-governance-v1"
+      },
+      {
+        "id": "task-2026-02-22-029",
+        "title": "Gamified: Combo bonus för Research→Build→Review-flöde",
+        "status": "Review",
+        "priority": "H",
+        "owner": "Bob",
+        "deadline": "2026-03-01",
+        "tags": [
+          "gamification",
+          "live-visibility",
+          "workflow"
+        ],
+        "next_action": "Mappa eventkedja och bonuspoäng per komplett flow",
+        "created_at": "2026-02-22T08:59:25.957418+01:00",
+        "updated_at": "2026-02-22T09:59:33.821243+01:00",
+        "risk": "L",
+        "definition_of_done": [
+          "Eventkedja mappad",
+          "Bonuslogik implementerbar",
+          "Visning i Team-vy"
+        ],
+        "agent": "Zoe Pulse",
+        "category": "research",
+        "progress_pct": 0,
+        "eta": "1-2 dagar",
+        "deadline_status": "on_track",
+        "deadline_policy_ref": "deadline-governance-v1"
+      },
+      {
+        "id": "task-2026-02-22-028",
+        "title": "Gamified: Quality streaks kopplat till leveranskvalitet",
+        "status": "Review",
+        "priority": "H",
+        "owner": "Bob",
+        "deadline": "2026-03-01",
+        "tags": [
+          "gamification",
+          "live-visibility",
+          "ops"
+        ],
+        "next_action": "Definiera streak-regel: endast verifierad leverans räknas",
+        "created_at": "2026-02-22T08:59:25.957418+01:00",
+        "updated_at": "2026-02-22T09:59:33.821243+01:00",
+        "risk": "L",
+        "definition_of_done": [
+          "Regel definierad",
+          "Datakälla kopplad",
+          "UI-indikator klar"
+        ],
+        "agent": "Max Mercer",
+        "category": "strategy",
+        "progress_pct": 0,
+        "eta": "1-2 dagar",
         "deadline_status": "on_track",
         "deadline_policy_ref": "deadline-governance-v1"
       }
@@ -659,5 +664,18 @@
         "expected_outcome"
       ]
     }
+  },
+  "focus_today": {
+    "theme": "Gamifiering + LIVE Team Office-vy",
+    "goal": "Patrik ska se i realtid att agenter arbetar och vad som pågår",
+    "primary_task_ids": [
+      "task-2026-02-22-027",
+      "task-2026-02-22-026"
+    ],
+    "support_task_ids": [
+      "task-2026-02-22-029",
+      "task-2026-02-22-028",
+      "task-2026-02-22-030"
+    ]
   }
 }
