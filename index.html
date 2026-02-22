@@ -110,6 +110,7 @@
       <button class="tab" data-tab="ops">Ops</button>
       <button class="tab" data-tab="memory">Memory</button>
       <button class="tab" data-tab="youtube">YouTube</button>
+      <button class="tab" data-tab="archive">Archive</button>
       <button class="tab" data-tab="docs">Docs</button>
     </aside>
 
@@ -178,6 +179,11 @@
         <div class="viewer" id="ytViewer">Välj en video i listan.</div>
       </section>
 
+      <section id="view-archive" class="hidden panel" style="padding:10px">
+        <div class="section-h"><span>Archived Tasks</span><span>history</span></div>
+        <div id="archiveTabList" class="list" style="max-height:none"></div>
+      </section>
+
       <section id="view-docs" class="hidden panel docs-layout">
         <div class="list" id="docsList"></div>
         <div class="viewer" id="docsViewer">Välj ett dokument.</div>
@@ -210,7 +216,7 @@ let FOCUS=false,AGENT_FILTER='ALL',TOOL_STATUS={telegram:'OK',exec:'OK'},LAST_AR
 let LAST_STATS_SOURCE='./system_stats.json';
 const byId=id=>document.getElementById(id); const el=(t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!==undefined)e.innerHTML=h;return e};
 
-function switchTab(name){['tasks','team','ops','memory','youtube','docs'].forEach(x=>byId('view-'+x).classList.toggle('hidden',x!==name));document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===name));}
+function switchTab(name){['tasks','team','ops','memory','youtube','archive','docs'].forEach(x=>byId('view-'+x).classList.toggle('hidden',x!==name));document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===name));}
 
 function renderTopStats(data, archivedCount=0){
   const vals={backlog:(data.columns.backlog||[]).length,doing:(data.columns.doing||[]).length,review:(data.columns.review||[]).length,done:(data.columns.done||[]).length};
@@ -220,7 +226,6 @@ function renderTopStats(data, archivedCount=0){
   filter.innerHTML=opts.map(n=>`<option value="${n}" ${AGENT_FILTER===n?'selected':''}>${n==='ALL'?'All agents':n}</option>`).join('');
   filter.onchange=e=>{AGENT_FILTER=e.target.value; if(LAST_BOARD) renderBoard(LAST_BOARD);}; top.appendChild(filter);
   const focus=el('button','btn',FOCUS?'Exit Focus':'Focus Mode'); focus.onclick=()=>{FOCUS=!FOCUS; if(LAST_BOARD){renderBoard(LAST_BOARD); renderTopStats(LAST_BOARD,(LAST_ARCHIVE.archived||[]).length);} }; top.appendChild(focus);
-  const arch=el('button','btn','📦 Archive'); arch.onclick=()=>byId('archiveModal').style.display='flex'; top.appendChild(arch);
 }
 
 function findAgent(name){return TEAM.find(a=>a.name===name)||TEAM[0];}
@@ -272,7 +277,7 @@ function renderStats(stats){
 function renderOps(){const ops=byId('ops'); const tool=(TOOL_STATUS.telegram==='OK'&&TOOL_STATUS.exec==='OK')?'OK':((TOOL_STATUS.telegram==='DOWN'||TOOL_STATUS.exec==='DOWN')?'DOWN':'DEGRADED'); const dot=tool==='OK'?'g':(tool==='DEGRADED'?'y':'r'); ops.innerHTML=`<div class='ops-row'><span><span class='dot ${dot}'></span><b>Tool status</b></span><span>${tool}</span></div><div class='ops-row'><span class='muted'>Telegram</span><span>${TOOL_STATUS.telegram}</span></div><div class='ops-row'><span class='muted'>exec</span><span>${TOOL_STATUS.exec}</span></div><div class='ops-row'><span class='muted'>Profile</span><span>${DEVICE_PROFILE.name}</span></div>`;}
 function renderTeamActivity(data){const box=byId('teamActivity'); if(!box) return; const tasks=[]; ['doing','review','backlog'].forEach(c=>(data.columns[c]||[]).forEach(t=>tasks.push({...t,_col:c}))); tasks.sort((a,b)=>String(b.updated_at||'').localeCompare(String(a.updated_at||''))); const top=tasks.slice(0,8); if(!top.length){box.innerHTML='<div class="muted">Ingen aktivitet ännu.</div>'; return;} box.innerHTML=top.map(t=>`<div class='ops-row'><span class='muted'>${(t.agent||'').split(' ')[0]} · ${t._col}</span><span title='${t.title||''}'>${(t.title||'').slice(0,34)}</span></div>`).join('');}
 
-function renderArchive(archive){const list=byId('archiveList'); const items=(archive&&archive.archived)?archive.archived:[]; if(!items.length){list.innerHTML='<div class="muted">Inga arkiverade tasks.</div>'; return;} list.innerHTML=items.slice().reverse().map(t=>`<div class='card'><div class='next'><b>${t.title||'Untitled'}</b></div><div class='next'>${t.next_action||''}</div></div>`).join('');}
+function renderArchive(archive){const modalList=byId('archiveList'); const tabList=byId('archiveTabList'); const items=(archive&&archive.archived)?archive.archived:[]; const html=!items.length?'<div class="muted">Inga arkiverade tasks.</div>':items.slice().reverse().map(t=>`<div class='card'><div class='next'><b>${t.title||'Untitled'}</b></div><div class='next'>${t.next_action||''}</div></div>`).join(''); if(modalList) modalList.innerHTML=html; if(tabList) tabList.innerHTML=html;}
 
 function computeAgentStats(data){
   const stats={};
