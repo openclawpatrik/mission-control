@@ -22,9 +22,10 @@ Rapportera kort i 3 rader:
 - Publishing readiness: RÖD / GUL / GRÖN
 
 ## 3) Agentarbete när Patrik sover/jobbar (asynk progression)
-Mål: det ska hända saker kontinuerligt utan att överbelasta Mac Mini.
+Mål: kontinuerligt arbete 24/7 utan att överbelasta Mac Mini.
 
 Regler:
+- Ha alltid minst 1 aktiv uppgift i kö/utförande över dygnet (24/7 täckning).
 - Kör max 1 tung subagent i taget (research/coding med stor kontext).
 - Lätta uppgifter kan köras parallellt max 2 st.
 - Undvik att starta flera lokala modelljobb samtidigt.
@@ -51,6 +52,12 @@ Om sustained usage >90% i 10 min (CPU/RAM/Disk/Net):
    - skicka kort changelog-sammanfattning,
    - ge rekommendation: uppdatera nu / vänta.
 3. Auto-uppdatera INTE utan explicit godkännande från Patrik.
+
+## 6) Vecko-avstämning (HEARTBEAT-förbättring)
+1 gång per vecka:
+1. Gå igenom HEARTBEAT-regler och utfall (signal vs brus).
+2. Föreslå max 3 förbättringar för bättre effekt mot FitzWorks-mål.
+3. Kontrollera att 24/7 arbetsflöde hålls utan resursöverbelastning.
 
 ## Alert-format (alltid kort)
 - Rubrik
