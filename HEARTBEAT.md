@@ -5,6 +5,8 @@
 - Dagtid (08:00–22:00 Europe/Stockholm): heartbeat var 30:e minut.
 - Natt (22:00–08:00): var 60:e minut, endast viktiga checks + progress.
 - Om inget viktigt: svara endast `HEARTBEAT_OK`.
+- Skicka inte löpande heartbeat-rapporter i chatten. Samla normal progress/förbättringar till morning daily brief.
+- Skicka endast heartbeat-alert i realtid vid kritiskt läge (säkerhet, dataförlustrisk, ihållande resursrisk, blocker som kräver ägarbeslut).
 
 ## 1) Execution check (KANBAN + agentprogress)
 Vid varje heartbeat:
@@ -69,3 +71,4 @@ Vid heartbeat:
 - Rubrik
 - Varför det spelar roll
 - 1 konkret next action
+- Undvik upprepning: skicka inte samma alert igen om läget är oförändrat.
