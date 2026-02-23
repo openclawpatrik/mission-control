@@ -67,6 +67,16 @@ Vid heartbeat:
 2. Om ändringar finns: påminn/flagga att pusha till GitHub så remote är uppdaterad.
 3. Prioritera att hålla repo i synk inför demo/publishing.
 
+## 8) Daily Second Brain dump (12:05 Europe/Stockholm)
+Mål: förbättra förståelsen av Patrik för bättre beslut i FitzWorks.
+
+Regler:
+1. Skicka exakt kl 12:05 (lokal tid) 3 korta frågor i Telegram.
+2. Frågorna ska rotera mellan: mål, energi/fokus, beslut, hinder, idéer, risk, värderingar, arbetsstil.
+3. Frågorna ska vara olika från föregående dag (ingen repetitiv loop).
+4. Spara svaren i minne/idébank och återanvänd i planering/agentstyrning.
+5. Om dagens frågor redan skickats: skicka inte igen samma dag.
+
 ## Alert-format (alltid kort)
 - Rubrik
 - Varför det spelar roll
