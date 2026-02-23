@@ -59,6 +59,12 @@ Om sustained usage >90% i 10 min (CPU/RAM/Disk/Net):
 2. Föreslå max 3 förbättringar för bättre effekt mot FitzWorks-mål.
 3. Kontrollera att 24/7 arbetsflöde hålls utan resursöverbelastning.
 
+## 7) GitHub sync (Mission Control)
+Vid heartbeat:
+1. Kontrollera om Mission Control-relaterade filer är ändrade lokalt.
+2. Om ändringar finns: påminn/flagga att pusha till GitHub så remote är uppdaterad.
+3. Prioritera att hålla repo i synk inför demo/publishing.
+
 ## Alert-format (alltid kort)
 - Rubrik
 - Varför det spelar roll
