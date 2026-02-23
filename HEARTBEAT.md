@@ -2,8 +2,8 @@
 # FitzWorks heartbeat v2 (högsignal + låg resursrisk)
 
 ## Körschema
-- Dagtid (08:00–22:00 Europe/Stockholm): heartbeat var 30–60 min.
-- Natt (22:00–08:00): var 90–120 min, endast viktiga checks + progress.
+- Dagtid (08:00–22:00 Europe/Stockholm): heartbeat var 30:e minut.
+- Natt (22:00–08:00): var 60:e minut, endast viktiga checks + progress.
 - Om inget viktigt: svara endast `HEARTBEAT_OK`.
 
 ## 1) Execution check (KANBAN + agentprogress)
