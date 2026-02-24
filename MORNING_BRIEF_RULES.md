@@ -13,6 +13,14 @@
   - Android games
 - Publish target: Play Store
 
+## Design approval gate (always-on)
+- For every new app concept or major feature, present visual design proposals before build lock.
+- Minimum output each time:
+  1) 2–3 UI design directions (screens/mockups)
+  2) short rationale per direction
+  3) explicit approve/reject question to Patrik
+- No final UI direction is treated as locked before Patrik approval.
+
 ## Current focus lock
 - Primary: AI Study Coach
 - Deadline: Friday 18:00 (Europe/Stockholm)
