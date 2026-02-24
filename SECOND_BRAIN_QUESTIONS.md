@@ -19,10 +19,10 @@ Syfte: daglig 12:05 brain dump (3 frågor) för att förbättra beslutskvalitet 
 - Vad ska vi säga nej till denna vecka för att skydda fokus?
 - Vilken kompromiss accepterar du nu för att få fart, och vad får aldrig kompromissas?
 
-### Hinder & risk
-- Vad blockerar mest just nu: tid, teknik, osäkerhet eller prioritering?
-- Vilken risk oroar dig mest i nuläget som vi ska mitigera direkt?
-- Vad kan gå fel i vår plan denna vecka och hur fångar vi det tidigt?
+### Hinder & flow (anpassat)
+- Vilket moment känns mest trögt just nu som jag kan avlasta direkt?
+- Var tappar vi mest fart i arbetsflödet idag?
+- Vilken liten ändring skulle ge bättre flyt de kommande 24 timmarna?
 
 ### Idéer & lärande
 - Vilken ny idé har du idag som vi ska parkera, testa eller köra?
