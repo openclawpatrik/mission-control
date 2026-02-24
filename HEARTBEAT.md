@@ -63,11 +63,17 @@ Om sustained usage >90% i 10 min (CPU/RAM/Disk/Net):
 2. Föreslå max 3 förbättringar för bättre effekt mot FitzWorks-mål.
 3. Kontrollera att 24/7 arbetsflöde hålls utan resursöverbelastning.
 
-## 7) GitHub sync (Mission Control)
+## 7) Mission Control freshness + GitHub sync
 Vid heartbeat:
 1. Kontrollera om Mission Control-relaterade filer är ändrade lokalt.
-2. Om ändringar finns: påminn/flagga att pusha till GitHub så remote är uppdaterad.
-3. Prioritera att hålla repo i synk inför demo/publishing.
+2. Om ändringar finns: uppdatera relevanta källfiler direkt (t.ex. KANBAN.json, research/youtube/BANK.md, notes) så Mission Control visar senaste läget.
+3. Verifiera snabb freshness-check: att senaste ändring syns i datakällorna som Mission Control läser.
+4. Om ändringar finns kvar lokalt: påminn/flagga att pusha till GitHub så remote är uppdaterad.
+
+Daglig kontroll (förslag 07:20):
+1. Kör en full genomgång av Mission Control-datakällor (tasks, stats, YouTube-bank, minnesreferenser).
+2. Rätta avvikelser direkt (saknade poster, fel status, dubbletter).
+3. Rapportera endast om något kräver beslut från Patrik.
 
 ## 8) Daily Second Brain dump (12:05 Europe/Stockholm)
 Mål: förbättra förståelsen av Patrik för bättre beslut i FitzWorks.

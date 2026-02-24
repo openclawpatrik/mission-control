@@ -46,3 +46,9 @@ Store as a short note with a title and date in NOTES.md.
 - When user adds/changes a routine: update the relevant routine file + index.
 - Review routines on cadence from `ROUTINES_INDEX.md` (daily + weekly).
 - If a routine conflicts with active delivery goals, propose a small adjustment instead of ignoring it.
+
+## G) Mission Control update discipline
+- Any source change must be reflected in Mission Control data sources immediately (same work block).
+- Primary sources to keep fresh: `KANBAN.json`, `research/youtube/BANK.md`, `system_stats.json`, relevant memory notes.
+- Run a daily freshness sweep (07:20) to detect missing entries or stale states.
+- If mismatch is found, fix first; report after fix with one-line summary.
