@@ -52,3 +52,4 @@ Store as a short note with a title and date in NOTES.md.
 - Primary sources to keep fresh: `KANBAN.json`, `research/youtube/BANK.md`, `system_stats.json`, relevant memory notes.
 - Run a daily freshness sweep (07:20) to detect missing entries or stale states.
 - If mismatch is found, fix first; report after fix with one-line summary.
+- Auto-push policy: commits that touch Mission Control sources should push to `origin` immediately (post-commit hook).

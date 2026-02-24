@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Auto-push when a commit touches Mission Control sources.
+CHANGED="$(git diff-tree --no-commit-id --name-only -r HEAD || true)"
+PATTERN='^(KANBAN(\.json|\.md)?|mission_control\.html|system_stats\.json|research/youtube/BANK\.md|memory/|NOTES\.md|VOICE_INBOX\.md|VOICE_TRIAGE\.md)'
+
+if echo "$CHANGED" | grep -Eq "$PATTERN"; then
+  BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+  git push origin "$BRANCH"
+fi
