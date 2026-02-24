@@ -53,3 +53,9 @@ Store as a short note with a title and date in NOTES.md.
 - Run a daily freshness sweep (07:20) to detect missing entries or stale states.
 - If mismatch is found, fix first; report after fix with one-line summary.
 - Auto-push policy: commits that touch Mission Control sources should push to `origin` immediately (post-commit hook).
+
+## H) Deadline integrity (Mission Board)
+- Deadlines/ETA are commitments, not placeholders.
+- Every active task must have: owner, next_action, and feasible deadline.
+- Overdue tasks trigger immediate recovery: explicit owner + 24h mini-deadline + scope trim if needed.
+- Track and report: overdue count must trend to zero daily.

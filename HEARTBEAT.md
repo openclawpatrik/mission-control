@@ -15,7 +15,12 @@ Vid varje heartbeat:
    - >2 H-prio tasks i Doing (WIP-risk)
    - blockerad H-prio task utan recovery-plan
    - ingen mätbar progress sedan senaste kontroll
-3. Föreslå max 1 konkret next action per flagga.
+   - task med passerad deadline/ETA (overdue)
+3. Vid overdue (alltid):
+   - skicka omedelbar alert med antal + vilka tasks,
+   - sätt recovery-plan (ägare + ny mini-deadline inom 24h),
+   - prioritera om så högst 2 kritiska overdue åtgärdas först.
+4. Föreslå max 1 konkret next action per flagga.
 
 ## 2) AI Study Coach quality gate (inför publishing)
 Rapportera kort i 3 rader:
