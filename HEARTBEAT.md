@@ -77,6 +77,14 @@ Regler:
 4. Spara svaren i minne/idébank och återanvänd i planering/agentstyrning.
 5. Om dagens frågor redan skickats: skicka inte igen samma dag.
 
+## 9) OpenHome DevKit svarspåminnelse (2 gånger/vecka)
+Mål: säkra uppföljning på devkit-ansökan utan att skapa spam.
+
+Regler:
+1. Påminn Patrik tisdag + fredag dagtid om han fått svar på OpenHome DevKit-ansökan.
+2. Om Patrik redan bekräftat svar samma vecka: skicka inte igen.
+3. Om avslag/uteblivet svar >7 dagar: föreslå nästa steg (egen hårdvara + plan).
+
 ## Alert-format (alltid kort)
 - Rubrik
 - Varför det spelar roll
