@@ -2,6 +2,8 @@
 
 Syfte: daglig 12:05 brain dump (3 frågor) för att förbättra beslutskvalitet i FitzWorks.
 
+Stilregel: frågorna ska vara enkla, fria och lätta att svara på (inga tunga val mellan tekniska alternativ om inte Patrik själv ber om det).
+
 ## Frågebank (rotera)
 
 ### Mål & riktning
