@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "updated_at": "2026-02-22T13:05:20.219907+01:00",
+  "updated_at": "2026-02-24T07:13:04.092704+01:00",
   "wip_limit_doing": 2,
   "columns": {
     "backlog": [
@@ -94,9 +94,9 @@
         "tags": [
           "ai"
         ],
-        "next_action": "Definiera när subagents används och vilken modell som v...",
+        "next_action": "Inför Definition-of-Ready-gate: blockera flytt till Doing utan owner + DoD; retrofitta 031/032 först.",
         "created_at": "2026-02-21T12:40:00+01:00",
-        "updated_at": "2026-02-22T09:57:37.536472+01:00",
+        "updated_at": "2026-02-23T00:50:26.643451+01:00",
         "risk": "M",
         "definition_of_done": [
           "Leverans framtagen",
@@ -105,7 +105,7 @@
         ],
         "agent": "Max Mercer",
         "category": "strategy",
-        "progress_pct": 10,
+        "progress_pct": 20,
         "eta": "2-5 dagar",
         "deadline_status": "on_track",
         "deadline_policy_ref": "deadline-governance-v1"
@@ -433,12 +433,52 @@
         "eta": "1-2 dagar",
         "deadline_status": "on_track",
         "deadline_policy_ref": "deadline-governance-v1"
+      },
+      {
+        "id": "task-2026-02-22-031",
+        "title": "Resource watchdog: detect sustained high CPU/RAM/Disk/Net",
+        "status": "Backlog",
+        "priority": "H",
+        "owner": "Bob",
+        "agent": "Owen Flux",
+        "tags": [
+          "ops",
+          "monitoring",
+          "telegram"
+        ],
+        "next_action": "Implementera watchdog som flaggar >90% i 10 min och samlar processbevis",
+        "created_at": "2026-02-22T10:32:14.086507+01:00",
+        "updated_at": "2026-02-24T13:32:33.033928+01:00",
+        "deadline": "2026-02-23",
+        "risk": "M",
+        "progress_pct": 10,
+        "eta": "<1 dag"
+      },
+      {
+        "id": "task-2026-02-22-032",
+        "title": "Telegram alerts med orsak och åtgärd vid hög usage",
+        "status": "Backlog",
+        "priority": "H",
+        "owner": "Bob",
+        "agent": "Max Mercer",
+        "tags": [
+          "ops",
+          "alerting",
+          "telegram"
+        ],
+        "next_action": "Skicka alert med: vad som är högt, sannolik orsak, koppling till aktiva agentjobb, rekommenderad åtgärd",
+        "created_at": "2026-02-22T10:32:14.086507+01:00",
+        "updated_at": "2026-02-24T13:32:33.033928+01:00",
+        "deadline": "2026-02-23",
+        "risk": "M",
+        "progress_pct": 10,
+        "eta": "<1 dag"
       }
     ],
     "doing": [
       {
         "id": "task-2026-02-22-027",
-        "title": "Mission Control Team: 2D retro office live view (MVP)",
+        "title": "Mission Control Team-vy (2D office MVP)",
         "status": "Doing",
         "priority": "H",
         "owner": "Bob",
@@ -449,7 +489,7 @@
           "gamification",
           "live-visibility"
         ],
-        "next_action": "Bygg Team-tab v0 med live agent-status från KANBAN och rörelse mellan stationer",
+        "next_action": "Bygg Team-tab v0: live agentstatus från KANBAN + rörelse mellan stationer",
         "created_at": "2026-02-22T08:55:53.488573+01:00",
         "updated_at": "2026-02-22T09:59:33.821243+01:00",
         "risk": "M",
@@ -467,7 +507,7 @@
       },
       {
         "id": "task-2026-02-22-026",
-        "title": "Gamification: daily quest + boss task kopplat till riktigt arbete",
+        "title": "Gamification: daily quest + boss task",
         "status": "Doing",
         "priority": "H",
         "owner": "Bob",
@@ -478,7 +518,7 @@
           "live-visibility",
           "ops"
         ],
-        "next_action": "Implementera daily quest + boss task overlay kopplat till verkliga task-events",
+        "next_action": "Implementera daily quest + boss-task overlay på verkliga task-events",
         "created_at": "2026-02-22T08:55:53.488573+01:00",
         "updated_at": "2026-02-22T09:59:33.821243+01:00",
         "risk": "M",
@@ -493,46 +533,6 @@
         "eta": "1-2 dagar",
         "deadline_status": "on_track",
         "deadline_policy_ref": "deadline-governance-v1"
-      },
-      {
-        "id": "task-2026-02-22-031",
-        "title": "Resource watchdog: detect sustained high CPU/RAM/Disk/Net",
-        "status": "Doing",
-        "priority": "H",
-        "owner": "Bob",
-        "agent": "Owen Flux",
-        "tags": [
-          "ops",
-          "monitoring",
-          "telegram"
-        ],
-        "next_action": "Implementera watchdog som flaggar >90% i 10 min och samlar processbevis",
-        "created_at": "2026-02-22T10:32:14.086507+01:00",
-        "updated_at": "2026-02-22T10:32:14.086507+01:00",
-        "deadline": "2026-02-23",
-        "risk": "M",
-        "progress_pct": 10,
-        "eta": "<1 dag"
-      },
-      {
-        "id": "task-2026-02-22-032",
-        "title": "Telegram alerts med orsak och åtgärd vid hög usage",
-        "status": "Doing",
-        "priority": "H",
-        "owner": "Bob",
-        "agent": "Max Mercer",
-        "tags": [
-          "ops",
-          "alerting",
-          "telegram"
-        ],
-        "next_action": "Skicka alert med: vad som är högt, sannolik orsak, koppling till aktiva agentjobb, rekommenderad åtgärd",
-        "created_at": "2026-02-22T10:32:14.086507+01:00",
-        "updated_at": "2026-02-22T10:32:14.086507+01:00",
-        "deadline": "2026-02-23",
-        "risk": "M",
-        "progress_pct": 10,
-        "eta": "<1 dag"
       }
     ],
     "review": [
@@ -667,32 +667,7 @@
         "eta": "<1 dag"
       }
     ],
-    "done": [
-      {
-        "id": "task-2026-02-20-009",
-        "title": "Nulägeskoll och operativt läge",
-        "status": "Done",
-        "priority": "H",
-        "owner": "Bob",
-        "deadline": null,
-        "tags": [
-          "ai"
-        ],
-        "next_action": "Kör standardflöde på nästa meddelande",
-        "created_at": "2026-02-20T19:38:00+01:00",
-        "updated_at": "2026-02-20T19:38:00+01:00",
-        "risk": "M",
-        "definition_of_done": [
-          "Next action utförd",
-          "Resultat verifierat",
-          "Kort uppdaterat i Kanban"
-        ],
-        "agent": "Max Mercer",
-        "category": "general",
-        "progress_pct": 100,
-        "eta": "klar"
-      }
-    ]
+    "done": []
   },
   "wip_limit_review": 2,
   "governance": {
