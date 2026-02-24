@@ -51,9 +51,11 @@ Om sustained usage >90% i 10 min (CPU/RAM/Disk/Net):
 1. Kolla senaste release från officiella OpenClaw GitHub.
 2. Om ny version finns:
    - jämför med installerad version,
-   - skicka kort changelog-sammanfattning,
-   - ge rekommendation: uppdatera nu / vänta.
-3. Auto-uppdatera INTE utan explicit godkännande från Patrik.
+   - skapa backup först (status + version + workspace snapshot + ~/.openclaw snapshot),
+   - kör uppdatering automatiskt,
+   - verifiera med `openclaw status`,
+   - skicka kort uppdateringsrapport med version före/efter + backup-sökväg.
+3. Vid uppdateringsfel: behåll backup och skicka rollback-förslag som nästa action.
 
 ## 6) Vecko-avstämning (HEARTBEAT-förbättring)
 1 gång per vecka:
