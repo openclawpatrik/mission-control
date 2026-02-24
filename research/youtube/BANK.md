@@ -3,3 +3,4 @@
 | Datum | Titel | Kanal | Kategorier | Status | Länk | Notes |
 |---|---|---|---|---|---|---|
 | 2026-02-22 | Are AI Stocks the Next Dot-Com Crash… or the Next Big Boom? - Andy Tanner, Del Denney | The Rich Dad Channel | AI, Investering, Risk, Infrastruktur, Automation | NOW | [2026-02-22_1333_Are-AI-Stocks-the-Next-Dot-Com-Crash-or-the-Next-Big-Boom---Andy-Tanner-Del-Denn_ggg89mJpT9E.md](2026-02-22_1333_Are-AI-Stocks-the-Next-Dot-Com-Crash-or-the-Next-Big-Boom---Andy-Tanner-Del-Denn_ggg89mJpT9E.md) | Direkt kandidat |
+| 2026-02-24 | (TBD) YouTube watchlist capture | TBD | Idébank, Trendspaning | NOW | https://www.youtube.com/watch?v=ds1k2cmtqdI&list=WL&index=41 | Sparad från Patrik för senare analys |
