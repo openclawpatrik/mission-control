@@ -1,24 +1,63 @@
 {
-  "tasks": [
-    {
-      "id": "quest-system",
-      "status": "completed",
-      "description": "2D livevy integration finalized"
-    },
-    {
-      "id": "calendar-task",
-      "status": "in-progress",
-      "description": "Calendar & Task Management initiated (MED priority)"
-    },
-    {
-      "id": "stale-metrics",
-      "status": "completed",
-      "description": "STALE metrics consistency confirmed"
-    },
-    {
-      "id": "focus-sprint-rpg-mvp",
-      "status": "in-progress",
-      "description": "Start App Idea #1: Focus Sprint RPG MVP scope + first 3 implementation tasks"
-    }
-  ]
+  "version": "1.0",
+  "updated_at": "2026-02-25T14:35:00+01:00",
+  "wip_limit_doing": 2,
+  "columns": {
+    "backlog": [],
+    "doing": [
+      {
+        "id": "calendar-task",
+        "title": "Calendar & Task Management",
+        "status": "Doing",
+        "priority": "M",
+        "owner": "Bob",
+        "agent": "Max Mercer",
+        "category": "ops",
+        "next_action": "Break down into 3 concrete automations for this week",
+        "progress_pct": 35,
+        "eta": "1-2 dagar",
+        "updated_at": "2026-02-25T12:00:00+01:00"
+      },
+      {
+        "id": "focus-sprint-rpg-mvp",
+        "title": "Focus Sprint RPG MVP",
+        "status": "Doing",
+        "priority": "H",
+        "owner": "Bob",
+        "agent": "Rex Droid",
+        "category": "build",
+        "next_action": "Define MVP scope and create first 3 implementation tasks",
+        "progress_pct": 20,
+        "eta": "2-3 dagar",
+        "updated_at": "2026-02-25T12:07:00+01:00"
+      }
+    ],
+    "review": [],
+    "done": [
+      {
+        "id": "quest-system",
+        "title": "2D livevy integration",
+        "status": "Done",
+        "priority": "M",
+        "owner": "Bob",
+        "agent": "Leo Byte",
+        "category": "build",
+        "next_action": "Archive after 3 days",
+        "progress_pct": 100,
+        "updated_at": "2026-02-25T08:00:00+01:00"
+      },
+      {
+        "id": "stale-metrics",
+        "title": "STALE metrics consistency",
+        "status": "Done",
+        "priority": "M",
+        "owner": "Bob",
+        "agent": "Owen Flux",
+        "category": "ops",
+        "next_action": "Keep daily freshness check",
+        "progress_pct": 100,
+        "updated_at": "2026-02-25T08:00:00+01:00"
+      }
+    ]
+  }
 }
