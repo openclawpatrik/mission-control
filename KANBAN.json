@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "updated_at": "2026-02-25T16:51:46+01:00",
+  "updated_at": "2026-02-25T16:53:52+01:00",
   "wip_limit_doing": 2,
   "columns": {
     "backlog": [
@@ -8,7 +8,7 @@
         "id": "focus-sprint-rpg-mvp",
         "title": "Focus Sprint RPG MVP",
         "status": "Backlog",
-        "priority": "H",
+        "priority": "L",
         "owner": "Bob",
         "deadline": "2026-02-28",
         "tags": [
@@ -29,13 +29,14 @@
         "progress_pct": 10,
         "eta": "2-3 dagar",
         "deadline_status": "on_track",
-        "deadline_policy_ref": "deadline-governance-v1"
+        "deadline_policy_ref": "deadline-governance-v1",
+        "priority_reason": "score=-1 (in Backlog)"
       },
       {
         "id": "task-2026-02-20-006",
         "title": "Skapa Docker-check påminnelse",
         "status": "Backlog",
-        "priority": "M",
+        "priority": "L",
         "owner": "Bob",
         "deadline": "2026-03-01",
         "tags": [
@@ -55,13 +56,14 @@
         "progress_pct": 10,
         "eta": "2-5 dagar",
         "deadline_status": "on_track",
-        "deadline_policy_ref": "deadline-governance-v1"
+        "deadline_policy_ref": "deadline-governance-v1",
+        "priority_reason": "score=-1 (in Backlog)"
       },
       {
         "id": "task-2026-02-20-011",
         "title": "Host access blocker för livebrief",
         "status": "Backlog",
-        "priority": "H",
+        "priority": "L",
         "owner": "Bob",
         "deadline": "2026-02-26",
         "tags": [
@@ -82,13 +84,14 @@
         "progress_pct": 10,
         "eta": "2-5 dagar",
         "deadline_status": "on_track",
-        "deadline_policy_ref": "deadline-governance-v1"
+        "deadline_policy_ref": "deadline-governance-v1",
+        "priority_reason": "score=-1 (deadline <=2d, in Backlog, waiting user input)"
       },
       {
         "id": "task-2026-02-20-004",
         "title": "Sätt upp morgonbrief varje vardag",
         "status": "Backlog",
-        "priority": "H",
+        "priority": "L",
         "owner": "Bob",
         "deadline": "2026-02-26",
         "tags": [
@@ -109,13 +112,14 @@
         "progress_pct": 10,
         "eta": "2-5 dagar",
         "deadline_status": "on_track",
-        "deadline_policy_ref": "deadline-governance-v1"
+        "deadline_policy_ref": "deadline-governance-v1",
+        "priority_reason": "score=0 (deadline <=2d, in Backlog)"
       },
       {
         "id": "task-2026-02-21-013",
         "title": "Sätt subagent-flöde för jobbtyper",
         "status": "Backlog",
-        "priority": "H",
+        "priority": "L",
         "owner": "Bob",
         "deadline": "2026-02-26",
         "tags": [
@@ -135,13 +139,14 @@
         "progress_pct": 20,
         "eta": "2-5 dagar",
         "deadline_status": "on_track",
-        "deadline_policy_ref": "deadline-governance-v1"
+        "deadline_policy_ref": "deadline-governance-v1",
+        "priority_reason": "score=0 (deadline <=2d, in Backlog)"
       },
       {
         "id": "task-2026-02-21-017",
         "title": "Starta Passive Income agent",
         "status": "Backlog",
-        "priority": "H",
+        "priority": "L",
         "owner": "Bob",
         "deadline": "2026-02-26",
         "tags": [
@@ -162,13 +167,14 @@
         "progress_pct": 10,
         "eta": "2-5 dagar",
         "deadline_status": "on_track",
-        "deadline_policy_ref": "deadline-governance-v1"
+        "deadline_policy_ref": "deadline-governance-v1",
+        "priority_reason": "score=0 (deadline <=2d, in Backlog)"
       },
       {
         "id": "task-2026-02-21-018",
         "title": "Starta Android App Venture agent",
         "status": "Backlog",
-        "priority": "H",
+        "priority": "L",
         "owner": "Bob",
         "deadline": "2026-02-26",
         "tags": [
@@ -189,13 +195,14 @@
         "progress_pct": 10,
         "eta": "2-5 dagar",
         "deadline_status": "on_track",
-        "deadline_policy_ref": "deadline-governance-v1"
+        "deadline_policy_ref": "deadline-governance-v1",
+        "priority_reason": "score=0 (deadline <=2d, in Backlog)"
       },
       {
         "id": "task-2026-02-21-015",
         "title": "Bygg Mission Control vy",
         "status": "Backlog",
-        "priority": "H",
+        "priority": "L",
         "owner": "Bob",
         "deadline": "2026-02-26",
         "tags": [
@@ -217,13 +224,14 @@
         "progress_pct": 10,
         "eta": "2-5 dagar",
         "deadline_status": "on_track",
-        "deadline_policy_ref": "deadline-governance-v1"
+        "deadline_policy_ref": "deadline-governance-v1",
+        "priority_reason": "score=0 (deadline <=2d, in Backlog)"
       },
       {
         "id": "task-2026-02-21-020",
         "title": "Nattresearch OpenClaw use-cases",
         "status": "Backlog",
-        "priority": "M",
+        "priority": "L",
         "owner": "Bob",
         "deadline": "2026-03-01",
         "tags": [
@@ -243,13 +251,14 @@
         "progress_pct": 10,
         "eta": "2-5 dagar",
         "deadline_status": "on_track",
-        "deadline_policy_ref": "deadline-governance-v1"
+        "deadline_policy_ref": "deadline-governance-v1",
+        "priority_reason": "score=-1 (in Backlog)"
       },
       {
         "id": "task-2026-02-21-021",
         "title": "Nattresearch virala app-idéer",
         "status": "Backlog",
-        "priority": "H",
+        "priority": "L",
         "owner": "Bob",
         "deadline": "2026-02-26",
         "tags": [
@@ -270,13 +279,14 @@
         "progress_pct": 10,
         "eta": "2-5 dagar",
         "deadline_status": "on_track",
-        "deadline_policy_ref": "deadline-governance-v1"
+        "deadline_policy_ref": "deadline-governance-v1",
+        "priority_reason": "score=0 (deadline <=2d, in Backlog)"
       },
       {
         "id": "task-2026-02-21-014",
         "title": "Designa dream team av agenter",
         "status": "Backlog",
-        "priority": "H",
+        "priority": "L",
         "owner": "Bob",
         "deadline": "2026-02-26",
         "tags": [
@@ -296,13 +306,14 @@
         "progress_pct": 10,
         "eta": "2-5 dagar",
         "deadline_status": "on_track",
-        "deadline_policy_ref": "deadline-governance-v1"
+        "deadline_policy_ref": "deadline-governance-v1",
+        "priority_reason": "score=0 (deadline <=2d, in Backlog)"
       },
       {
         "id": "task-2026-02-21-023",
         "title": "Inför custom-tool pipeline",
         "status": "Backlog",
-        "priority": "H",
+        "priority": "L",
         "owner": "Bob",
         "agent": "Max Mercer",
         "deadline": "2026-02-26",
@@ -323,13 +334,14 @@
         "progress_pct": 10,
         "eta": "2-5 dagar",
         "deadline_status": "on_track",
-        "deadline_policy_ref": "deadline-governance-v1"
+        "deadline_policy_ref": "deadline-governance-v1",
+        "priority_reason": "score=0 (deadline <=2d, in Backlog)"
       },
       {
         "id": "task-2026-02-22-024",
         "title": "AI Study Coach MVP (körkort) kickoff",
         "status": "Backlog",
-        "priority": "H",
+        "priority": "L",
         "owner": "Bob",
         "deadline": "2026-02-26",
         "tags": [
@@ -351,13 +363,14 @@
         "progress_pct": 5,
         "eta": "1-2 dagar",
         "deadline_status": "on_track",
-        "deadline_policy_ref": "deadline-governance-v1"
+        "deadline_policy_ref": "deadline-governance-v1",
+        "priority_reason": "score=0 (deadline <=2d, in Backlog)"
       },
       {
         "id": "task-2026-02-22-025",
         "title": "ASO + validering AI Study Coach",
         "status": "Backlog",
-        "priority": "H",
+        "priority": "L",
         "owner": "Bob",
         "deadline": "2026-02-26",
         "tags": [
@@ -378,13 +391,14 @@
         "progress_pct": 5,
         "eta": "1 dag",
         "deadline_status": "on_track",
-        "deadline_policy_ref": "deadline-governance-v1"
+        "deadline_policy_ref": "deadline-governance-v1",
+        "priority_reason": "score=0 (deadline <=2d, in Backlog)"
       },
       {
         "id": "task-2026-02-22-030",
         "title": "Gamified: Raid events för större mål (MVP release)",
         "status": "Backlog",
-        "priority": "H",
+        "priority": "L",
         "owner": "Bob",
         "deadline": "2026-02-27",
         "tags": [
@@ -406,13 +420,14 @@
         "progress_pct": 0,
         "eta": "fredag 12:00",
         "deadline_status": "on_track",
-        "deadline_policy_ref": "deadline-governance-v1"
+        "deadline_policy_ref": "deadline-governance-v1",
+        "priority_reason": "score=0 (deadline <=2d, in Backlog)"
       },
       {
         "id": "task-2026-02-20-010",
         "title": "Städa Kanban och prioritera topp 3",
         "status": "Backlog",
-        "priority": "H",
+        "priority": "L",
         "owner": "Bob",
         "deadline": "2026-02-23",
         "tags": [
@@ -433,13 +448,14 @@
         "progress_pct": 50,
         "eta": "1-2 dagar",
         "deadline_status": "on_track",
-        "deadline_policy_ref": "deadline-governance-v1"
+        "deadline_policy_ref": "deadline-governance-v1",
+        "priority_reason": "score=1 (overdue, in Backlog)"
       },
       {
         "id": "task-2026-02-21-016",
         "title": "Kör hourly workforce cycle",
         "status": "Backlog",
-        "priority": "H",
+        "priority": "L",
         "owner": "Bob",
         "deadline": "2026-02-23",
         "tags": [
@@ -459,13 +475,14 @@
         "progress_pct": 50,
         "eta": "1-2 dagar",
         "deadline_status": "on_track",
-        "deadline_policy_ref": "deadline-governance-v1"
+        "deadline_policy_ref": "deadline-governance-v1",
+        "priority_reason": "score=1 (overdue, in Backlog)"
       },
       {
         "id": "task-2026-02-22-031",
         "title": "Resource watchdog: detect sustained high CPU/RAM/Disk/Net",
         "status": "Backlog",
-        "priority": "H",
+        "priority": "L",
         "owner": "Bob",
         "agent": "Owen Flux",
         "tags": [
@@ -479,13 +496,14 @@
         "deadline": "2026-02-23",
         "risk": "M",
         "progress_pct": 10,
-        "eta": "<1 dag"
+        "eta": "<1 dag",
+        "priority_reason": "score=1 (overdue, in Backlog)"
       },
       {
         "id": "task-2026-02-22-032",
         "title": "Telegram alerts med orsak och åtgärd vid hög usage",
         "status": "Backlog",
-        "priority": "H",
+        "priority": "L",
         "owner": "Bob",
         "agent": "Max Mercer",
         "tags": [
@@ -499,7 +517,8 @@
         "deadline": "2026-02-23",
         "risk": "M",
         "progress_pct": 10,
-        "eta": "<1 dag"
+        "eta": "<1 dag",
+        "priority_reason": "score=1 (overdue, in Backlog)"
       }
     ],
     "doing": [
@@ -530,7 +549,8 @@
         "progress_pct": 35,
         "eta": "idag 22:00",
         "deadline_status": "on_track",
-        "deadline_policy_ref": "deadline-governance-v1"
+        "deadline_policy_ref": "deadline-governance-v1",
+        "priority_reason": "score=8 (primary focus, in Doing, deadline <=2d)"
       },
       {
         "id": "task-2026-02-22-026",
@@ -559,7 +579,8 @@
         "progress_pct": 35,
         "eta": "idag 22:00",
         "deadline_status": "on_track",
-        "deadline_policy_ref": "deadline-governance-v1"
+        "deadline_policy_ref": "deadline-governance-v1",
+        "priority_reason": "score=8 (primary focus, in Doing, deadline <=2d)"
       }
     ],
     "review": [
@@ -567,7 +588,7 @@
         "id": "task-2026-02-21-019",
         "title": "Aktivera self-maintenance 04:00",
         "status": "Review",
-        "priority": "H",
+        "priority": "M",
         "owner": "Bob",
         "deadline": "2026-02-23",
         "tags": [
@@ -588,13 +609,14 @@
         "progress_pct": 85,
         "eta": "<1 dag",
         "deadline_status": "on_track",
-        "deadline_policy_ref": "deadline-governance-v1"
+        "deadline_policy_ref": "deadline-governance-v1",
+        "priority_reason": "score=4 (in Review, overdue)"
       },
       {
         "id": "task-2026-02-21-022",
         "title": "Sätt auto-transkribering voice notes",
         "status": "Review",
-        "priority": "H",
+        "priority": "M",
         "owner": "Bob",
         "deadline": "2026-02-23",
         "tags": [
@@ -615,13 +637,14 @@
         "progress_pct": 85,
         "eta": "<1 dag",
         "deadline_status": "on_track",
-        "deadline_policy_ref": "deadline-governance-v1"
+        "deadline_policy_ref": "deadline-governance-v1",
+        "priority_reason": "score=4 (in Review, overdue)"
       },
       {
         "id": "task-2026-02-22-029",
         "title": "Gamified: Combo bonus för Research→Build→Review-flöde",
         "status": "Review",
-        "priority": "H",
+        "priority": "M",
         "owner": "Bob",
         "deadline": "2026-02-26",
         "tags": [
@@ -643,13 +666,14 @@
         "progress_pct": 0,
         "eta": "imorgon 12:00",
         "deadline_status": "on_track",
-        "deadline_policy_ref": "deadline-governance-v1"
+        "deadline_policy_ref": "deadline-governance-v1",
+        "priority_reason": "score=3 (in Review, deadline <=2d)"
       },
       {
         "id": "task-2026-02-22-028",
         "title": "Gamified: Quality streaks kopplat till leveranskvalitet",
         "status": "Review",
-        "priority": "H",
+        "priority": "M",
         "owner": "Bob",
         "deadline": "2026-02-26",
         "tags": [
@@ -671,13 +695,14 @@
         "progress_pct": 0,
         "eta": "imorgon 12:00",
         "deadline_status": "on_track",
-        "deadline_policy_ref": "deadline-governance-v1"
+        "deadline_policy_ref": "deadline-governance-v1",
+        "priority_reason": "score=3 (in Review, deadline <=2d)"
       },
       {
         "id": "task-2026-02-22-033",
         "title": "YouTube analyzer för FitzWorks via Telegram-länkar",
         "status": "Review",
-        "priority": "H",
+        "priority": "M",
         "owner": "Bob",
         "agent": "Leo Byte",
         "tags": [
@@ -691,7 +716,8 @@
         "deadline": "2026-02-23",
         "risk": "M",
         "progress_pct": 85,
-        "eta": "<1 dag"
+        "eta": "<1 dag",
+        "priority_reason": "score=4 (in Review, overdue)"
       }
     ],
     "done": []
@@ -725,6 +751,25 @@
         "extension_rationale",
         "expected_outcome"
       ]
+    },
+    "priority_policy": {
+      "id": "priority-triage-v2",
+      "method": "weighted_score",
+      "weights": {
+        "primary_focus": 4,
+        "doing": 3,
+        "review": 2,
+        "overdue": 2,
+        "deadline_within_2d": 1,
+        "backlog": -1,
+        "needs_user_input": -1
+      },
+      "thresholds": {
+        "H": ">=6",
+        "M": "3-5",
+        "L": "<=2"
+      },
+      "review_cadence": "heartbeat + daily 07:20"
     }
   },
   "focus_today": {
