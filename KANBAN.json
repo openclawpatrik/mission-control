@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "updated_at": "2026-02-25T16:53:52+01:00",
+  "updated_at": "2026-02-26T07:06:46+01:00",
   "wip_limit_doing": 2,
   "columns": {
     "backlog": [
@@ -125,9 +125,9 @@
         "tags": [
           "ai"
         ],
-        "next_action": "Inför Definition-of-Ready-gate: blockera flytt till Doing utan owner + DoD; retrofitta 031/032 först.",
+        "next_action": "Inför DoR-gate: kräva owner + DoD innan flytt till Doing; retrofitta 031/032 först",
         "created_at": "2026-02-21T12:40:00+01:00",
-        "updated_at": "2026-02-23T00:50:26.643451+01:00",
+        "updated_at": "2026-02-26T07:06:46+01:00",
         "risk": "M",
         "definition_of_done": [
           "Leverans framtagen",
@@ -343,13 +343,13 @@
         "status": "Backlog",
         "priority": "L",
         "owner": "Bob",
-        "deadline": "2026-02-26",
+        "deadline": "2026-02-27",
         "tags": [
           "ai",
           "work",
           "android"
         ],
-        "next_action": "Lås 1-screen scope + definiera kärnflöde quiz/resultat",
+        "next_action": "Färdigställ AI Study Coach MVP senast fredag efter Mission Control gamification-pass",
         "created_at": "2026-02-22T08:55:53.488573+01:00",
         "updated_at": "2026-02-22T09:57:37.536472+01:00",
         "risk": "M",
@@ -480,7 +480,7 @@
       },
       {
         "id": "task-2026-02-22-031",
-        "title": "Resource watchdog: detect sustained high CPU/RAM/Disk/Net",
+        "title": "Resource watchdog för hög usage",
         "status": "Backlog",
         "priority": "L",
         "owner": "Bob",
@@ -490,9 +490,9 @@
           "monitoring",
           "telegram"
         ],
-        "next_action": "Implementera watchdog som flaggar >90% i 10 min och samlar processbevis",
+        "next_action": "Implementera watchdog: flagga >90% i 10 min + spara processbevis",
         "created_at": "2026-02-22T10:32:14.086507+01:00",
-        "updated_at": "2026-02-24T13:32:33.033928+01:00",
+        "updated_at": "2026-02-26T07:06:46+01:00",
         "deadline": "2026-02-23",
         "risk": "M",
         "progress_pct": 10,
@@ -501,7 +501,7 @@
       },
       {
         "id": "task-2026-02-22-032",
-        "title": "Telegram alerts med orsak och åtgärd vid hög usage",
+        "title": "Telegram alert vid hög usage",
         "status": "Backlog",
         "priority": "L",
         "owner": "Bob",
@@ -511,9 +511,9 @@
           "alerting",
           "telegram"
         ],
-        "next_action": "Skicka alert med: vad som är högt, sannolik orsak, koppling till aktiva agentjobb, rekommenderad åtgärd",
+        "next_action": "Skicka alert: vad är högt, sannolik orsak, aktivt jobb, rekommenderad åtgärd",
         "created_at": "2026-02-22T10:32:14.086507+01:00",
-        "updated_at": "2026-02-24T13:32:33.033928+01:00",
+        "updated_at": "2026-02-26T07:06:46+01:00",
         "deadline": "2026-02-23",
         "risk": "M",
         "progress_pct": 10,
