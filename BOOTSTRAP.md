@@ -31,4 +31,4 @@ Confidence: LOW / MED / HIGH
 
 
 ## Permanent modellhantering policy
-default_model=openai-codex/gpt-5.3-codex-spark
+default_model=openai-codex/gpt-5.2-codex
