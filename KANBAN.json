@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "updated_at": "2026-02-27T18:44:23.960977+01:00",
+  "updated_at": "2026-02-27T18:45:46.144006+01:00",
   "wip_limit_doing": 2,
   "columns": {
     "backlog": [
@@ -527,7 +527,7 @@
         "title": "Mission Control Team-vy (2D office MVP)",
         "status": "Doing",
         "priority": "H",
-        "owner": "Max Mercer",
+        "owner": "Leo Byte",
         "deadline": "2026-02-27",
         "tags": [
           "ai",
@@ -535,16 +535,16 @@
           "gamification",
           "live-visibility"
         ],
-        "next_action": "Implementera live agentpositioner i 2D-vyn + status från KANBAN och leverera första visuell demo",
+        "next_action": "Färdigställ 2D-spelvyn (gamifiering) live med lokala modeller och visa realtidsprogress i Mission Control.",
         "created_at": "2026-02-22T08:55:53.488573+01:00",
-        "updated_at": "2026-02-27T18:44:23.960977+01:00",
+        "updated_at": "2026-02-27T18:45:46.144006+01:00",
         "risk": "M",
         "definition_of_done": [
           "2D office renderad",
           "Agenter rör sig mellan stationer",
           "Live status kopplat till tasks"
         ],
-        "agent": "Max Mercer",
+        "agent": "Leo Byte",
         "category": "build",
         "progress_pct": 35,
         "eta": "idag 22:00",
@@ -555,7 +555,8 @@
         "impact": "Fördröjer leverans och blockerar kopplade uppgifter.",
         "recovery_plan": "Fokusera 1-2h block för att slutföra och verifiera; därefter markera Done/Review.",
         "resource_reassignment": "Behåller ansvarig agent, prioriteras före nya tasks.",
-        "owner_decision_at": "2026-02-27T18:44:23.960977+01:00"
+        "owner_decision_at": "2026-02-27T18:44:23.960977+01:00",
+        "model_preference": "local"
       },
       {
         "id": "task-2026-02-22-026",
@@ -809,17 +810,14 @@
     }
   },
   "focus_today": {
-    "theme": "2D Team Office + Gamification MVP live",
-    "goal": "Första live-version pushad till GitHub så Patrik kan se och testa",
+    "theme": "2D Team Office + Gamification MVP live (local-first)",
+    "goal": "Få 2D-spelvyn live så Patrik kan följa arbetet i realtid",
     "deadline": "2026-02-25 22:00 Europe/Stockholm",
     "primary_task_ids": [
-      "task-2026-02-22-027",
-      "task-2026-02-22-026"
+      "task-2026-02-22-027"
     ],
     "support_task_ids": [
-      "task-2026-02-22-029",
-      "task-2026-02-22-028",
-      "task-2026-02-22-030"
+      "task-2026-02-22-026"
     ]
   }
 }
