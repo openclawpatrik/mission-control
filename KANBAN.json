@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "updated_at": "2026-02-27T18:45:46.144006+01:00",
+  "updated_at": "2026-02-27T18:46:38.845770+01:00",
   "wip_limit_doing": 2,
   "columns": {
     "backlog": [
@@ -17,7 +17,7 @@
         ],
         "next_action": "Definiera MVP-scope + 3 första implementationstasks",
         "created_at": "2026-02-25T16:43:01+01:00",
-        "updated_at": "2026-02-25T16:43:01+01:00",
+        "updated_at": "2026-02-27T18:46:38.845770+01:00",
         "risk": "M",
         "definition_of_done": [
           "MVP-scope dokumenterat",
@@ -30,7 +30,9 @@
         "eta": "2-3 dagar",
         "deadline_status": "on_track",
         "deadline_policy_ref": "deadline-governance-v1",
-        "priority_reason": "score=-1 (in Backlog)"
+        "priority_reason": "score=-1 (in Backlog)",
+        "paused": true,
+        "pause_reason": "Fokus på 2D-spelvyn (local-first) tills live."
       },
       {
         "id": "task-2026-02-20-006",
@@ -44,7 +46,7 @@
         ],
         "next_action": "Föreslå veckofrekvens och 3-punkters check",
         "created_at": "2026-02-20T19:10:00+01:00",
-        "updated_at": "2026-02-22T09:57:37.536472+01:00",
+        "updated_at": "2026-02-27T18:46:38.845770+01:00",
         "risk": "M",
         "definition_of_done": [
           "Leverans framtagen",
@@ -57,7 +59,9 @@
         "eta": "2-5 dagar",
         "deadline_status": "on_track",
         "deadline_policy_ref": "deadline-governance-v1",
-        "priority_reason": "score=-1 (in Backlog)"
+        "priority_reason": "score=-1 (in Backlog)",
+        "paused": true,
+        "pause_reason": "Fokus på 2D-spelvyn (local-first) tills live."
       },
       {
         "id": "task-2026-02-20-011",
@@ -72,7 +76,7 @@
         "needs_user_input": true,
         "next_action": "Beslut: behåll som fallback eller stäng",
         "created_at": "2026-02-20T20:02:00+01:00",
-        "updated_at": "2026-02-22T09:57:37.536472+01:00",
+        "updated_at": "2026-02-27T18:46:38.845770+01:00",
         "risk": "M",
         "definition_of_done": [
           "Leverans framtagen",
@@ -85,7 +89,9 @@
         "eta": "2-5 dagar",
         "deadline_status": "on_track",
         "deadline_policy_ref": "deadline-governance-v1",
-        "priority_reason": "score=-1 (deadline <=2d, in Backlog, waiting user input)"
+        "priority_reason": "score=-1 (deadline <=2d, in Backlog, waiting user input)",
+        "paused": true,
+        "pause_reason": "Fokus på 2D-spelvyn (local-first) tills live."
       },
       {
         "id": "task-2026-02-20-004",
@@ -100,7 +106,7 @@
         ],
         "next_action": "Standardisera brief-format för 07:30 varje vardag",
         "created_at": "2026-02-20T19:10:00+01:00",
-        "updated_at": "2026-02-22T09:57:37.536472+01:00",
+        "updated_at": "2026-02-27T18:46:38.845770+01:00",
         "risk": "M",
         "definition_of_done": [
           "Leverans framtagen",
@@ -113,7 +119,9 @@
         "eta": "2-5 dagar",
         "deadline_status": "on_track",
         "deadline_policy_ref": "deadline-governance-v1",
-        "priority_reason": "score=0 (deadline <=2d, in Backlog)"
+        "priority_reason": "score=0 (deadline <=2d, in Backlog)",
+        "paused": true,
+        "pause_reason": "Fokus på 2D-spelvyn (local-first) tills live."
       },
       {
         "id": "task-2026-02-21-013",
@@ -127,7 +135,7 @@
         ],
         "next_action": "Inför DoR-gate: kräva owner + DoD innan flytt till Doing; retrofitta 031/032 först",
         "created_at": "2026-02-21T12:40:00+01:00",
-        "updated_at": "2026-02-26T07:06:46+01:00",
+        "updated_at": "2026-02-27T18:46:38.845770+01:00",
         "risk": "M",
         "definition_of_done": [
           "Leverans framtagen",
@@ -140,7 +148,9 @@
         "eta": "2-5 dagar",
         "deadline_status": "on_track",
         "deadline_policy_ref": "deadline-governance-v1",
-        "priority_reason": "score=0 (deadline <=2d, in Backlog)"
+        "priority_reason": "score=0 (deadline <=2d, in Backlog)",
+        "paused": true,
+        "pause_reason": "Fokus på 2D-spelvyn (local-first) tills live."
       },
       {
         "id": "task-2026-02-21-017",
@@ -155,7 +165,7 @@
         ],
         "next_action": "Skapa nattcykel och morgonbrief för passiv inkomst",
         "created_at": "2026-02-21T20:56:57.620393+01:00",
-        "updated_at": "2026-02-22T09:57:37.536472+01:00",
+        "updated_at": "2026-02-27T18:46:38.845770+01:00",
         "risk": "M",
         "definition_of_done": [
           "Cykel aktiv",
@@ -168,7 +178,9 @@
         "eta": "2-5 dagar",
         "deadline_status": "on_track",
         "deadline_policy_ref": "deadline-governance-v1",
-        "priority_reason": "score=0 (deadline <=2d, in Backlog)"
+        "priority_reason": "score=0 (deadline <=2d, in Backlog)",
+        "paused": true,
+        "pause_reason": "Fokus på 2D-spelvyn (local-first) tills live."
       },
       {
         "id": "task-2026-02-21-018",
@@ -183,7 +195,7 @@
         ],
         "next_action": "Definiera app-pipeline från idé till Play Store",
         "created_at": "2026-02-21T20:56:57.620393+01:00",
-        "updated_at": "2026-02-22T09:57:37.536472+01:00",
+        "updated_at": "2026-02-27T18:46:38.845770+01:00",
         "risk": "M",
         "definition_of_done": [
           "Pipeline definierad",
@@ -196,7 +208,9 @@
         "eta": "2-5 dagar",
         "deadline_status": "on_track",
         "deadline_policy_ref": "deadline-governance-v1",
-        "priority_reason": "score=0 (deadline <=2d, in Backlog)"
+        "priority_reason": "score=0 (deadline <=2d, in Backlog)",
+        "paused": true,
+        "pause_reason": "Fokus på 2D-spelvyn (local-first) tills live."
       },
       {
         "id": "task-2026-02-21-015",
@@ -211,7 +225,7 @@
         ],
         "next_action": "Öppna mission_control.html och be Patrik godkänna layouten",
         "created_at": "2026-02-21T13:05:00+01:00",
-        "updated_at": "2026-02-22T09:57:37.536472+01:00",
+        "updated_at": "2026-02-27T18:46:38.845770+01:00",
         "risk": "M",
         "definition_of_done": [
           "Leverans framtagen",
@@ -225,7 +239,9 @@
         "eta": "2-5 dagar",
         "deadline_status": "on_track",
         "deadline_policy_ref": "deadline-governance-v1",
-        "priority_reason": "score=0 (deadline <=2d, in Backlog)"
+        "priority_reason": "score=0 (deadline <=2d, in Backlog)",
+        "paused": true,
+        "pause_reason": "Fokus på 2D-spelvyn (local-first) tills live."
       },
       {
         "id": "task-2026-02-21-020",
@@ -239,7 +255,7 @@
         ],
         "next_action": "Validera top 3 use-cases i morgonbrief",
         "created_at": "2026-02-21T21:10:36.479692+01:00",
-        "updated_at": "2026-02-22T09:57:37.536472+01:00",
+        "updated_at": "2026-02-27T18:46:38.845770+01:00",
         "risk": "L",
         "definition_of_done": [
           "Top 3 listad",
@@ -252,7 +268,9 @@
         "eta": "2-5 dagar",
         "deadline_status": "on_track",
         "deadline_policy_ref": "deadline-governance-v1",
-        "priority_reason": "score=-1 (in Backlog)"
+        "priority_reason": "score=-1 (in Backlog)",
+        "paused": true,
+        "pause_reason": "Fokus på 2D-spelvyn (local-first) tills live."
       },
       {
         "id": "task-2026-02-21-021",
@@ -267,7 +285,7 @@
         ],
         "next_action": "Presentera 1 validerad appidé i morgonbrief",
         "created_at": "2026-02-21T21:18:44.727890+01:00",
-        "updated_at": "2026-02-22T09:57:37.536472+01:00",
+        "updated_at": "2026-02-27T18:46:38.845770+01:00",
         "risk": "M",
         "definition_of_done": [
           "Top 3 trender hittade",
@@ -280,7 +298,9 @@
         "eta": "2-5 dagar",
         "deadline_status": "on_track",
         "deadline_policy_ref": "deadline-governance-v1",
-        "priority_reason": "score=0 (deadline <=2d, in Backlog)"
+        "priority_reason": "score=0 (deadline <=2d, in Backlog)",
+        "paused": true,
+        "pause_reason": "Fokus på 2D-spelvyn (local-first) tills live."
       },
       {
         "id": "task-2026-02-21-014",
@@ -294,7 +314,7 @@
         ],
         "next_action": "Granska rollkarta för 5 agenter",
         "created_at": "2026-02-21T12:43:00+01:00",
-        "updated_at": "2026-02-22T09:57:37.536472+01:00",
+        "updated_at": "2026-02-27T18:46:38.845770+01:00",
         "risk": "M",
         "definition_of_done": [
           "Leverans framtagen",
@@ -307,7 +327,9 @@
         "eta": "2-5 dagar",
         "deadline_status": "on_track",
         "deadline_policy_ref": "deadline-governance-v1",
-        "priority_reason": "score=0 (deadline <=2d, in Backlog)"
+        "priority_reason": "score=0 (deadline <=2d, in Backlog)",
+        "paused": true,
+        "pause_reason": "Fokus på 2D-spelvyn (local-first) tills live."
       },
       {
         "id": "task-2026-02-21-023",
@@ -323,7 +345,7 @@
         ],
         "next_action": "Lista första 3 kandidater för custom tools",
         "created_at": "2026-02-21T22:28:18.653887+01:00",
-        "updated_at": "2026-02-22T09:57:37.536472+01:00",
+        "updated_at": "2026-02-27T18:46:38.845770+01:00",
         "risk": "M",
         "definition_of_done": [
           "Pipeline dokumenterad",
@@ -335,7 +357,9 @@
         "eta": "2-5 dagar",
         "deadline_status": "on_track",
         "deadline_policy_ref": "deadline-governance-v1",
-        "priority_reason": "score=0 (deadline <=2d, in Backlog)"
+        "priority_reason": "score=0 (deadline <=2d, in Backlog)",
+        "paused": true,
+        "pause_reason": "Fokus på 2D-spelvyn (local-first) tills live."
       },
       {
         "id": "task-2026-02-22-024",
@@ -351,7 +375,7 @@
         ],
         "next_action": "Färdigställ AI Study Coach MVP senast fredag efter Mission Control gamification-pass",
         "created_at": "2026-02-22T08:55:53.488573+01:00",
-        "updated_at": "2026-02-22T09:57:37.536472+01:00",
+        "updated_at": "2026-02-27T18:46:38.845770+01:00",
         "risk": "M",
         "definition_of_done": [
           "MVP-scope låst",
@@ -364,7 +388,9 @@
         "eta": "1-2 dagar",
         "deadline_status": "on_track",
         "deadline_policy_ref": "deadline-governance-v1",
-        "priority_reason": "score=0 (deadline <=2d, in Backlog)"
+        "priority_reason": "score=0 (deadline <=2d, in Backlog)",
+        "paused": true,
+        "pause_reason": "Fokus på 2D-spelvyn (local-first) tills live."
       },
       {
         "id": "task-2026-02-22-025",
@@ -379,7 +405,7 @@
         ],
         "next_action": "Ta fram 20 sökord + enkel intressetest-sida",
         "created_at": "2026-02-22T08:55:53.488573+01:00",
-        "updated_at": "2026-02-22T09:57:37.536472+01:00",
+        "updated_at": "2026-02-27T18:46:38.845770+01:00",
         "risk": "L",
         "definition_of_done": [
           "20 sökord listade",
@@ -392,7 +418,9 @@
         "eta": "1 dag",
         "deadline_status": "on_track",
         "deadline_policy_ref": "deadline-governance-v1",
-        "priority_reason": "score=0 (deadline <=2d, in Backlog)"
+        "priority_reason": "score=0 (deadline <=2d, in Backlog)",
+        "paused": true,
+        "pause_reason": "Fokus på 2D-spelvyn (local-first) tills live."
       },
       {
         "id": "task-2026-02-22-030",
@@ -408,7 +436,7 @@
         ],
         "next_action": "Bygg raid-event template efter att core-MVP är live",
         "created_at": "2026-02-22T08:59:25.957418+01:00",
-        "updated_at": "2026-02-25T16:51:46+01:00",
+        "updated_at": "2026-02-27T18:46:38.845770+01:00",
         "risk": "M",
         "definition_of_done": [
           "Raid-template klar",
@@ -421,7 +449,9 @@
         "eta": "fredag 12:00",
         "deadline_status": "on_track",
         "deadline_policy_ref": "deadline-governance-v1",
-        "priority_reason": "score=0 (deadline <=2d, in Backlog)"
+        "priority_reason": "score=0 (deadline <=2d, in Backlog)",
+        "paused": true,
+        "pause_reason": "Fokus på 2D-spelvyn (local-first) tills live."
       },
       {
         "id": "task-2026-02-20-010",
@@ -436,7 +466,7 @@
         ],
         "next_action": "Prioritera backlog mot mål och minska brus",
         "created_at": "2026-02-20T19:45:00+01:00",
-        "updated_at": "2026-02-22T09:59:33.821243+01:00",
+        "updated_at": "2026-02-27T18:46:38.845770+01:00",
         "risk": "M",
         "definition_of_done": [
           "Leverans framtagen",
@@ -449,7 +479,9 @@
         "eta": "1-2 dagar",
         "deadline_status": "on_track",
         "deadline_policy_ref": "deadline-governance-v1",
-        "priority_reason": "score=1 (overdue, in Backlog)"
+        "priority_reason": "score=1 (overdue, in Backlog)",
+        "paused": true,
+        "pause_reason": "Fokus på 2D-spelvyn (local-first) tills live."
       },
       {
         "id": "task-2026-02-21-016",
@@ -463,7 +495,7 @@
         ],
         "next_action": "Kör första cycle och logga resultat",
         "created_at": "2026-02-21T20:45:09.395018+01:00",
-        "updated_at": "2026-02-22T09:59:33.821243+01:00",
+        "updated_at": "2026-02-27T18:46:38.845770+01:00",
         "risk": "M",
         "definition_of_done": [
           "Cycle körd",
@@ -476,7 +508,9 @@
         "eta": "1-2 dagar",
         "deadline_status": "on_track",
         "deadline_policy_ref": "deadline-governance-v1",
-        "priority_reason": "score=1 (overdue, in Backlog)"
+        "priority_reason": "score=1 (overdue, in Backlog)",
+        "paused": true,
+        "pause_reason": "Fokus på 2D-spelvyn (local-first) tills live."
       },
       {
         "id": "task-2026-02-22-031",
@@ -492,12 +526,14 @@
         ],
         "next_action": "Implementera watchdog: flagga >90% i 10 min + spara processbevis",
         "created_at": "2026-02-22T10:32:14.086507+01:00",
-        "updated_at": "2026-02-26T07:06:46+01:00",
+        "updated_at": "2026-02-27T18:46:38.845770+01:00",
         "deadline": "2026-02-23",
         "risk": "M",
         "progress_pct": 10,
         "eta": "<1 dag",
-        "priority_reason": "score=1 (overdue, in Backlog)"
+        "priority_reason": "score=1 (overdue, in Backlog)",
+        "paused": true,
+        "pause_reason": "Fokus på 2D-spelvyn (local-first) tills live."
       },
       {
         "id": "task-2026-02-22-032",
@@ -513,12 +549,14 @@
         ],
         "next_action": "Skicka alert: vad är högt, sannolik orsak, aktivt jobb, rekommenderad åtgärd",
         "created_at": "2026-02-22T10:32:14.086507+01:00",
-        "updated_at": "2026-02-26T07:06:46+01:00",
+        "updated_at": "2026-02-27T18:46:38.845770+01:00",
         "deadline": "2026-02-23",
         "risk": "M",
         "progress_pct": 10,
         "eta": "<1 dag",
-        "priority_reason": "score=1 (overdue, in Backlog)"
+        "priority_reason": "score=1 (overdue, in Backlog)",
+        "paused": true,
+        "pause_reason": "Fokus på 2D-spelvyn (local-first) tills live."
       }
     ],
     "doing": [
@@ -537,7 +575,7 @@
         ],
         "next_action": "Färdigställ 2D-spelvyn (gamifiering) live med lokala modeller och visa realtidsprogress i Mission Control.",
         "created_at": "2026-02-22T08:55:53.488573+01:00",
-        "updated_at": "2026-02-27T18:45:46.144006+01:00",
+        "updated_at": "2026-02-27T18:46:38.845770+01:00",
         "risk": "M",
         "definition_of_done": [
           "2D office renderad",
@@ -556,7 +594,8 @@
         "recovery_plan": "Fokusera 1-2h block för att slutföra och verifiera; därefter markera Done/Review.",
         "resource_reassignment": "Behåller ansvarig agent, prioriteras före nya tasks.",
         "owner_decision_at": "2026-02-27T18:44:23.960977+01:00",
-        "model_preference": "local"
+        "model_preference": "local",
+        "paused": false
       },
       {
         "id": "task-2026-02-22-026",
@@ -573,7 +612,7 @@
         ],
         "next_action": "Koppla quest + boss trigger till verkliga task-events (Doing/Review/Done) och visa i overlay",
         "created_at": "2026-02-22T08:55:53.488573+01:00",
-        "updated_at": "2026-02-27T18:44:23.960977+01:00",
+        "updated_at": "2026-02-27T18:46:38.845770+01:00",
         "risk": "M",
         "definition_of_done": [
           "Quest-regler definierade",
@@ -591,7 +630,9 @@
         "impact": "Fördröjer leverans och blockerar kopplade uppgifter.",
         "recovery_plan": "Fokusera 1-2h block för att slutföra och verifiera; därefter markera Done/Review.",
         "resource_reassignment": "Behåller ansvarig agent, prioriteras före nya tasks.",
-        "owner_decision_at": "2026-02-27T18:44:23.960977+01:00"
+        "owner_decision_at": "2026-02-27T18:44:23.960977+01:00",
+        "paused": true,
+        "pause_reason": "Fokus på 2D-spelvyn (local-first) tills live."
       }
     ],
     "review": [
@@ -608,7 +649,7 @@
         ],
         "next_action": "Verifiera första körning och backup-output",
         "created_at": "2026-02-21T21:03:21.714553+01:00",
-        "updated_at": "2026-02-27T18:44:23.960977+01:00",
+        "updated_at": "2026-02-27T18:46:38.845770+01:00",
         "risk": "M",
         "definition_of_done": [
           "Cron aktiv",
@@ -626,7 +667,9 @@
         "impact": "Fördröjer leverans och blockerar kopplade uppgifter.",
         "recovery_plan": "Fokusera 1-2h block för att slutföra och verifiera; därefter markera Done/Review.",
         "resource_reassignment": "Behåller ansvarig agent, prioriteras före nya tasks.",
-        "owner_decision_at": "2026-02-27T18:44:23.960977+01:00"
+        "owner_decision_at": "2026-02-27T18:44:23.960977+01:00",
+        "paused": true,
+        "pause_reason": "Fokus på 2D-spelvyn (local-first) tills live."
       },
       {
         "id": "task-2026-02-21-022",
@@ -641,7 +684,7 @@
         ],
         "next_action": "Skicka ett voice-test i Telegram och verifiera inbox",
         "created_at": "2026-02-21T21:31:31.111191+01:00",
-        "updated_at": "2026-02-27T18:44:23.960977+01:00",
+        "updated_at": "2026-02-27T18:46:38.845770+01:00",
         "risk": "M",
         "definition_of_done": [
           "Voice transkriberas automatiskt",
@@ -659,7 +702,9 @@
         "impact": "Fördröjer leverans och blockerar kopplade uppgifter.",
         "recovery_plan": "Fokusera 1-2h block för att slutföra och verifiera; därefter markera Done/Review.",
         "resource_reassignment": "Behåller ansvarig agent, prioriteras före nya tasks.",
-        "owner_decision_at": "2026-02-27T18:44:23.960977+01:00"
+        "owner_decision_at": "2026-02-27T18:44:23.960977+01:00",
+        "paused": true,
+        "pause_reason": "Fokus på 2D-spelvyn (local-first) tills live."
       },
       {
         "id": "task-2026-02-22-029",
@@ -675,7 +720,7 @@
         ],
         "next_action": "Slå på combo-bonus för Research→Build→Review som andra steg efter MVP-demo",
         "created_at": "2026-02-22T08:59:25.957418+01:00",
-        "updated_at": "2026-02-27T18:44:23.960977+01:00",
+        "updated_at": "2026-02-27T18:46:38.845770+01:00",
         "risk": "L",
         "definition_of_done": [
           "Eventkedja mappad",
@@ -693,7 +738,9 @@
         "impact": "Fördröjer leverans och blockerar kopplade uppgifter.",
         "recovery_plan": "Fokusera 1-2h block för att slutföra och verifiera; därefter markera Done/Review.",
         "resource_reassignment": "Behåller ansvarig agent, prioriteras före nya tasks.",
-        "owner_decision_at": "2026-02-27T18:44:23.960977+01:00"
+        "owner_decision_at": "2026-02-27T18:44:23.960977+01:00",
+        "paused": true,
+        "pause_reason": "Fokus på 2D-spelvyn (local-first) tills live."
       },
       {
         "id": "task-2026-02-22-028",
@@ -709,7 +756,7 @@
         ],
         "next_action": "Aktivera quality-streak indikator baserat på verifierade leveranser",
         "created_at": "2026-02-22T08:59:25.957418+01:00",
-        "updated_at": "2026-02-27T18:44:23.960977+01:00",
+        "updated_at": "2026-02-27T18:46:38.845770+01:00",
         "risk": "L",
         "definition_of_done": [
           "Regel definierad",
@@ -727,7 +774,9 @@
         "impact": "Fördröjer leverans och blockerar kopplade uppgifter.",
         "recovery_plan": "Fokusera 1-2h block för att slutföra och verifiera; därefter markera Done/Review.",
         "resource_reassignment": "Behåller ansvarig agent, prioriteras före nya tasks.",
-        "owner_decision_at": "2026-02-27T18:44:23.960977+01:00"
+        "owner_decision_at": "2026-02-27T18:44:23.960977+01:00",
+        "paused": true,
+        "pause_reason": "Fokus på 2D-spelvyn (local-first) tills live."
       },
       {
         "id": "task-2026-02-22-033",
@@ -743,7 +792,7 @@
         ],
         "next_action": "Kör första riktig videoanalys och verifiera kvalitet i summary",
         "created_at": "2026-02-22T13:05:20.219907+01:00",
-        "updated_at": "2026-02-27T18:44:23.960977+01:00",
+        "updated_at": "2026-02-27T18:46:38.845770+01:00",
         "deadline": "2026-02-27",
         "risk": "M",
         "progress_pct": 85,
@@ -754,7 +803,9 @@
         "impact": "Fördröjer leverans och blockerar kopplade uppgifter.",
         "recovery_plan": "Fokusera 1-2h block för att slutföra och verifiera; därefter markera Done/Review.",
         "resource_reassignment": "Behåller ansvarig agent, prioriteras före nya tasks.",
-        "owner_decision_at": "2026-02-27T18:44:23.960977+01:00"
+        "owner_decision_at": "2026-02-27T18:44:23.960977+01:00",
+        "paused": true,
+        "pause_reason": "Fokus på 2D-spelvyn (local-first) tills live."
       }
     ],
     "done": []
@@ -816,8 +867,6 @@
     "primary_task_ids": [
       "task-2026-02-22-027"
     ],
-    "support_task_ids": [
-      "task-2026-02-22-026"
-    ]
+    "support_task_ids": []
   }
 }
