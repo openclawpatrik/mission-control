@@ -218,10 +218,24 @@ const byId=id=>document.getElementById(id); const el=(t,c,h)=>{const e=document.
 
 function switchTab(name){['tasks','team','ops','memory','youtube','archive','docs'].forEach(x=>byId('view-'+x).classList.toggle('hidden',x!==name));document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===name));}
 
+function getFocusStatus(data){
+  const ids=(data.focus_today&&data.focus_today.primary_task_ids)||[];
+  if(!ids.length) return 'FOCUS: NONE';
+  const all=[...(data.columns.backlog||[]),...(data.columns.doing||[]),...(data.columns.review||[]),...(data.columns.done||[])];
+  const t=all.find(x=>ids.includes(x.id));
+  if(!t) return 'FOCUS: UNKNOWN';
+  const col=['backlog','doing','review','done'].find(c=>(data.columns[c]||[]).some(x=>x.id===t.id))||'backlog';
+  if(t.paused) return 'FOCUS: PAUSED';
+  if(col==='done') return 'FOCUS: LIVE';
+  if(col==='review') return 'FOCUS: VERIFY';
+  if(col==='doing') return 'FOCUS: IN PROGRESS';
+  return 'FOCUS: QUEUED';
+}
+
 function renderTopStats(data, archivedCount=0){
   const vals={backlog:(data.columns.backlog||[]).length,doing:(data.columns.doing||[]).length,review:(data.columns.review||[]).length,done:(data.columns.done||[]).length};
   const top=byId('topstats'); top.innerHTML='';
-  [`Backlog ${vals.backlog}`,`In Progress ${vals.doing}/${WIP.doing}`,`Review ${vals.review}/${WIP.review}`,`Done ${vals.done}`,`Archived ${archivedCount}`,`Agents ${TEAM.length}`].forEach(x=>top.appendChild(el('span','pill',x)));
+  [`Backlog ${vals.backlog}`,`In Progress ${vals.doing}/${WIP.doing}`,`Review ${vals.review}/${WIP.review}`,`Done ${vals.done}`,`Archived ${archivedCount}`,`Agents ${TEAM.length}`,getFocusStatus(data)].forEach(x=>top.appendChild(el('span','pill',x)));
   const filter=document.createElement('select'); filter.className='agent-filter'; const opts=['ALL',...TEAM.map(a=>a.name)];
   filter.innerHTML=opts.map(n=>`<option value="${n}" ${AGENT_FILTER===n?'selected':''}>${n==='ALL'?'All agents':n}</option>`).join('');
   filter.onchange=e=>{AGENT_FILTER=e.target.value; if(LAST_BOARD) renderBoard(LAST_BOARD);}; top.appendChild(filter);
