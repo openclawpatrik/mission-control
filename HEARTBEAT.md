@@ -67,6 +67,7 @@ Om sustained usage >90% i 10 min (CPU/RAM/Disk/Net):
 1. Gå igenom HEARTBEAT-regler och utfall (signal vs brus).
 2. Föreslå max 3 förbättringar för bättre effekt mot FitzWorks-mål.
 3. Kontrollera att 24/7 arbetsflöde hålls utan resursöverbelastning.
+4. Skicka kort rapport om Codex-tokenanvändning vs lokala modeller (trend + ev. åtgärd).
 
 ## 7) Mission Control freshness + GitHub sync
 Vid heartbeat:
@@ -89,6 +90,11 @@ Regler:
 3. Frågorna ska vara olika från föregående dag (ingen repetitiv loop).
 4. Spara svaren i minne/idébank och återanvänd i planering/agentstyrning.
 5. Om dagens frågor redan skickats: skicka inte igen samma dag.
+
+### Dagens frågor (2026-02-27):
+1. Vad är en konkret mål som du vill uppnå under nästa 7 dagar?
+2. Vilka arbetsmetoder ger dig bäst fokus när du löser komplexa problem?
+3. Vilka tre hinder har du upplevt under senaste veckan som påverkade ditt arbete?
 
 ## 9) OpenHome DevKit svarspåminnelse (2 gånger/vecka)
 Mål: säkra uppföljning på devkit-ansökan utan att skapa spam.
